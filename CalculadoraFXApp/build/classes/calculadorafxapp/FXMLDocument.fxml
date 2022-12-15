@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculadorafxapp.FXMLDocumentController">
+   <children>
+      <VBox layoutX="37.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="619.0" style="-fx-background-color: #ccc;">
+               <children>
+                  <TextField fx:id="TFPantalla" alignment="CENTER_RIGHT" editable="false" prefHeight="91.0" prefWidth="610.0" text="0">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="140.0" prefWidth="560.0" style="-fx-alignment: center;">
+               <children>
+                  <Button fx:id="batras" mnemonicParsing="false" onAction="#bAtrasClick" prefHeight="100.0" prefWidth="100.0" text="⌫">
+                     <font>
+                        <Font name="System Bold Italic" size="37.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bCE" mnemonicParsing="false" onAction="#bCEClick" prefHeight="100.0" prefWidth="100.0" text="CE">
+                     <font>
+                        <Font name="System Bold Italic" size="39.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="BC" mnemonicParsing="false" onAction="#BCclick" prefHeight="100.0" prefWidth="100.0" text="C">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bDivide" mnemonicParsing="false" onAction="#bDivideClick" prefHeight="100.0" prefWidth="100.0" text="÷">
+                     <font>
+                        <Font name="System Bold Italic" size="37.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="140.0" prefWidth="560.0" style="-fx-alignment: center;">
+               <children>
+                  <Button fx:id="bSiete" mnemonicParsing="false" onAction="#bSieteClick" prefHeight="100.0" prefWidth="100.0" text="7">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bOcho" mnemonicParsing="false" onAction="#bOchoClick" prefHeight="103.0" prefWidth="109.0" text="8">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bNueve" mnemonicParsing="false" onAction="#bNueveClick" prefHeight="100.0" prefWidth="100.0" text="9">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bMultiplica" mnemonicParsing="false" onAction="#bMultiplicaClick" prefHeight="100.0" prefWidth="100.0" text="×">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="140.0" prefWidth="560.0" style="-fx-alignment: center;">
+               <children>
+                  <Button fx:id="bCuatro" mnemonicParsing="false" onAction="#bCuatroClick" prefHeight="100.0" prefWidth="100.0" text="4">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bCinco" mnemonicParsing="false" onAction="#bCincoClick" prefHeight="100.0" prefWidth="100.0" text="5">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bSeis" mnemonicParsing="false" onAction="#bSeisClick" prefHeight="100.0" prefWidth="100.0" text="6">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bMenos" mnemonicParsing="false" onAction="#bMenosClick" prefHeight="100.0" prefWidth="100.0" text="-">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="140.0" prefWidth="560.0" style="-fx-alignment: center;">
+               <children>
+                  <Button fx:id="bUno" mnemonicParsing="false" onAction="#bUnoClick" prefHeight="100.0" prefWidth="100.0" text="1">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bDos" mnemonicParsing="false" onAction="#bDosClick" prefHeight="100.0" prefWidth="100.0" style="-fx-alignment: center;" text="2">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bTres" mnemonicParsing="false" onAction="#bTresClick" prefHeight="100.0" prefWidth="100.0" text="3">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bMas" mnemonicParsing="false" onAction="#bMasClick" prefHeight="100.0" prefWidth="100.0" text="+">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="140.0" prefWidth="560.0" style="-fx-background-color: #eee;">
+               <children>
+                  <Button fx:id="bMasMenos" mnemonicParsing="false" onAction="#bMasMenosClick" prefHeight="100.0" prefWidth="100.0" text="±">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bCero" mnemonicParsing="false" onAction="#bCeroClick" prefHeight="100.0" prefWidth="100.0" text="0">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bComa" mnemonicParsing="false" onAction="#bComaClick" prefHeight="100.0" prefWidth="100.0" text=",">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bIgual" mnemonicParsing="false" onAction="#bIgualClick" prefHeight="100.0" prefWidth="100.0" text="=">
+                     <font>
+                        <Font name="System Bold Italic" size="40.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</AnchorPane>
