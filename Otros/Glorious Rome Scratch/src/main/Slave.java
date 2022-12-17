@@ -4,7 +4,7 @@ public class Slave implements Citizen{
     
     final static int PRICE = 70;
     
-    private String type;
+    private final String type;
     private String name;
     private Profession profession;
     

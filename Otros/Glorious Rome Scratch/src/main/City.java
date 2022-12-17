@@ -6,6 +6,8 @@ import java.util.List;
 public class City {
 
     private static City city;
+    
+    private final int KILL_CITIZEN_PRICE;
     private String name;
     private int money;
     private int currentIncome;
@@ -66,6 +68,21 @@ public class City {
         return i;
     }
     
+    // El precio de matar a un ciudadano escala con la cantidad de ciudadanos matados
+    public int getKillCitizenPrice(){
+        return KILL_CITIZEN_PRICE;
+    }
+    
+    // El precio de un esclavo escala con la cantidad de esclavos vivos
+    public int getSlavePrice(){
+        return Slave.PRICE;
+    }
+    
+    // El precio de un soldado escala con la cantidad de soldados vivos
+    public int getSoldierPrice(){
+        return Soldier.PRICE;
+    }
+    
     public void addCitizen(Citizen citizen) {
         this.population.add(citizen);
     }
@@ -103,14 +120,7 @@ public class City {
         GameOver.checkForGameOver();
     }
     
-    public void buySlave(){
-        if (money >= Slave.PRICE){
-            money -= Slave.PRICE;
-            addCitizen(citizenFactory.createCitizen("Slave"));
-        } else {
-            System.out.println("NO MONEY");
-        }
-    }
+
     
     
     public void orderPopulation() {
@@ -136,9 +146,18 @@ public class City {
         population.addAll(slaves);
     }
     
+    public void buySlave(){
+        if (money >= getSlavePrice()){
+            money -= getSlavePrice();
+            addCitizen(citizenFactory.createCitizen("Slave"));
+        } else {
+            System.out.println("NO MONEY");
+        }
+    }
+        
     public void buySoldier() {
-        if (money >= Soldier.PRICE){
-            money -= Soldier.PRICE;
+        if (money >= getSoldierPrice()){
+            money -= getSoldierPrice();
             addCitizen(citizenFactory.createCitizen("Soldier"));
         } else {
             System.out.println("NO MONEY");
@@ -146,8 +165,13 @@ public class City {
     }
     
     public void killCitizen(int index){
-        population.get(index).die();
-        population.remove(index);
+        if (money >= getKillCitizenPrice()){
+            money -= getKillCitizenPrice();
+            population.get(index).die();
+            population.remove(index);
+        } else {
+            System.out.println("NO MONEY! :( ");
+        }
     }
     
     public static City getInstance() {
@@ -164,6 +188,7 @@ public class City {
         for (int i = 0; i < 4; i++) {
             addCitizen(citizenFactory.createCitizen("Worker"));
         }
+        KILL_CITIZEN_PRICE = 15;
     }
 
 

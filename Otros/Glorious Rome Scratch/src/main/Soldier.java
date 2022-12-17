@@ -2,10 +2,10 @@ package main;
 
 
 public class Soldier implements Citizen {
-    
+
     public static final int PRICE = 120;
     
-    private String type;
+    private final String type;
     private String name;
     private String surname;
     private Profession profession;

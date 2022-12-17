@@ -2,7 +2,7 @@ package main;
 
 class Worker implements Citizen{
     
-    private String type;
+    private final String type;
     private String name;
     private String surname;
     private Profession profession;
@@ -102,6 +102,7 @@ class Worker implements Citizen{
     
     // Constructors
     Worker() {
+        this.type = "Worker";
         this.name = "Unnamed";
         this.surname = "";
         this.strength = 0;

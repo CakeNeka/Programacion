@@ -18,11 +18,15 @@ public class Menu extends javax.swing.JFrame {
     }
 
     void start() {
+        // Initialize labels
         moneyLabel.setText(city.getMoney() + "");
         workersLabel.setText(city.getWorkersNum() + "");
+
+        
+        
         this.setTitle("Glorious " + city.getName());
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,6 +78,9 @@ public class Menu extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
+        slavePriceLabel = new javax.swing.JLabel();
+        soldierPriceLabel = new javax.swing.JLabel();
+        killCitizenPriceLabel = new javax.swing.JLabel();
         endTurnButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -345,15 +352,16 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList1);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Professions");
+
+        slavePriceLabel.setText("(0)");
+
+        soldierPriceLabel.setText("(0)");
+
+        killCitizenPriceLabel.setText("(0)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -413,10 +421,19 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(buySlaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(killCitizenButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(soldierPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(killCitizenPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(slavePriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -462,20 +479,26 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(saveButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(buySlaveButton)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buySlaveButton)
+                            .addComponent(slavePriceLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton6)
+                            .addComponent(soldierPriceLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(killCitizenButton)
-                        .addContainerGap(171, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(killCitizenButton)
+                            .addComponent(killCitizenPriceLabel))
+                        .addGap(0, 171, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Sociedad", jPanel2);
@@ -692,11 +715,15 @@ public class Menu extends javax.swing.JFrame {
     }
 
     private void updateSociety() {
+//      Updating labels
         moneyLabel.setText(city.getMoney() + "");
         workersLabel.setText(city.getWorkersNum() + "");
         soldiersLabel.setText(city.getSoldiersNum() + "");
         slavesLabel.setText(city.getSlavesNum() + "");
-//      citizenList.setSelectedIndex(0);
+        slavePriceLabel.setText("("+ city.getSlavePrice() + ")");
+        soldierPriceLabel.setText("(" + city.getSoldierPrice() + ")");
+        killCitizenPriceLabel.setText("(" + city.getKillCitizenPrice() + ")");
+
 //      Updating citizen list:
         citizenList.removeAll();
         city.orderPopulation();
@@ -706,6 +733,8 @@ public class Menu extends javax.swing.JFrame {
         }
         citizenList.setModel(model);
         citizenList.setSelectedIndex(0);
+        
+//      Updating 
     }
 
     private void displayCitizen() {
@@ -856,6 +885,7 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JSeparator jSeparator1;
     public javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JButton killCitizenButton;
+    public javax.swing.JLabel killCitizenPriceLabel;
     public javax.swing.JLabel moneyLabel;
     public javax.swing.JTextField nameTextField;
     public javax.swing.JLabel navyLabel;
@@ -865,7 +895,9 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JLabel salaryLabel;
     public javax.swing.JButton saveButton;
     public javax.swing.JLabel savingsLabel;
+    public javax.swing.JLabel slavePriceLabel;
     public javax.swing.JLabel slavesLabel;
+    public javax.swing.JLabel soldierPriceLabel;
     public javax.swing.JLabel soldiersLabel;
     public javax.swing.JLabel strengthLabel;
     public javax.swing.JLabel taxLabel;
