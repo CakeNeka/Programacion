@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.JOptionPane;
+
 
 public class Soldier implements Citizen {
 
@@ -18,7 +20,7 @@ public class Soldier implements Citizen {
     
     @Override
     public void die() {
-        System.out.println(getFullName() + "died");
+        JOptionPane.showMessageDialog(null, "The warrior " + getFullName() + " with glory has fallen", "Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override

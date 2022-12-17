@@ -76,7 +76,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        professionList = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
         slavePriceLabel = new javax.swing.JLabel();
         soldierPriceLabel = new javax.swing.JLabel();
@@ -264,6 +264,7 @@ public class Menu extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        citizenList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         citizenList.setName(""); // NOI18N
         citizenList.setSelectedIndex(0);
         citizenList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -352,7 +353,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(professionList);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Professions");
@@ -424,17 +425,17 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(slavePriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(soldierPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(killCitizenPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(slavePriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,13 +493,13 @@ public class Menu extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(killCitizenButton)
                             .addComponent(killCitizenPriceLabel))
-                        .addGap(0, 171, Short.MAX_VALUE))
+                        .addContainerGap(177, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
 
         jTabbedPane1.addTab("Sociedad", jPanel2);
@@ -734,9 +735,17 @@ public class Menu extends javax.swing.JFrame {
         citizenList.setModel(model);
         citizenList.setSelectedIndex(0);
         
-//      Updating 
+//      Updating professions:
+        professionList.removeAll();
+        model = new DefaultListModel<>();
+        model.addElement(Profession.SOLDIER.getName() + " " + city.getAmountOf(Profession.SOLDIER));
+        for (Profession profession : Profession.getProfessions()) {
+            model.addElement(profession.getName() + " " + city.getAmountOf(profession));
+        }
+        professionList.setModel(model);
+        
     }
-
+    
     private void displayCitizen() {
         int index = citizenList.getSelectedIndex();
         if (index < 0) {
@@ -789,7 +798,7 @@ public class Menu extends javax.swing.JFrame {
         if (city.getPopulation().size() > 1) {
             city.killCitizen(i);
             updateSociety();
-            if (i > 0) {
+            if (i > 0 && city.getMoney()+city.getKillCitizenPrice() > city.getKillCitizenPrice()) {
                 citizenList.setSelectedIndex(i - 1);
             } else {
                 citizenList.setSelectedIndex(0);
@@ -876,7 +885,6 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel7;
     public javax.swing.JLabel jLabel8;
     public javax.swing.JLabel jLabel9;
-    public javax.swing.JList<String> jList1;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
@@ -892,6 +900,7 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JSlider navySlider;
     public javax.swing.JLabel productionLabel;
     public javax.swing.JLabel professionLabel;
+    public javax.swing.JList<String> professionList;
     public javax.swing.JLabel salaryLabel;
     public javax.swing.JButton saveButton;
     public javax.swing.JLabel savingsLabel;

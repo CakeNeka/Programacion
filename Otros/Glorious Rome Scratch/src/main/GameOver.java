@@ -2,26 +2,22 @@ package main;
 
 import javax.swing.JOptionPane;
 
-/**
-* <h2>Game Over</h2>
-* This class implements the different ways to end the game
-* Is also used to test how JavaDoc Documentation works,
-* so it is the only class with documentation!.
-* <p>
-* <b>Note:</b> Giving proper comments in your program makes it more
-* user friendly and it is assumed as a high quality code.
- * @author Martina Victoria
- * @version 0.0.1
- * @since 2022-12-15
- */
+
 public class GameOver {
     static City city = City.getInstance();
     
-    public static void checkForGameOver(){
-        if (city.getMoney() < -1000){
-            JOptionPane.showMessageDialog(Main.menu, "Tu ciudad está en bancarrota. Has perdido", "Game Over", JOptionPane.WARNING_MESSAGE);
+    public static final int BANKRUPT = 0;
+    public static final int DEPOPULATION = 1;
+    
+    public static void gameOver(int condition){
+        if (condition == BANKRUPT) {
+            JOptionPane.showMessageDialog(Main.menu, "You led " + city.getName() + " to bankrupt", "Game Over", JOptionPane.WARNING_MESSAGE);
             exit();
         }      
+        else if (condition == DEPOPULATION) {
+            JOptionPane.showMessageDialog(Main.menu, "All your citizens died, the empty city of " + city.getName() + " slowly turns to ashes", "Game Over", JOptionPane.WARNING_MESSAGE);
+            exit();
+        }
     }
     
     static void exit(){   

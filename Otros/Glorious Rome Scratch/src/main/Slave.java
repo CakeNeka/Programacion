@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.JOptionPane;
+
 public class Slave implements Citizen{
     
     final static int PRICE = 70;
@@ -73,7 +75,7 @@ public class Slave implements Citizen{
     
     @Override
     public void die() {
-        System.out.println(name + " muere");
+        JOptionPane.showMessageDialog(null, "The slave " + name + " died", "Warning", JOptionPane.WARNING_MESSAGE);
     }
     
     @Override

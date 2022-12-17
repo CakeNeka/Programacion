@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class City {
 
     private static City city;
@@ -68,6 +69,15 @@ public class City {
         return i;
     }
     
+    public int getAmountOf(Profession job){
+        int i = 0;
+        for (Citizen citizen : population) {
+            if (citizen.getProfession().equals(job))
+                i++;
+        }
+        return i;
+    }
+    
     // El precio de matar a un ciudadano escala con la cantidad de ciudadanos matados
     public int getKillCitizenPrice(){
         return KILL_CITIZEN_PRICE;
@@ -106,18 +116,22 @@ public class City {
         // Each turn there's a little chance miners can die
         int i = 0;
         double randMinerChance = 1;
-        while (i < population.size() && randMinerChance > 0.1){
+        while (i < population.size()){
             if (population.get(i).getProfession().getName().equals("Miner")){
                 randMinerChance = Math.random();
-                if (randMinerChance < 0.1)
+                if (randMinerChance < 0.03)
                     killCitizen(i);
             }
             i++;
         }
-        // Each turn we need at least 1/3 of citizens to be farmers
+        // Each turn we need at least 1/3 of citizens to be farmers else
+        // citizens may starve
         
-        // Each turn we check for game over conditions
-        GameOver.checkForGameOver();
+        // Each turn we check for game over conditions (bankrupt --> money < -1000) 
+        if (money < -1000)
+            GameOver.gameOver(GameOver.BANKRUPT);
+        if (population.isEmpty())
+            GameOver.gameOver(GameOver.DEPOPULATION);
     }
     
 
@@ -177,7 +191,7 @@ public class City {
     public static City getInstance() {
         
         if (city == null) {
-            city = new City("Rome");
+            city = new City(Main.cityName);
         }
         return city;
     }

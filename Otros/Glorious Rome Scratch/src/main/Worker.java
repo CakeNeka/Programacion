@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.JOptionPane;
+
 class Worker implements Citizen{
     
     private final String type;
@@ -79,7 +81,7 @@ class Worker implements Citizen{
     // Other Methods
     @Override
     public void die() {
-        System.out.println(name + " died :("); 
+        JOptionPane.showMessageDialog(null, "The citizen " + getFullName() + " has perished, may their soul go to heaven", "Warning", JOptionPane.WARNING_MESSAGE);
     }
     
     @Override
