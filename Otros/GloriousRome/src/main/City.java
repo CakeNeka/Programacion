@@ -94,6 +94,27 @@ public class City {
         return Soldier.PRICE;
     }
     
+    
+    public float getTotalIncome() {
+        float i = 0;
+        for (Citizen citizen : population) {
+            i += citizen.getProduction();
+        }
+        return i;
+    }
+
+    public float getTotalExpenses() {
+        float i = 0; 
+        for (Citizen citizen : population) {
+            i += citizen.getSalary();
+        }
+        return i;
+    }
+    
+    public float getProfit() {
+        return getTotalIncome() - getTotalExpenses();
+    }
+    
     public void addCitizen(Citizen citizen) {
         this.population.add(citizen);
     }
@@ -110,7 +131,7 @@ public class City {
         
         // Each turn theres a little chance to obtain a new worker:
         double rand = Math.random();
-        if (rand < 0.07 && this.money > 10){
+        if (rand < 0.07 && this.money > 10 && enoughFarmers()){
             Citizen newWorker = citizenFactory.createCitizen("Worker");
             addCitizen(newWorker);
             JOptionPane.showMessageDialog(Main.menu, "Worker " + newWorker.getFullName()
@@ -123,7 +144,7 @@ public class City {
         
         if (!enoughFarmers()){
             System.out.println("farmers are less than 20%");
-            killerLoop(0.02);
+            killerLoop(0.04);
         }
         
         // Each turn we check for game over conditions (bankrupt --> money < -1000) 
@@ -240,13 +261,4 @@ public class City {
         }
         KILL_CITIZEN_PRICE = 15;
     }
-
-
-
-
-
-
-
-
-
 }

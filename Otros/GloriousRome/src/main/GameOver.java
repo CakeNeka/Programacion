@@ -15,7 +15,7 @@ public class GameOver {
             exit();
         }      
         else if (condition == DEPOPULATION) {
-            JOptionPane.showMessageDialog(Main.menu, "All your citizens died, the empty city of " + city.getName() + " slowly turns to ashes", "Game Over", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(Main.menu, "All your citizens died, the empty city of " + city.getName() + " slowly turns to ashes", "Gloria Roma Aeterna Est!", JOptionPane.WARNING_MESSAGE);
             exit();
         }
     }
