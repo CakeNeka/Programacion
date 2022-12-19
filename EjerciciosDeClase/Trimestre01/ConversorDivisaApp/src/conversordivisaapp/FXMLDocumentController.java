@@ -33,15 +33,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button bConvertir;
     
-    ObservableList<String> divisas = FXCollections.observableArrayList("Dólar", "Euro", "Peso mexicano", "Libra esterlina", "Zloty polaco");
+    ObservableList<String> divisas = FXCollections.observableArrayList("Euro", "Peso mexicano", "Libra esterlina", "Zloty polaco", "Dólar");
     @FXML
     private ComboBox<String> cbDivisaDestino;
 
     @FXML
     private Label resultLb;
     
-    String divisaOrigen;
-    String divisaDestino;
+    int divisaOrigen;
+    int divisaDestino;
     
     
     
@@ -77,36 +77,46 @@ public class FXMLDocumentController implements Initializable {
         return importe;
     }
     
+    public double calcula(double importe, int divisaOrigen, int divisaDestino){
+        return importe * conversion[divisaOrigen][divisaDestino];
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbDivisaOrigen.setItems(divisas);
         cbDivisaDestino.setItems(divisas);
         conversion = new double[][]{
-        {1, 21, 0.87, 4.68, 1.06},
-        {0, 1, 0.042, 0.22, 0.051},
-        {0, 0, 1, 5.37, 1.22},
-        {0, 0, 0, 1, 0.23},
-        {0, 0, 0, 0, 1},
+        {1,      21,      0.87,    4.68,   1.06},
+        {1/21,   1,       0.042,   0.22,   0.051},
+        {1/0.87, 1/0.042, 1,       5.37,   1.22},
+        {1/4.68, 1/0.22,  1/5.37,  1,      0.23},
+        {1/1.06, 1/0.051, 1/1.22,  1/0.23, 1},
         };
         int i = 1;
         int j = 0;
-        while(i < conversion.length){}
+        
     }    
     
     @FXML
     public void getDivisaOrigen(ActionEvent evento) {
-        divisaOrigen = (String) cbDivisaOrigen.getValue();
+        divisaOrigen = cbDivisaOrigen.getSelectionModel().getSelectedIndex();
     }
     
     @FXML
     public void getDivisaDestino(ActionEvent evento){
-        divisaDestino = (String) cbDivisaDestino.getValue();
+        divisaDestino = cbDivisaDestino.getSelectionModel().getSelectedIndex();
     }
+    
+    
 
     @FXML
     private void bConvertirClick(ActionEvent event) {
-        double importe = calcula(Double.parseDouble(tfImporte.getText()),divisaOrigen,divisaDestino);
-        resultLb.setText(String.format("%s %s = %.02f %s",tfImporte.getText(), divisaOrigen, importe, divisaDestino));
+        
+        
+        double importe = calcula(Double.parseDouble(tfImporte.getText()),divisaOrigen ,divisaDestino);
+        
+        resultLb.setText(String.format("%s %s = %.02f %s",tfImporte.getText(), 
+                cbDivisaOrigen.getValue(), importe, cbDivisaDestino.getValue()));
     }
     
 
