@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 
@@ -19,12 +20,14 @@ public class Menu extends javax.swing.JFrame {
     }
 
     void start() {
-        // Initialize labels
+//      Initialize labels
         moneyLabel.setText(city.getMoney() + "");
         workersLabel.setText(city.getWorkersNum() + "");
-        
+        ImageIcon img = new ImageIcon("res/icon1.png");
+        this.setIconImage(img.getImage());
         professionList.setCellRenderer(new ColorListCellRenderer());
         this.setTitle("Glorious " + city.getName());
+        
         updateSociety();
         displayCitizen();
     }
@@ -71,9 +74,9 @@ public class Menu extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         endTurnButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -381,14 +384,13 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("96%");
 
-        jButton1.setText("jButton1");
-        jButton1.setPreferredSize(new java.awt.Dimension(32, 32));
-
         jButton4.setText("jButton1");
         jButton4.setPreferredSize(new java.awt.Dimension(32, 32));
 
         jButton5.setText("jButton1");
         jButton5.setPreferredSize(new java.awt.Dimension(32, 32));
+
+        jButton1.setText("Begin Battle");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -399,13 +401,11 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(155, 155, 155)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(156, 156, 156)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(135, 135, 135)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -414,17 +414,15 @@ public class Menu extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(52, 52, 52)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
@@ -665,15 +663,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void updateSociety() {
 //      Updating labels
-        moneyLabel.setText(city.getMoney() + "");
+        moneyLabel.setText(String.format("%.0f", city.getMoney()));
         workersLabel.setText(city.getWorkersNum() + "");
         soldiersLabel.setText(city.getSoldiersNum() + "");
         slavesLabel.setText(city.getSlavesNum() + "");
         slavePriceLabel.setText("("+ city.getSlavePrice() + ")");
         soldierPriceLabel.setText("(" + city.getSoldierPrice() + ")");
         killCitizenPriceLabel.setText("(" + city.getKillCitizenPrice() + ")");
-        incomeLabel.setText(city.getTotalIncome() + "");
-        expendsLabel.setText(city.getTotalExpenses() + "");
+        incomeLabel.setText(String.format("%.2f", city.getTotalIncome()));
+        expendsLabel.setText(String.format("%.2f", city.getTotalExpenses()));
         profitLabel.setText(city.getProfit() + "");
         if (city.getProfit() > 0) profitLabel.setForeground(new Color(0, 153, 0));
         else profitLabel.setForeground(Color.RED);
@@ -714,7 +712,7 @@ public class Menu extends javax.swing.JFrame {
         wisdomLabel.setText(citizenToDisplay.getWisdom() + "");
         dexterityLabel.setText(citizenToDisplay.getDexterity() + "");
         professionLabel.setText(citizenToDisplay.getProfession().getName());
-        salaryLabel.setText(citizenToDisplay.getSalary() + "");
+        salaryLabel.setText(String.format("%.0f", citizenToDisplay.getSalary()));
         productionLabel.setText(String.format("%.0f", citizenToDisplay.getProduction()));
 
         initializeComboBox();

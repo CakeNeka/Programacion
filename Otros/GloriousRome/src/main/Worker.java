@@ -74,7 +74,7 @@ class Worker implements Citizen{
     }
     
     @Override
-    public int getSalary() {
+    public float getSalary() {
         return profession.getBaseSalary();
     }
     
@@ -86,9 +86,9 @@ class Worker implements Citizen{
     
     @Override
     public float getProduction(){
-        float strProd = strength * profession.getStrengthMod();
-        float dexProd = dexterity * profession.getDexterityMod();
-        float wisProd = wisdom * profession.getWisdomMod();
+        float strProd = (float) strength * profession.getStrengthMod();
+        float dexProd = (float) dexterity * profession.getDexterityMod();
+        float wisProd = (float) wisdom * profession.getWisdomMod();
         
         return Math.max(strProd, Math.max(wisProd,dexProd));
 //      return strProd + wisProd + dexProd;

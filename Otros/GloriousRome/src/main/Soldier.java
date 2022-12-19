@@ -64,7 +64,7 @@ public class Soldier implements Citizen {
     }
 
     @Override
-    public int getSalary() {
+    public float getSalary() {
         return profession.getBaseSalary();
     }
 

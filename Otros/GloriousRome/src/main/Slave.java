@@ -55,15 +55,15 @@ public class Slave implements Citizen{
     }
 
     @Override
-    public int getSalary() {
+    public float getSalary() {
         return 2;
     }
 
     @Override
     public float getProduction() {
-        float strProd = strength * profession.getStrengthMod() * 0.5f;
-        float dexProd = dexterity * profession.getDexterityMod() * 0.5f;
-        float wisProd = wisdom * profession.getWisdomMod() * 0.5f;
+        float strProd = (float) strength * profession.getStrengthMod() * 0.5f;
+        float dexProd = (float) dexterity * profession.getDexterityMod() * 0.5f;
+        float wisProd = (float) wisdom * profession.getWisdomMod() * 0.5f;
         
         return Math.max(strProd, Math.max(wisProd,dexProd));
     }

@@ -20,7 +20,7 @@ public interface Citizen {
 
     public void setFirstName(String text);
 
-    public int getSalary();
+    public float getSalary();
 
     public float getProduction();
 

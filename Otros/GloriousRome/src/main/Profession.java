@@ -43,10 +43,10 @@ class Profession {
         return name;
     }
 
-    public int getBaseSalary() {
+    public float getBaseSalary() {
         return baseSalary;
     }
-
+    
     public float getStrengthMod() {
         return strengthMod;
     }

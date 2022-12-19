@@ -15,8 +15,12 @@ public class Main {
     }
     
     private static void setCityName(){
-        cityName = JOptionPane.showInputDialog("Type the name of your city");
-        if (cityName.trim().isEmpty()){
+        cityName = JOptionPane.showInputDialog(null,"Type the name of your city",
+                "Salve", JOptionPane.PLAIN_MESSAGE);
+        if (cityName == null){
+            cityName = "Rome";
+        }
+        else if (cityName.trim().isEmpty()){
             cityName = "Rome";
         }
         else if (cityName.length() == 1){

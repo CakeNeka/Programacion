@@ -11,7 +11,7 @@ public class City {
     
     private final int KILL_CITIZEN_PRICE;
     private String name;
-    private int money;
+    private float money;
     private int currentIncome;
 
     CitizenFactory citizenFactory = new RandomCitizenFactory();
@@ -26,11 +26,11 @@ public class City {
         this.name = name;
     }
 
-    public int getMoney() {
+    public float getMoney() {
         return money;
     }
 
-    public void changeMoney(int money) {
+    public void changeMoney(float money) {
         this.money += money;
     }
 
@@ -121,13 +121,8 @@ public class City {
     
     public void endTurn(){
         // Spend money
-        int totalSalaries = 0;
-        int totalProduction = 0;
-        for (Citizen citizen : population) {
-            totalSalaries += citizen.getSalary();
-            totalProduction += citizen.getProduction();
-        }
-        changeMoney(totalProduction - totalSalaries);
+
+        changeMoney(getTotalIncome() - getTotalExpenses());
         
         // Each turn theres a little chance to obtain a new worker:
         double rand = Math.random();
@@ -256,7 +251,7 @@ public class City {
     private City(String name) {
         this.name = name;
         this.money = 200;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 40; i++) {
             addCitizen(citizenFactory.createCitizen("Worker"));
         }
         KILL_CITIZEN_PRICE = 15;
