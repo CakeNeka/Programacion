@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package firstpackage;
 
 /**
  *
  * @author CakeNeka
- * 2022-19-12
+ * 2022-12-19
  * 
  */
 public class Alumno {
-    String nombre;
+    private String nombre;
     int numAlumnos;
     int[] notas;
     
@@ -29,6 +24,62 @@ public class Alumno {
         this.notas = notas;
     }
 
-    public Alumno() { }
+    /**
+     * 
+     * @return String representation of the object
+     */
+    @Override
+    public String toString() {
+        String str = "Alumno{" + "nombre=" + nombre + ", numAlumnos=" + numAlumnos + ", notas: ";
+        for (int nota : notas) {
+            str += nota + " ";
+        }
+        return str;
+    }
+    
+    
+    
+    public Alumno() {
+        this.nombre = "";
+        this.numAlumnos = 1;
+        notas = new int[10];
+    }
+    
+    // Getters & Setters
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getNumAlumnos() {
+        return numAlumnos;
+    }
+
+    public void setNumAlumnos(int numAlumnos) {
+        this.numAlumnos = numAlumnos;
+    }
+
+    public int[] getNotas() {
+        return notas;
+    }
+
+    public void setNotas(int[] notas) {
+        boolean correct = true;
+        if (notas != null){
+            int i = 0;
+            while (i < notas.length && correct){
+                if (notas[i] < 0 || notas[i] > 10)
+                    correct = false;
+            }
+        }
+        if (correct)
+                this.notas = notas;
+    }
+    
+    
     
 }

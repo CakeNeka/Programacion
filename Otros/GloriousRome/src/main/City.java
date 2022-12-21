@@ -9,7 +9,7 @@ public class City {
 
     private static City city;
     
-    private final int KILL_CITIZEN_PRICE;
+    private final int KILL_CITIZEN_PRICE = 15;
     private String name;
     private float money;
     private int currentIncome;
@@ -251,9 +251,8 @@ public class City {
     private City(String name) {
         this.name = name;
         this.money = 200;
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 3; i++) {
             addCitizen(citizenFactory.createCitizen("Worker"));
         }
-        KILL_CITIZEN_PRICE = 15;
     }
 }

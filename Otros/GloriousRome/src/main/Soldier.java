@@ -20,7 +20,7 @@ public class Soldier implements Citizen {
     
     @Override
     public void die() {
-        JOptionPane.showMessageDialog(Main.menu, "The warrior " + getFullName() + " with glory has fallen", "Warning", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(Main.menu, "The warrior " + getFullName() + " has fallen", "Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override
