@@ -1,6 +1,7 @@
 package firstpackage;
 
 import secondpackage.Clase3;
+
 /**
  *
  * @author Cakeneka
