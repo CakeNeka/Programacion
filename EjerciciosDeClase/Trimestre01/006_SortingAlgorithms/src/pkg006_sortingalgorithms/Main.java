@@ -25,7 +25,7 @@ public class Main {
 
         System.out.println("Sorting Algorithms\n");
 
-        unsortedArray = new int[10];
+        unsortedArray = new int[500000];
         fillArray(unsortedArray);
         array = unsortedArray.clone();
 
@@ -39,20 +39,29 @@ public class Main {
 
         array = unsortedArray.clone();
         System.out.println("\n·QUICK SORT·");
-        System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
+        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
         time = System.nanoTime();
         quicksort(array);
         time = System.nanoTime() - time;
-        System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
+        //System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
         System.out.printf("Tiempo empleado: %.4f milisegundos \n", time / 1_000_000);
 
         array = unsortedArray.clone();
-        System.out.println("\n·BOGO SORT·");
-        System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
+        System.out.println("\n·HEAP SORT·");
+        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
         time = System.nanoTime();
-        bogosort(array);
+        HeapSort.sort(array);
         time = System.nanoTime() - time;
-        System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
+        //System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
+        System.out.printf("Tiempo empleado: %.4f milisegundos \n", time / 1_000_000);
+        
+        array = unsortedArray.clone();
+        System.out.println("\n·BOGO SORT·");
+        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
+        time = System.nanoTime();
+        //bogosort(array);
+        time = System.nanoTime() - time;
+        //System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
         System.out.printf("Tiempo empleado: %.4f milisegundos", time / 1_000_000);
     }
 
@@ -88,7 +97,7 @@ public class Main {
         swap(array, pivotIndex, highIndex);
 
 // 	2 Partition
-// 	Todos los elementos mayores al pivot quedarán a su derecha
+// 	Todos los elementos mayores al pivote quedarán a su derecha
 // 	y todos los más pequeños quedarán a su izquierda.
         int leftPointer = lowIndex;
         int rightPointer = highIndex;
@@ -124,7 +133,7 @@ public class Main {
 
     // 3 · Heap Sort
     static void heapsort(int[] array) {
-
+        
     }
 
     static void bogosort(int[] array) {
@@ -146,7 +155,7 @@ public class Main {
             }
         }
     }
-
+    
     // Método para rellenar array con números aleatorios
     static void fillArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -155,3 +164,7 @@ public class Main {
     }
 
 }
+
+
+
+

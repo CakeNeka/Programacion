@@ -14,12 +14,12 @@ public class Main {
        
        printLinkedList(a);
        System.out.println("---");
-       reverseLinkedList(a);
+       a = reverseLinkedList(a);
        System.out.println("---");
        printLinkedList(a);
     }
     
-    static void reverseLinkedList(Node head){
+    static Node reverseLinkedList(Node head){
         
         Node temp = head.next;
         head.next = null;
@@ -30,6 +30,8 @@ public class Main {
             head = temp;
             temp = t;
         }
+        
+        return head;
         
     }
     
