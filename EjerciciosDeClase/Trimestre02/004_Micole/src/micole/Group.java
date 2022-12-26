@@ -1,23 +1,28 @@
 package micole;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Grupo {
-
+public class Group implements Serializable{
+    
+    public final long GROUP_ID;
+    
     private String name;
     private Student[] students;
     private Classroom classroom;
 
-    public Grupo(String name) {
+    public Group(String name) {
         this.name = name;
         this.students = new Student[Classroom.DEFAULT_CAPACITY];
+        GROUP_ID = System.currentTimeMillis();
     }
 
-    public Grupo(String name, Classroom classroom) {
+    public Group(String name, Classroom classroom) {
         this.name = name;
         this.classroom = classroom;
         this.students = new Student[classroom.getCapacity()];
+        GROUP_ID = System.currentTimeMillis();
     }
 
     public String getName() {
@@ -49,7 +54,7 @@ public class Grupo {
             students[i] = student;
             student.setGrupo(this);
         } else {
-            System.out.println("El grupo está lleno (not posivol) ");
+            System.out.println("Group already full");
         }
     }
 
@@ -96,6 +101,15 @@ public class Grupo {
         }
     }
 
+    public boolean equals(Group other){
+        return this.GROUP_ID == other.GROUP_ID;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Group %s (%d students)", name, getStudentNumber());
+    }
+    
     private void sortStudentArray() {
         int swaps;
         Student temp;

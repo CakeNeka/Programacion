@@ -23,7 +23,7 @@ public class Menu extends javax.swing.JFrame {
 //      Initialize labels
         moneyLabel.setText(city.getMoney() + "");
         workersLabel.setText(city.getWorkersNum() + "");
-        ImageIcon img = new ImageIcon("res/icon1.png");
+        ImageIcon img = new ImageIcon("src/res/icon1.png");
         this.setIconImage(img.getImage());
         professionList.setCellRenderer(new ColorListCellRenderer());
         this.setTitle("Glorious " + city.getName());

@@ -1,16 +1,16 @@
 package micole;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Objects;
 
 
-public class Student{
+public class Student implements Serializable{
     
-    private static int idGenerator = 0;
     
-    private final int STUDENT_ID;
+    private final long STUDENT_ID;
     private String name;
     private String surname;
     LocalDate birthDay;
@@ -19,12 +19,12 @@ public class Student{
     private String dni;
     
     // (Avanzado) Este campo sea un enum
-    private Grupo grupo;
+    private Group grupo;
     
     // (Avanzado) Un array notas bidimensional, con cada una de los módulos
     // y cada uno de los trimestres.
     
-    double[][] GradesPerQuarter;
+    double[][] gradesQuarter;
     // Array de las notas medias
     double[] medias;
 
@@ -33,17 +33,39 @@ public class Student{
     // Constructor method
     public Student(String name, String surname, String dni) {
         
-        STUDENT_ID = idGenerator++;
+        STUDENT_ID = System.currentTimeMillis();
         this.name = name;
         this.surname = surname;
         this.dni = dni;
-        this.medias = new double[6];
-        this.GradesPerQuarter = new double[6][3];
+        
+        this.medias = new double[3];
+        this.gradesQuarter = new double[3][3];
     }
 
+    public Student(String name, String surname, LocalDate birthDay, String dni) {
+        this.STUDENT_ID = System.currentTimeMillis();
+        this.name = name;
+        this.surname = surname;
+        this.birthDay = birthDay;
+        this.dni = dni;
+        
+        this.medias = new double[3];
+        this.gradesQuarter = new double[3][3];
+    }
+    
+    public void setMedias(){
+        for (int i = 0; i < 3; i++) {
+            medias[i] = 0;
+            for (int j = 0; j < 3; j++) {
+                medias[i] += gradesQuarter[i][j];
+            }
+            medias[i] /= 3.0;
+        }
+    }
+    
     @Override
     public String toString() {
-        return String.format("%s %s (%d)", name, surname, STUDENT_ID);
+        return String.format("%s %s (%s)", name, surname, grupo);
     }
     
     public int compareTo(Student other) {
@@ -55,8 +77,7 @@ public class Student{
         if(this == other)
             return true;
         
-        return this.name.equals(other.name) && this.surname.equals(other.surname)
-                && this.STUDENT_ID == other.STUDENT_ID;
+        return this.STUDENT_ID == other.STUDENT_ID;
     }
     
     // Getters & Setters
@@ -110,20 +131,21 @@ public class Student{
         this.dni = dni;
     }
 
-    public Grupo getGrupo() {
+    public Group getGrupo() {
         return grupo;
     }
 
-    public void setGrupo(Grupo grupo) {
+    public void setGrupo(Group grupo) {
         this.grupo = grupo;
     }
 
-    public double[][] getGradesPerQuarter() {
-        return GradesPerQuarter;
+    public double[][] getGradesQuarter() {
+        return gradesQuarter;
     }
 
-    public void setGradesPerQuarter(double[][] GradesPerQuarter) {
-        this.GradesPerQuarter = GradesPerQuarter;
+    public void setGradesQuarter(double[][] gradesQuarter) {
+        this.gradesQuarter = gradesQuarter;
+        setMedias();
     }
 
     public double[] getMedias() {

@@ -5,20 +5,19 @@ public class DNIValidator {
     
     static boolean validate(String dni){
         
-        dni = dni.trim();
+        dni = dni.trim().toUpperCase();
         int len = dni.length();
         
         if(len != 9 || !Character.isLetter(dni.charAt(len - 1)))
             return false;
         
-        char[] arr = dni.toCharArray();
-        
-        for (int i = 0; i < len-1; i++) {
-            if (!Character.isDigit(arr[i]))
-                return false;
-        }
-        int num = Integer.parseInt(dni.substring(0,9)) ;
-        return dni.charAt(9) == dniLetter(num);
+        int num;
+        try {
+            num = Integer.parseInt(dni.substring(0,8)) ;
+        } catch (NumberFormatException e){
+            return false;
+        }   
+        return dni.charAt(8) == dniLetter(num);
     }
     
     private static char dniLetter(int dni){
