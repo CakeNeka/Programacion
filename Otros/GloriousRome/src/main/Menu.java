@@ -1,6 +1,9 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -10,28 +13,34 @@ import javax.swing.JSlider;
 
 public class Menu extends javax.swing.JFrame {
 
-    int turn = 0;
-    int maxSum = 80;
     City city = City.getInstance();
 
     public Menu() {
         initComponents();
+        this.setLocationRelativeTo(null);
         start();
     }
 
     void start() {
+        Image image = null;
+        try {
+            ClassLoader classLoader = Menu.class.getClassLoader();
+            image = ImageIO.read(classLoader.getResourceAsStream("res/icon1.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //      Initialize labels
         moneyLabel.setText(city.getMoney() + "");
         workersLabel.setText(city.getWorkersNum() + "");
-        ImageIcon img = new ImageIcon("src/res/icon1.png");
-        this.setIconImage(img.getImage());
+//      ImageIcon img = new ImageIcon("src/res/icon1.png");
+        this.setIconImage(image);
         professionList.setCellRenderer(new ColorListCellRenderer());
         this.setTitle("Glorious " + city.getName());
-        
+
         updateSociety();
         displayCitizen();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,13 +79,23 @@ public class Menu extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        allyList = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        enemyList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        beginBattleBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        allyForcesLabel = new javax.swing.JLabel();
+        enemyForcesLabel = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        allyStrengthLabel = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        enemyStrengthLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         endTurnButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -277,11 +296,11 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(killCitizenButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(slavePriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(soldierPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(killCitizenPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(slavePriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(soldierPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(killCitizenPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -366,68 +385,151 @@ public class Menu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Buildings", jPanel4);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        allyList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(allyList);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        enemyList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList2);
+        jScrollPane4.setViewportView(enemyList);
 
         jLabel1.setForeground(new java.awt.Color(0, 153, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("96%");
 
-        jButton4.setText("jButton1");
+        jButton4.setText("Negotiate");
         jButton4.setPreferredSize(new java.awt.Dimension(32, 32));
 
-        jButton5.setText("jButton1");
+        jButton5.setText("Flee");
         jButton5.setPreferredSize(new java.awt.Dimension(32, 32));
 
-        jButton1.setText("Begin Battle");
+        beginBattleBtn.setText("Begin Battle");
+        beginBattleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beginBattleBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Size");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Size");
+
+        allyForcesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        allyForcesLabel.setText("12");
+
+        enemyForcesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        enemyForcesLabel.setText("12");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Strength");
+
+        allyStrengthLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        allyStrengthLabel.setText("12");
+
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Strength");
+
+        enemyStrengthLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        enemyStrengthLabel.setText("12");
+
+        jLabel4.setText("Round");
+
+        jLabel5.setText("1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(135, 135, 135)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(allyForcesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(allyStrengthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(104, 104, 104)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(enemyStrengthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(enemyForcesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(beginBattleBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(317, Short.MAX_VALUE))
+                        .addGap(61, 61, 61)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(allyForcesLabel)
+                                    .addComponent(enemyForcesLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(allyStrengthLabel))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel16)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(enemyStrengthLabel)))
+                                .addGap(65, 65, 65)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(beginBattleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Combat", jPanel2);
@@ -615,6 +717,12 @@ public class Menu extends javax.swing.JFrame {
         displayCitizen();
     }//GEN-LAST:event_citizenListMouseClicked
 
+    private void beginBattleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginBattleBtnActionPerformed
+        city.getEncounterManager().manageCombat();
+
+        updateCombatView();
+    }//GEN-LAST:event_beginBattleBtnActionPerformed
+
 
     /*
     int getTotalExpenses() {
@@ -642,11 +750,9 @@ public class Menu extends javax.swing.JFrame {
         setState(developmentSlider, developmentSlider.getValue());
         developmentJLabel.setText(developmentSlider.getValue() + "");
     }
-    */
-    
+     */
     void buySlave() {
         city.buySlave();
-        
         int index = citizenList.getSelectedIndex();
         updateSociety();
         citizenList.setSelectedIndex(index);
@@ -654,8 +760,6 @@ public class Menu extends javax.swing.JFrame {
 
     void buySoldier() {
         city.buySoldier();
-        
-        
         int index = citizenList.getSelectedIndex();
         updateSociety();
         citizenList.setSelectedIndex(index);
@@ -667,14 +771,17 @@ public class Menu extends javax.swing.JFrame {
         workersLabel.setText(city.getWorkersNum() + "");
         soldiersLabel.setText(city.getSoldiersNum() + "");
         slavesLabel.setText(city.getSlavesNum() + "");
-        slavePriceLabel.setText("("+ city.getSlavePrice() + ")");
+        slavePriceLabel.setText("(" + city.getSlavePrice() + ")");
         soldierPriceLabel.setText("(" + city.getSoldierPrice() + ")");
         killCitizenPriceLabel.setText("(" + city.getKillCitizenPrice() + ")");
         incomeLabel.setText(String.format("%.2f", city.getTotalIncome()));
         expendsLabel.setText(String.format("%.2f", city.getTotalExpenses()));
         profitLabel.setText(city.getProfit() + "");
-        if (city.getProfit() > 0) profitLabel.setForeground(new Color(0, 153, 0));
-        else profitLabel.setForeground(Color.RED);
+        if (city.getProfit() > 0) {
+            profitLabel.setForeground(new Color(0, 153, 0));
+        } else {
+            profitLabel.setForeground(Color.RED);
+        }
 
 //      Updating citizen list:
         citizenList.removeAll();
@@ -685,7 +792,7 @@ public class Menu extends javax.swing.JFrame {
         }
         citizenList.setModel(model);
         citizenList.setSelectedIndex(0);
-        
+
 //      Updating professions:
         professionList.removeAll();
         model = new DefaultListModel<>();
@@ -694,9 +801,9 @@ public class Menu extends javax.swing.JFrame {
             model.addElement(profession.getName() + " " + city.getAmountOf(profession));
         }
         professionList.setModel(model);
-        
+
     }
-    
+
     private void displayCitizen() {
         int index = citizenList.getSelectedIndex();
         if (index < 0) {
@@ -749,7 +856,7 @@ public class Menu extends javax.swing.JFrame {
         if (city.getPopulation().size() > 1) {
             city.orderKillCitizen(i);
             updateSociety();
-            if (i > 0 && city.getMoney()+city.getKillCitizenPrice() > city.getKillCitizenPrice()) {
+            if (i > 0 && city.getMoney() + city.getKillCitizenPrice() > city.getKillCitizenPrice()) {
                 citizenList.setSelectedIndex(i - 1);
             } else {
                 citizenList.setSelectedIndex(0);
@@ -759,14 +866,49 @@ public class Menu extends javax.swing.JFrame {
         }
     }
 
-    private void endTurn() {
-        city.endTurn();
-        turn++;
-        endTurnButton.setText(turn + "");
+    private void updateCombatView() {
+        EncounterManager cityEM = city.getEncounterManager();
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (Soldier s : cityEM.getAllies()) {
+            model.addElement(s.toString());
+        }
+        allyList.setModel(model);
 
-        int index = citizenList.getSelectedIndex();
-        updateSociety();
-        citizenList.setSelectedIndex(index);
+        model = new DefaultListModel<>();
+        for (Soldier s : city.getEncounterManager().getEnemies()) {
+            model.addElement(s.toString());
+        }
+        enemyList.setModel(model);
+
+        allyForcesLabel.setText(cityEM.getAllySize() + "");
+        allyStrengthLabel.setText(cityEM.getAllyStrength() + "");
+
+        enemyForcesLabel.setText(cityEM.getEnemySize() + "");
+        enemyStrengthLabel.setText(cityEM.getEnemyStrength() + "");
+
+        if (!city.isAtWar())
+            endTurnButton.setForeground(Color.black);
+    }
+
+    private void endTurn() {
+        if (city.isAtWar()) {
+            JOptionPane.showMessageDialog(this, "You must handle combat before ending turn",
+                    "CUIDAO! ", JOptionPane.WARNING_MESSAGE);
+        } else {
+            city.endTurn();
+
+            endTurnButton.setText(city.getTurn() + "");
+            int index = citizenList.getSelectedIndex();
+            updateSociety();
+            citizenList.setSelectedIndex(index);
+
+            if (city.isAtWar()) {
+                endTurnButton.setForeground(Color.red);
+                updateCombatView();
+            } else {
+                endTurnButton.setForeground(Color.black);
+            }
+        }
     }
 
     public static void main(String args[]) {
@@ -805,14 +947,20 @@ public class Menu extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel allyForcesLabel;
+    public javax.swing.JList<String> allyList;
+    public javax.swing.JLabel allyStrengthLabel;
+    public javax.swing.JButton beginBattleBtn;
     public javax.swing.JButton buySlaveButton;
     public javax.swing.JList<String> citizenList;
     public javax.swing.JLabel citizenNameLabel;
     public javax.swing.JLabel dexterityLabel;
     public javax.swing.JButton endTurnButton;
+    public javax.swing.JLabel enemyForcesLabel;
+    public javax.swing.JList<String> enemyList;
+    public javax.swing.JLabel enemyStrengthLabel;
     public javax.swing.JLabel expendsLabel;
     public javax.swing.JLabel incomeLabel;
-    public javax.swing.JButton jButton1;
     public javax.swing.JButton jButton4;
     public javax.swing.JButton jButton5;
     public javax.swing.JButton jButton6;
@@ -824,18 +972,22 @@ public class Menu extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel13;
     public javax.swing.JLabel jLabel14;
     public javax.swing.JLabel jLabel15;
+    public javax.swing.JLabel jLabel16;
     public javax.swing.JLabel jLabel17;
     public javax.swing.JLabel jLabel19;
+    public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel21;
     public javax.swing.JLabel jLabel23;
     public javax.swing.JLabel jLabel25;
     public javax.swing.JLabel jLabel26;
     public javax.swing.JLabel jLabel28;
     public javax.swing.JLabel jLabel29;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLabel6;
     public javax.swing.JLabel jLabel7;
     public javax.swing.JLabel jLabel8;
-    public javax.swing.JList<String> jList1;
-    public javax.swing.JList<String> jList2;
     public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;

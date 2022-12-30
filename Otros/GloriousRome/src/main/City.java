@@ -8,7 +8,9 @@ import javax.swing.JOptionPane;
 public class City {
 
     private static City city;
+    private final EncounterManager encounterManager;
     
+    private int turn;
     private final int KILL_CITIZEN_PRICE = 15;
     private String name;
     private float money;
@@ -44,6 +46,15 @@ public class City {
 
     public List<Citizen> getPopulation() {
         return population;
+    }
+    
+    public List<Soldier> getSoldiers() {
+        List<Soldier> soldiers = new ArrayList<>();
+        for (Citizen citizen : population) {
+            if (citizen.getType().equals("Soldier"))
+                soldiers.add((Soldier) citizen);
+        }
+        return soldiers;
     }
     
     public Citizen getPopulation(int i) {
@@ -86,12 +97,12 @@ public class City {
     
     // El precio de un esclavo escala con la cantidad de esclavos vivos
     public int getSlavePrice(){
-        return Slave.PRICE;
+        return (int) (Slave.PRICE  +  Math.pow(getSlavesNum(), 2));
     }
     
     // El precio de un soldado escala con la cantidad de soldados vivos
     public int getSoldierPrice(){
-        return Soldier.PRICE;
+        return (int) (Soldier.PRICE +  Math.pow(getSoldiersNum(), 2));
     }
     
     
@@ -118,10 +129,22 @@ public class City {
     public void addCitizen(Citizen citizen) {
         this.population.add(citizen);
     }
+
+    public int getTurn() {
+        return turn;
+    }    
+    
+    public boolean isAtWar(){
+        return encounterManager.isInCombat();
+    }
+
+    public EncounterManager getEncounterManager() {
+        return encounterManager;
+    }
     
     public void endTurn(){
         // Spend money
-
+        
         changeMoney(getTotalIncome() - getTotalExpenses());
         
         // Each turn theres a little chance to obtain a new worker:
@@ -142,11 +165,16 @@ public class City {
             killerLoop(0.04);
         }
         
+        // Encounters: 
+        // if turn is above 15 there is +5% chance of an encounter to take place
+        encounterManager.update();
+        
         // Each turn we check for game over conditions (bankrupt --> money < -1000) 
         if (money < -1000)
             GameOver.gameOver(GameOver.BANKRUPT);
         if (population.isEmpty())
             GameOver.gameOver(GameOver.DEPOPULATION);
+        turn++;
     }
 
     private void killerLoop(double dieChance, Profession prof) {
@@ -218,7 +246,7 @@ public class City {
     }
         
     public void buySoldier() {
-        if (money >= getSoldierPrice()){
+        if (money >= getSoldierPrice()) {
             money -= getSoldierPrice();
             addCitizen(citizenFactory.createCitizen("Soldier"));
         } else {
@@ -233,6 +261,10 @@ public class City {
         } else {
             System.out.println("NO MONEY! :( ");
         }
+    }
+    
+    public void silentKillCitizen(int index) {
+        population.remove(index);
     }
     
     public void killCitizen(int index){
@@ -250,9 +282,13 @@ public class City {
 
     private City(String name) {
         this.name = name;
-        this.money = 200;
+        this.money = 20000000;
+        encounterManager = new EncounterManager();
+        
         for (int i = 0; i < 3; i++) {
             addCitizen(citizenFactory.createCitizen("Worker"));
         }
     }
+
+
 }
