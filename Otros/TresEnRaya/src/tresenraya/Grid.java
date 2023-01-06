@@ -39,10 +39,10 @@ public class Grid extends JFrame {
                 panel.add(buttonGrid[i][j]);
             }
         }
-
+        
         // Add the panel to the frame
         add(panel);
-
+        
         // Set the size and display the frame
         setSize(300, 300);
         setVisible(true);
@@ -50,7 +50,14 @@ public class Grid extends JFrame {
 
     public void checkForWin() {
         if (checkWins()) {
-            JOptionPane.showConfirmDialog(this, curChar + " Ganó");
+            
+            String[] opciones = {"Jugar de nuevo", "Salir"};
+            int choice = JOptionPane.showOptionDialog(null, curChar + " Ganó", "¿Qué quieres hacer?",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+            if(choice == 1) 
+                System.exit(0);
+            else
+                restartGrid();
         }
     }
 
@@ -62,7 +69,7 @@ public class Grid extends JFrame {
 
         // Check for horizontal wins
         while (!won && i < 3) {
-            if (curChar == buttonGrid[i][j].ch) {
+            if (curChar == buttonGrid[i][j].getCh()) {
                 matches++;
             }
             if (matches == 3) {
@@ -79,7 +86,7 @@ public class Grid extends JFrame {
         // Check for vertical wins
         i = 0;
         while (!won && j < 3) {
-            if (curChar == buttonGrid[i][j].ch) {
+            if (curChar == buttonGrid[i][j].getCh()) {
                 matches++;
             }
             if (matches == 3) {
@@ -96,7 +103,7 @@ public class Grid extends JFrame {
         // Check for descendent diagonal wins
         j = 0;
         while (!won && i < 3) {
-            if (curChar == buttonGrid[i][j].ch) {
+            if (curChar == buttonGrid[i][j].getCh()) {
                 matches++;
             }
             if (matches == 3) {
@@ -112,7 +119,7 @@ public class Grid extends JFrame {
         j = 0;
         matches = 0;
         while (!won && i >= 0) {
-            if (curChar == buttonGrid[i][j].ch) {
+            if (curChar == buttonGrid[i][j].getCh()) {
                 matches++;
             }
             if (matches == 3) {
@@ -122,8 +129,28 @@ public class Grid extends JFrame {
             i--;
             j++;
         }
-
+        
         return won;
     }
+    
+    public void restartGrid(){
+        
+        for (TTTButton[] tTTButtons : buttonGrid) {
+            for (TTTButton button : tTTButtons) {
+                button.setUsed(false);
+                button.setCh('\u0000');
+                button.setText("");
+            }
+        }
+    }
 
+    public boolean gridComplete() {
+        for (TTTButton[] tTTButtons : buttonGrid) {
+            for (TTTButton button : tTTButtons) {
+                if (!button.isUsed())
+                    return false;
+            }
+        }
+        return true;
+    }
 }
