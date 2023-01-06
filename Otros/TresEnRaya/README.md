@@ -1,5 +1,5 @@
-# Programacion 1º DAM
-Proyectos y archivos de la asignatura de programación en Java. 
+# Tres rayas :nose: :dollar: 😀
+Tres en raya hípersencillo. 
 
-> Diciembre 2022.
+> Enero 2023.
 
