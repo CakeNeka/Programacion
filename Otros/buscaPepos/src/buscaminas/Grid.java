@@ -11,7 +11,7 @@ public class Grid extends JFrame {
 
     BoxButton[][] boxes;
 
-    public Grid(int rows, int cols) {
+    public Grid(int rows, int cols, int mines) {
         this.rows = rows;
         this.cols = cols;
         boxes = new BoxButton[rows][cols];
@@ -36,7 +36,7 @@ public class Grid extends JFrame {
 
         // Add the panel to the frame
         add(panel);
-        initializeMines(1);
+        initializeMines(mines);
                 
         // Set the size and display the frame
         pack();
