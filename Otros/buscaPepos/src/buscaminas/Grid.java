@@ -6,20 +6,24 @@ import javax.swing.*;
 
 public class Grid extends JFrame {
 
-    int rows;
-    int cols;
-
+    final long timeStarted;
+    final int rows;
+    final int cols;
+    final int mines;
+    
+    private int clicks;
     BoxButton[][] boxes;
 
     public Grid(int rows, int cols, int mines) {
+        this.timeStarted = System.currentTimeMillis();
         this.rows = rows;
         this.cols = cols;
+        this.mines = mines;
         boxes = new BoxButton[rows][cols];
 
         // Title and default close operation
         setTitle("Busca Pepos :)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setResizable(false);
 
         // Panel to hold the buttons
@@ -36,16 +40,14 @@ public class Grid extends JFrame {
 
         // Add the panel to the frame
         add(panel);
-        initializeMines(mines);
-                
+
         // Set the size and display the frame
         pack();
         setVisible(true);
     }
 
-    
     // Mejorable: 
-    void initializeMines(int mines) {
+    public void initializeMines(int mines, int firstClickedRow, int firstClickedCol) {
         Random rand = new Random();
         int randRow;
         int randCol;
@@ -54,7 +56,7 @@ public class Grid extends JFrame {
             randRow = rand.nextInt(rows);
             randCol = rand.nextInt(cols);
 
-            if (!boxes[randRow][randCol].isMine()) {
+            if (!boxes[randRow][randCol].isMine() && (randRow != firstClickedRow || randCol != firstClickedCol)) {
                 boxes[randRow][randCol].setMine(true);
                 mines--;
             }
@@ -62,30 +64,14 @@ public class Grid extends JFrame {
         } while (mines > 0);
 
         generateAround();
-        updateButtons();
-    }
-
-    private void updateButtons() {
-        int i = 0;
-        int j = 0;
-        while (i < rows) {
-            boxes[i][j].updateButton();
-            j++;
-            if (j == cols) {
-                j = 0;
-                i++;
-            }
-        }
     }
 
     private void generateAround() {
         int i = 0;
         int j = 0;
         while (i < rows) {
-            boxes[i][j].setAround(findAround(i,j));
-            
-            // Testing (should be removed)
-            //boxes[i][j].setText(boxes[i][j].getAround() + "");
+            boxes[i][j].setAround(findAround(i, j));
+//          boxes[i][j].setText(findAround(i,j) + "");
             
             j++;
             if (j == cols) {
@@ -94,67 +80,71 @@ public class Grid extends JFrame {
             }
         }
     }
-    
-    private int findAround(int row, int col){
-        if(boxes[row][col].isMine()) return -1;  // Not necessary
-        
+
+    private int findAround(int row, int col) {
+        if (boxes[row][col].isMine())
+            return - 1;
         int minesAround = 0;
-        
+
         int startRow = row - 1;
         int startColumn = col - 1;
-        
-        if (row == 0)
+
+        if (row == 0) {
             startRow = row;
-        if (col == 0)
+        }
+        if (col == 0) {
             startColumn = col;
-        
+        }
+
         int i = startRow;
         int j = startColumn;
         while (i <= row + 1 && i < rows) {
-            if (boxes[i][j].isMine()){
+            if (boxes[i][j].isMine()) {
                 minesAround++;
             }
-            
+
             j++;
             if (j > col + 1 || j == cols) {
                 j = startColumn;
                 i++;
             }
         }
-        
+
         return minesAround;
     }
-    
-    public void unCover(int row, int col) {
-        String text = boxes[row][col].getAround() == 0 ? "" : boxes[row][col].getAround() + "";
-        boxes[row][col].setBackground(Color.white);
-        boxes[row][col].setText(text);
-        boxes[row][col].setDiscovered(true);
-        removeZeroes(row,col);
-    }
-    
-    public void removeZeroes(int row, int col){
-        if (boxes[row][col].getAround() != 0) return;
-        
-        boxes[row][col].setDiscovered(true);
-        boxes[row][col].setBackground(Color.white);
-        boxes[row][col].setText("");
-        
+
+    public void uncoverZeroes(int row, int col) {
+        BoxButton curButton = boxes[row][col];
+        int around = curButton.getAround();
+        curButton.setBackground(Color.white);
+        curButton.setStatus(Status.DISCOVERED);
+
+        if (around != 0) {
+            curButton.setText(around + "");
+            return;
+        }
+
+        curButton.setText("");
+
         int i = row - 1;
         int startColumn = col - 1;
-        
-        if (row == 0)
+
+        if (row == 0) {
             i = row;
-        if (col == 0)
+        }
+        if (col == 0) {
             startColumn = col;
-        
+        }
+
         int j = startColumn;
+
+        // Looping through the boxes around the clicked box
         while (i <= row + 1 && i < rows) {
-            
-            if ((i != row || j != col) && !boxes[i][j].isDiscovered()){
-                removeZeroes(i,j);
+
+            if ((i != row || j != col) && !boxes[i][j].isDiscovered()) {
+                uncoverZeroes(i, j);
             }
-            
+
             j++;
             if (j > col + 1 || j == cols) {
                 j = startColumn;
@@ -162,4 +152,43 @@ public class Grid extends JFrame {
             }
         }
     }
+
+    public long getTimeAlive() {
+        return (System.currentTimeMillis() - timeStarted);
+    }
+
+    public void checkWin() {
+        if(searchWin()){
+            BuscaMinas.winGame();
+        }
+    }
+    
+    private boolean searchWin() {
+
+        int i = 0;
+        int j = 0;
+        while (i < rows) {
+            
+            if (!boxes[i][j].isDiscovered() && !boxes[i][j].isMine())
+                return false;
+            
+            j++;
+            if (j == cols) {
+                j = 0;
+                i++;
+            }
+        }
+
+        return true;
+    }
+
+    public int getClicks() {
+        return clicks;
+    }
+
+    public void click() {
+        this.clicks++;
+    }
+    
+    
 }

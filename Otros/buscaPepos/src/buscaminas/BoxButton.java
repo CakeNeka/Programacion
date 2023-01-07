@@ -3,46 +3,76 @@ package buscaminas;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 
-class BoxButton extends JButton implements ActionListener {
-    
+class BoxButton extends JButton implements MouseListener {
+
     private Grid grid;
     private int row;
     private int col;
-    private boolean discovered;
+    private Status status;
     private boolean mine;
     private int around;
 
     BoxButton(Grid grid, int row, int col) {
-        discovered = false;
+        status = Status.COVERED;
         mine = false;
         around = 0;
-        
+
         this.grid = grid;
         this.row = row;
         this.col = col;
 
-        this.setPreferredSize(new Dimension(50, 50));
-        this.addActionListener(this);
+        // Look of the button
+        this.setBackground(Color.gray);
+        this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.gray, Color.black));
+        this.setPreferredSize(new Dimension(40, 40));
+        this.setFocusable(false);
+        this.addMouseListener(this);
     }
 
-    
-    public void updateButton() {
-        if (isDiscovered()) {
-            // Change color and display number when discovered
-
-            //this.setBackground(Color.white);
-            //this.setText(getAround() + "");
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        if (me.getButton() == 1) {
+            grid.click();
+            if (grid.getClicks() == 1){
+                grid.initializeMines(grid.mines, row, col);
+            }
+            this.unCover();
+            grid.checkWin();
+        } else if (me.getButton() == 3) {
+            this.flag();
         }
     }
 
-    // Cambiar esto por MouseListener
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        grid.unCover(row, col);
+    public void unCover() {
+        String text = this.getAround() == 0 ? "" : this.getAround() + "";
+        if (this.isMine()) {
+            BuscaMinas.gameOver();
+        } else {
+            this.setBackground(Color.white);
+            this.setForeground(Color.BLACK);
+            this.setText(text);
+            this.setStatus(Status.DISCOVERED);
+            grid.uncoverZeroes(row, col);
+        }
     }
 
+    public void flag() {
+        if (status == Status.COVERED) {
+            this.setStatus(Status.FLAGGED);
+            this.setForeground(Color.red);
+            this.setText("F");
+        }
+        else if (status == Status.FLAGGED){
+            this.setStatus(Status.COVERED);
+            this.setForeground(Color.black);
+            this.setText("");
+        }
+    }
 
     public int getRow() {
         return row;
@@ -51,7 +81,6 @@ class BoxButton extends JButton implements ActionListener {
     public void setRow(int row) {
         this.row = row;
     }
-
 
     public int getCol() {
         return col;
@@ -62,11 +91,7 @@ class BoxButton extends JButton implements ActionListener {
     }
 
     public boolean isDiscovered() {
-        return discovered;
-    }
-
-    public void setDiscovered(boolean discovered) {
-        this.discovered = discovered;
+        return status == Status.DISCOVERED;
     }
 
     public boolean isMine() {
@@ -84,6 +109,29 @@ class BoxButton extends JButton implements ActionListener {
     public void setAround(int around) {
         this.around = around;
     }
-    
-    
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+    }
+
 }

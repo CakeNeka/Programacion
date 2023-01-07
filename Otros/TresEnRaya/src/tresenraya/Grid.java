@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tresenraya;
 
-/**
- *
- * @author Neka
- */
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -53,7 +45,7 @@ public class Grid extends JFrame {
             
             String[] opciones = {"Jugar de nuevo", "Salir"};
             int choice = JOptionPane.showOptionDialog(null, curChar + " Ganó", "¿Qué quieres hacer?",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
             if(choice == 1) 
                 System.exit(0);
             else
