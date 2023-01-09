@@ -8,9 +8,15 @@ package pkg006_miembrosestaticos;
 public class Main {
 
     public static void main(String[] args) {
-        Estatico.type = "Dios";
-        System.out.println(new Estatico("Heliogábalo").toString());
+        // puedo acceder de dos formas a atributos estáticos 
+        // con nombreObjeto.atributo
+        // con nombreClase.atributo
         
+        Estatico.type = "Dios";
+        Estatico d = new Estatico("Heliogábalo");
+        
+        
+        // 
         
     }
     

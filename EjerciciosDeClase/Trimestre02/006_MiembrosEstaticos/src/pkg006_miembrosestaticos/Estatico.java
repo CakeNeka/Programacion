@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg006_miembrosestaticos;
 
 /**
  *
  * @author Diurno
+ *         09/01/2023
  */
 public class Estatico {
     
@@ -16,11 +12,13 @@ public class Estatico {
 
     @Override
     public String toString() {
-        return "Estatico{" + "name=" + name + " tipo=" + type + '}';
+        return "name=" + name + "\ntipo=" + type;
     }
-
-
-
+    
+    
+    public static String muestraEstaticos() {
+        return type;
+    }
     public Estatico(String name) {
         this.name = name;
     }
