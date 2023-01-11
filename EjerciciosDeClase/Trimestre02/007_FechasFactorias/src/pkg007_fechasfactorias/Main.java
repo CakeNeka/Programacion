@@ -8,7 +8,12 @@ package pkg007_fechasfactorias;
 public class Main {
 
     public static void main(String[] args) {
-            DateFactory df = new RandomDateFactory();
+        Date d = Date.generateDate(29,2,1600);
+        System.out.println(d);
+        for (int i = 0; i < 2023; i++) {
+            if (Date.isLeap(i))
+                System.out.println(i);
+        }
     }
     
 }

@@ -18,28 +18,29 @@ public class Date {
     
     // Constructores
 
-    public Date(int dd, int mm, int yy) {
+    private Date(int dd, int mm, int yy) {
         this.dd = dd;
         this.mm = mm;
         this.yy = yy;
     }
+    
+    public static Date generateDate(int dd, int mm, int yyyy){
+        if (dateIsCorrect(dd,mm,yyyy))
+            return new Date(dd,mm,yyyy);
+        else 
+            return null;
+    }
 
     @Override
-    public String toString() {
-        return dd + " " + mm + " " + " " + yy;
+    public String toString() {  
+        return dd + " " + mm + " " + yy;
     }
     
     // Static methods
     static boolean dateIsCorrect(Date d) {
-        if (d.mm < 1 || d.mm > 12){
-            return false;
-        }
-        if (isLeap(d.yy)){
-            monthDays[1]++;
-        }
-        
-        int maxDay = monthDays[2];
-        
+        if (d.mm < 1 || d.mm > 12 || d.yy < 400) return false;
+        if (isLeap(d.yy)) monthDays[1]++;
+        int maxDay = monthDays[d.mm-1];
         return (d.dd <= maxDay && d.dd > 0);
     }
     
