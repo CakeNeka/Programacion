@@ -1,5 +1,5 @@
 # *Busca Pepos* (Buscaminas)
-Buscaminas en java swing. 
+Buscaminas en java swing. Perdona el espanglish.
 
 **Hecho con:**
  * Azúcar

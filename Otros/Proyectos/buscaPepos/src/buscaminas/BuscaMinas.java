@@ -1,15 +1,13 @@
 package buscaminas;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class BuscaMinas {
 
     static Grid curGame;
-    static int rows = 50;
-    static int columns = 120;
-    static int mines = 6;
+    static int rows = 20;
+    static int columns = 30;
+    static int mines = 40;
 
     public static void main(String[] args) {
         curGame = new Grid(rows, columns, mines);

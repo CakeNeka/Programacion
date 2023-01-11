@@ -50,7 +50,7 @@ public class Grid extends JFrame {
         
     }
 
-    // Mejorable: 
+    // Selecciona que casillas serán minas 
     public void initializeMines(int mines, int firstClickedRow, int firstClickedCol) {
         Random rand = new Random();
         int randRow;
@@ -70,6 +70,8 @@ public class Grid extends JFrame {
         generateAround();
     }
 
+    // Genera el número que corresponde a cada casilla 
+    // (el número de minas que tiene a su alrededor)
     private void generateAround() {
         int i = 0;
         int j = 0;
@@ -84,7 +86,6 @@ public class Grid extends JFrame {
             }
         }
     }
-
     private int findAround(int row, int col) {
         if (boxes[row][col].isMine())
             return - 1;
@@ -117,6 +118,8 @@ public class Grid extends JFrame {
         return minesAround;
     }
 
+    // Cuando se pulsa una casilla con numero 0 se descubren 
+    // automáticamente las casillas que tiene a su alrededor
     public void uncoverZeroes(int row, int col) {
         BoxButton curButton = boxes[row][col];
         int around = curButton.getAround();
@@ -167,6 +170,7 @@ public class Grid extends JFrame {
         }
     }
     
+    // Comprueba que solo están cubiertas las casillas con mina
     private boolean searchWin() {
 
         int i = 0;
@@ -185,11 +189,13 @@ public class Grid extends JFrame {
 
         return true;
     }
-
+    
+    
     public int getClicks() {
         return clicks;
     }
-
+    
+    // Cuenta la cantidad de clicks
     public void click() {
         this.clicks++;
     }

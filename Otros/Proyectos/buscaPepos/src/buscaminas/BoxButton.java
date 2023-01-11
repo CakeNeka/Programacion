@@ -1,8 +1,6 @@
 package buscaminas;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
@@ -10,8 +8,8 @@ import javax.swing.border.EtchedBorder;
 
 class BoxButton extends JButton implements MouseListener {
     
-    public static final int BOX_WIDTH = 10;
-    public static final int BOX_HEIGHT = 10;
+    public static final int BOX_WIDTH = 30;
+    public static final int BOX_HEIGHT = 30;
     
     private Grid grid;
     private int row;
@@ -50,7 +48,8 @@ class BoxButton extends JButton implements MouseListener {
             this.flag();
         }
     }
-
+    
+    // Descubre la casilla
     public void unCover() {
         String text = this.getAround() == 0 ? "" : this.getAround() + "";
         if (this.isMine()) {
@@ -76,7 +75,8 @@ class BoxButton extends JButton implements MouseListener {
             this.setText("");
         }
     }
-
+    
+    // Getters & Setters
     public int getRow() {
         return row;
     }
@@ -120,7 +120,8 @@ class BoxButton extends JButton implements MouseListener {
     public void setStatus(Status status) {
         this.status = status;
     }
-
+    
+    // Metodos implementados que no se utilizan
     @Override
     public void mouseClicked(MouseEvent me) {
     }
