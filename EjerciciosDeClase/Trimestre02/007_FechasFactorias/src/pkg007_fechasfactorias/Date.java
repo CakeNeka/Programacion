@@ -33,14 +33,15 @@ public class Date {
     }
 
     // Sumar/Restar dias
-    void sumaDias(int dd) {
+    void sumaDias(int diasASumar) {
         int[] localMonthDays = monthDays.clone();
+        
         if (isLeap(this.yy)) {
             localMonthDays[1] = 29;
         }
 
-        while (dd > 0) {
-            dd--;
+        while (diasASumar > 0) {
+            diasASumar--;
             this.dd++;
 
             // Comprobaciones (final de mes y año)

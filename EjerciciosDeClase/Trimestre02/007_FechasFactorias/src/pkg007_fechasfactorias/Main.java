@@ -10,8 +10,12 @@ import java.time.Month;
 public class Main {
 
     public static void main(String[] args) {
-        Date d = Date.generateDate(29, 2, 2000);
+        long time = System.currentTimeMillis();
+        Date d = Date.generateDate(1, 1, 2023);
         System.out.println(d);
+        d.sumaDias(4_000_000);
+        System.out.println(d);
+        System.out.println(System.currentTimeMillis() - time + " ms");
 
         /*
         Date.dateIsCorrect(d);
