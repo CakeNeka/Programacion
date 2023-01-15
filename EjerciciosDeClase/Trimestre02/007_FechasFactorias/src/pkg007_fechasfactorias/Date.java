@@ -71,7 +71,7 @@ public class Date {
         }
 
         int daysElapsed = 0;
-        while (daysElapsed <= dd) {
+        while (daysElapsed < dd) {
             daysElapsed++;
             this.dd--;
 
