@@ -63,7 +63,31 @@ public class Date {
             }
         }
     }
+    
+    void alterSumaDias(int dd){
+        int[] localMonthDays = monthDays.clone();
+        this.dd += dd;
+        if (isLeap(this.yy)){
+            localMonthDays[1] = 29;
+        }
+        
+        while(this.dd > localMonthDays[this.mm-1]) {
 
+            this.dd -= localMonthDays[this.mm-1];
+            this.mm++;
+            if (this.mm > 12){
+                this.mm = 1;
+                this.yy++;
+                
+                if (isLeap(this.yy)){
+                    localMonthDays[1] = 29;
+                } else {
+                    localMonthDays[1] = 28;
+                }
+            }
+        }
+    }
+    
     void restaDias(int dd) {
         int[] localMonthDays = monthDays.clone();
         if (isLeap(this.yy)) {
