@@ -29,7 +29,7 @@ public class Grid extends JFrame {
         // Panel to hold the buttons
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(rows, cols, 0, 0));
-        System.out.println();
+        
         // Add the Box Buttons to the panel
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
