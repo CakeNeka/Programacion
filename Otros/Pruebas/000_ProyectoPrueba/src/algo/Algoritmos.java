@@ -11,6 +11,7 @@ public class Algoritmos {
         //System.out.println(isPalindrome2("kollok"));
         
         System.out.println(isPalindrome(34243));
+        System.out.println(decimalToBinary(233));
     }
 
     public static int bestSubarrayOfLengthK(int[] arr, int k) {
@@ -162,6 +163,14 @@ public class Algoritmos {
             y /= 10;
         }
         return x == res;
+    }
+    
+    public static String decimalToBinary(int decimal){
+        if (decimal == 0) return "";
+        
+        int resto = decimal % 2;
+        decimal /= 2;
+        return decimalToBinary(decimal) + resto;
     }
     
     static int firstDigit (int n){
