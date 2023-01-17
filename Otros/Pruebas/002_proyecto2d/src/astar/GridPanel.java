@@ -2,6 +2,9 @@ package astar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javafx.scene.input.KeyCode;
 
 public class GridPanel extends JPanel {
 
@@ -34,6 +37,7 @@ public class GridPanel extends JPanel {
         //
 
         calculateCosts();
+        
         this.setPreferredSize(new Dimension(Node.NODE_WIDTH * COLS, Node.NODE_HEIGHT * ROWS));
 
     }
@@ -64,6 +68,10 @@ public class GridPanel extends JPanel {
         if (node != startNode && node != endNode) {
             node.setText("<html>" + node.fCost + "<br>" + node.gCost + "<br>" + node.hCost + "</html>");
         }
+    }
+    
+    public void search() {
+        System.out.println("Finding path...");
     }
 
 }
