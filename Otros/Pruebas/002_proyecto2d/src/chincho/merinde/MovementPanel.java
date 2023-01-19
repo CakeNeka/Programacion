@@ -36,28 +36,21 @@ class MovementPanel extends JPanel {
     public void paintComponent(Graphics g) {
         w = this.getWidth();
         h = this.getHeight();
-
-        background = new Rectangle2D.Double(0, 0, w, h);
-
         Graphics2D g2d = (Graphics2D) g;
-
+        
+        background = new Rectangle2D.Double(0, 0, w, h);
         g2d.setColor(new Color(5, 5, 5));
         g2d.fill(background);
 
         upper.draw(g2d);
         lower.draw(g2d);
-
         for (Bullet bullet : bullets) {
             bullet.draw(g2d);
         }
-        /*
-        g2d.setColor(Color.RED);
-        g2d.fill(upperRect);
-        
-        g2d.setColor(Color.BLUE);
-        g2d.fill(lowerRect);
-         */
-
+    }
+    
+    public void add(Bullet b) {
+        bullets.add(b);
     }
 
 }

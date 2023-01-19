@@ -58,7 +58,7 @@ public class MainWindow extends JFrame {
             moveLowerRight();
         }
         if(input.pressedKeys.contains(KeyEvent.VK_UP)) {
-            panel.upper.shoot(-1);
+            panel.lower.shoot(-1);
         }
     }
 

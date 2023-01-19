@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 public class Player {
     
     Rectangle2D.Double sprite;
-    
+    MovementPanel parent;
     
     static double baseVelocity = 2;
     static double size = 50;
@@ -21,6 +21,7 @@ public class Player {
         this.xPos = xPos;
         this.yPos = yPos;
         this.color = color;
+        this.parent = parent;
         
         sprite = new Rectangle2D.Double(xPos, yPos, size, size);
     }
@@ -41,8 +42,8 @@ public class Player {
     }
     
     public void shoot(int dir){
-        Bullet b = new Bullet(xPos, yPos, dir);
-        
+        Bullet b = new Bullet(xPos, yPos, dir, this);
+        parent.add(b);
     }
     
     public double getxPos() {
@@ -56,6 +57,7 @@ public class Player {
     public double getyPos() {
         return yPos;
     }
+    
     
     
 }
