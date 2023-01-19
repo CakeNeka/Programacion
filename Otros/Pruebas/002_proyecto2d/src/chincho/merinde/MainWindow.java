@@ -35,80 +35,54 @@ public class MainWindow extends JFrame {
     private void update() {
         checkMovementInputs();
         panel.repaint();
-        
-        for (Ellipse2D.Double bullet : panel.bullets) {
-            //
-        }
     }
 
     void checkMovementInputs() {
-
+        
+        // Upper player movement
         if (input.pressedKeys.contains(KeyEvent.VK_A)) {
             moveUpperLeft();
         }
         if (input.pressedKeys.contains(KeyEvent.VK_D)) {
             moveUpperRight();
         }
-
+        if (input.pressedKeys.contains(KeyEvent.VK_S)) {
+            panel.upper.shoot(1);
+        }
+        
+        // Lower player movement
         if (input.pressedKeys.contains(KeyEvent.VK_LEFT)) {
             moveLowerLeft();
         }
         if (input.pressedKeys.contains(KeyEvent.VK_RIGHT)) {
             moveLowerRight();
         }
-        
-        if(input.pressedKeys.contains(KeyEvent.VK_SPACE)) {
-            
+        if(input.pressedKeys.contains(KeyEvent.VK_UP)) {
+            panel.upper.shoot(-1);
         }
     }
 
     void moveUpperLeft() {
-        if (panel.upperRectx > 0)
-            panel.upperRectx -= xSpeed;
+        if (panel.upper.getxPos() > 0) {
+            panel.upper.moveLeft();
+        }
     }
 
     void moveUpperRight() {
-        if (panel.upperRectx < panel.getWidth() - panel.rectWidth)
-            panel.upperRectx += xSpeed;
+        if (panel.upper.getxPos() < panel.getWidth() - Player.size) {
+            panel.upper.moveRight();
+        }
     }
 
     void moveLowerLeft() {
-        if (panel.lowerRectx > 0)
-        panel.lowerRectx -= xSpeed;
+        if (panel.lower.getxPos() > 0) {
+            panel.lower.moveLeft();
+        }
     }
 
     void moveLowerRight() {
-        if (panel.lowerRectx < panel.getWidth() - panel.rectWidth)
-            panel.lowerRectx += xSpeed;
-    }
-}
-
-class InputListener implements KeyListener {
-
-    // No permite elementos duplicados
-    public Set<Integer> pressedKeys = new HashSet<>();
-    MainWindow parent;
-
-    InputListener(MainWindow parent) {
-        this.parent = parent;
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        pressedKeys.add(e.getKeyCode());
-        checkInputs();
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        pressedKeys.remove(e.getKeyCode());
-    }
-
-    private void checkInputs() {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
+        if (panel.lower.getxPos() < panel.getWidth() - Player.size) {
+            panel.lower.moveRight();
+        }
     }
 }

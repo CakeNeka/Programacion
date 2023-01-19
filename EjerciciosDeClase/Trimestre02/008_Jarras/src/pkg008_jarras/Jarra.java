@@ -33,7 +33,7 @@ public class Jarra {
         if(this.equals(other)){                                      // Una jarra no puede llenarse a sí misma
             System.out.println("Operation Failed");
         }
-        else if (this.contenido + other.contenido <= espacioLibre) { // Toda la cantidad de la otra jarra cabe en esta
+        else if (other.contenido <= espacioLibre) {                  // Toda la cantidad de la otra jarra cabe en esta
             contenido = contenido + other.contenido;                 // Al contenido de esta jarra añado el contenido de la otra
             other.contenido = 0;                                     // La otra jarra se vacía completamente
         } else {                                                     // Solo cabe parte de la cantidad de la otra jarra
