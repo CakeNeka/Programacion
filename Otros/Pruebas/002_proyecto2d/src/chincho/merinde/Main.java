@@ -9,4 +9,9 @@ public class Main {
     public static void main(String[] args) {
         new MainWindow();
     }
+    
+    public static void gameOver(String loser) {
+        System.out.println(loser + " Perdió");
+        System.exit(0);
+    }
 }

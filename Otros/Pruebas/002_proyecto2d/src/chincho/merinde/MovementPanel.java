@@ -3,6 +3,7 @@ package chincho.merinde;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JPanel;
 
 class MovementPanel extends JPanel {
@@ -28,7 +29,7 @@ class MovementPanel extends JPanel {
 
         upper = new Player(upperRectx, upperRecty, Color.RED, this);
         lower = new Player(lowerRectx, lowerRecty, Color.BLUE, this);
-
+        
         this.setPreferredSize(new Dimension(w, h));
     }
 
@@ -44,8 +45,25 @@ class MovementPanel extends JPanel {
 
         upper.draw(g2d);
         lower.draw(g2d);
-        for (Bullet bullet : bullets) {
-            bullet.draw(g2d);
+        
+        
+        Iterator<Bullet> i = bullets.iterator();
+        while (i.hasNext()){
+            boolean impact = false;
+            Bullet b = i.next();
+            b.draw(g2d);
+            if (b.getyPos() < upper.size && b.getxPos() > upper.getxPos() 
+                    && b.getxPos() < upper.getxPos() + upper.size){ // Dentro de jugador de arriba
+                upper.receiveDamage();
+                impact = true;
+            } else if (b.getyPos() > this.getHeight() - lower.size && b.getxPos() > lower.getxPos() 
+                    && b.getxPos() < lower.getxPos() + lower.size){               // Dentro de jugador de abajo
+                lower.receiveDamage();
+                impact = true;
+            }
+            if (b.getyPos() < 0 || b.getyPos() > this.getHeight() || impact) {
+                i.remove();
+            }
         }
     }
     
