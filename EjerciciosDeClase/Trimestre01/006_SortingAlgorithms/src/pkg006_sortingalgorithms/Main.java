@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  *
  * @author Diurno
+ *
  */
 public class Main {
 
@@ -25,43 +26,35 @@ public class Main {
 
         System.out.println("Sorting Algorithms\n");
 
-        unsortedArray = new int[500000];
+        unsortedArray = new int[50_000];
         fillArray(unsortedArray);
         array = unsortedArray.clone();
 
         System.out.println("·BUBBLE SORT·");
-        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
         time = System.nanoTime();
         bubblesort(array);
         time = System.nanoTime() - time;
-        //System.out.printf("Array ordenado: %s \n" , Arrays.toString(array));
         System.out.printf("Tiempo empleado: %.4f milisegundos \n", time / 1_000_000);
 
         array = unsortedArray.clone();
         System.out.println("\n·QUICK SORT·");
-        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
         time = System.nanoTime();
         quicksort(array);
         time = System.nanoTime() - time;
-        //System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
         System.out.printf("Tiempo empleado: %.4f milisegundos \n", time / 1_000_000);
 
         array = unsortedArray.clone();
         System.out.println("\n·HEAP SORT·");
-        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
         time = System.nanoTime();
         HeapSort.sort(array);
         time = System.nanoTime() - time;
-        //System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
         System.out.printf("Tiempo empleado: %.4f milisegundos \n", time / 1_000_000);
-        
+
         array = unsortedArray.clone();
-        System.out.println("\n·BOGO SORT·");
-        //System.out.printf("Array inicial:  %s\n" , Arrays.toString(array));
+        System.out.println("\n·MERGE SORT·");
         time = System.nanoTime();
-        //bogosort(array);
+        mergeSort(array);
         time = System.nanoTime() - time;
-        //System.out.printf("Array ordenado: %s\n" , Arrays.toString(array));
         System.out.printf("Tiempo empleado: %.4f milisegundos", time / 1_000_000);
     }
 
@@ -92,7 +85,7 @@ public class Main {
         }
 
 //	1 Choose pivot
-        int pivotIndex = ThreadLocalRandom.current().nextInt(lowIndex , highIndex);
+        int pivotIndex = ThreadLocalRandom.current().nextInt(lowIndex, highIndex);
         int pivot = array[pivotIndex];
         swap(array, pivotIndex, highIndex);
 
@@ -131,11 +124,6 @@ public class Main {
         quicksort(array, 0, array.length - 1);
     }
 
-    // 3 · Heap Sort
-    static void heapsort(int[] array) {
-        
-    }
-
     static void bogosort(int[] array) {
         boolean sorted = false;
         while (!sorted) {
@@ -148,14 +136,52 @@ public class Main {
                 i++;
             }
             i = 0;
-            while (i < array.length && !sorted ) {
+            while (i < array.length && !sorted) {
                 swap(array, i, random.nextInt(array.length));
-                
+
                 i++;
             }
         }
     }
-    
+
+    // 3 · Merge Sort
+    static void mergeSort(int[] array) {
+        if (array.length < 2) {
+            return;
+        }
+
+        int mid = array.length / 2;
+        int[] left = Arrays.copyOfRange(array, 0, mid);
+        int[] right = Arrays.copyOfRange(array, mid, array.length);
+
+        mergeSort(left);
+        mergeSort(right);
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) {
+                array[k] = left[i];
+                i++;
+            } else {
+                array[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < left.length) {
+            array[k] = left[i];
+            i++;
+            k++;
+        }
+        while (j < right.length) {
+            array[k] = right[j];
+            j++;
+            k++;
+        }
+    }
+
     // Método para rellenar array con números aleatorios
     static void fillArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -164,7 +190,3 @@ public class Main {
     }
 
 }
-
-
-
-

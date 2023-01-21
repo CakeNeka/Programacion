@@ -1,5 +1,7 @@
 package algo;
 
+import java.util.Arrays;
+
 public class Algoritmos {
 
     public static void main(String[] args) {
@@ -10,10 +12,22 @@ public class Algoritmos {
         //System.out.println(reverseString2("alog seripme fo ega buenas tardes"));
         //System.out.println(isPalindrome2("kollok"));
         
-        System.out.println(isPalindrome(34243));
-        System.out.println(decimalToBinary(233));
+        //System.out.println(isPalindrome2(34243));
+        //System.out.println(decimalToBinary(233));
+        //System.out.println(lengthOfLongestSubstring("abcabcbb"));
+        
+        System.out.println(sumOfNaturalNumbers(7));
+        
+        int[] arr = {2,5,7,34,123,7,3,1,34,35,76};
+        mergeSort(arr);
+        System.out.println(Arrays.toString(arr));
+        
     }
 
+    
+    
+    
+    
     public static int bestSubarrayOfLengthK(int[] arr, int k) {
         int best = 0;
         int current = 0;
@@ -157,12 +171,12 @@ public class Algoritmos {
     public static  boolean isPalindrome2(int x) {
         if(x < 0) return false;
         int y = x;
-        int res = 0;
+        int reversed = 0;
         while(y != 0) {
-            res = res * 10 + y % 10;
+            reversed = reversed * 10 + y % 10;
             y /= 10;
         }
-        return x == res;
+        return x == reversed;
     }
     
     public static String decimalToBinary(int decimal){
@@ -178,4 +192,92 @@ public class Algoritmos {
         int digits = (int) Math.log10(n);
         return (int) (n/(int)Math.pow(10, digits));
     }
+    
+    
+    
+    // 3. Longest Substring Without Repeating Characters (LC 3)
+    public static  int lengthOfLongestSubstring(String s) {
+        int[] letters = new int[128];
+        int i = 0;
+        int j = 1;
+        int bestLength = 1;
+        letters[s.charAt(i)] = 1;
+        while (j < s.length()) {
+            if (letters[s.charAt(j)] == 0){
+                letters[s.charAt(j)] = 1;
+                j++;
+                bestLength = Math.max(j-i, bestLength);
+            } else {
+                letters[s.charAt(j)] = 2;
+                while (letters[s.charAt(j)] == 2 && i < j){
+                    letters[s.charAt(i)]--;
+                    i++;
+                }
+                j++;
+            }
+        }
+        return bestLength;
+    }
+    
+    /* Recursion */
+    public static int sumOfNaturalNumbers(int base) {
+        return (base + 1) * base/2;
+    }
+    
+    public static int recursiveSummation(int base) {
+        if (base <= 1) 
+            return base;
+        return base + recursiveSummation(base-1);
+    }
+    
+    public static long fibonacci(int n) {
+        if((n == 0) || n == 1)
+            return n;
+        else
+            return fibonacci(n-1) + fibonacci(n-2); 
+    }
+    
+    
+    public static void mergeSort(int[] arr){
+        if(arr.length == 1) {
+            return;
+        }
+        int mid = arr.length/2;
+        int[] leftArr = new int[mid];          // se puedes usar Arrays.copyOf();
+        int[] rightArr = new int[arr.length - mid];
+        for (int i = 0; i < leftArr.length; i++) {
+            leftArr[i] = arr[i];
+        }
+        for (int i = 0; i < rightArr.length; i++) {
+            rightArr[i] = arr[i+mid];
+        }
+        
+        mergeSort(leftArr);
+        mergeSort(rightArr);
+        
+        int i = 0, j = 0, k = 0;
+        while(i < leftArr.length && j < rightArr.length){
+            if (leftArr[i] <= rightArr[j]){
+                arr[k] = leftArr[i];
+                i++;
+            } else {
+                arr[k] = rightArr[j];
+                j++;
+            }
+            k++;
+        }
+        while(i < leftArr.length){     // Some values left in rightArr OR leftArr
+            arr[k] = leftArr[i];
+            i++;
+            k++;
+        }
+        while(j < rightArr.length){
+            arr[k] = rightArr[j];
+            j++;
+            k++;
+        }    
+   }
+    
+    
+    
 }

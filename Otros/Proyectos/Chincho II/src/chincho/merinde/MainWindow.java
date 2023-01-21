@@ -1,11 +1,10 @@
 package chincho.merinde;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.geom.Ellipse2D;
-import java.util.HashSet;
-import java.util.Set;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -23,7 +22,7 @@ public class MainWindow extends JFrame {
         });
         timer.start();
         input = new InputListener(this);
-
+        
         this.add(panel);
         this.pack();
         this.setTitle("Me parece que me vas a dar la pelota");
@@ -47,7 +46,7 @@ public class MainWindow extends JFrame {
             moveUpperRight();
         }
         if (input.pressedKeys.contains(KeyEvent.VK_S)) {
-            panel.upper.shoot(1);
+            panel.getUpper().shoot(1);
         }
         
         // Lower player movement
@@ -58,31 +57,31 @@ public class MainWindow extends JFrame {
             moveLowerRight();
         }
         if(input.pressedKeys.contains(KeyEvent.VK_UP)) {
-            panel.lower.shoot(-1);
+            panel.getLower().shoot(-1);
         }
     }
 
     void moveUpperLeft() {
-        if (panel.upper.getxPos() > 0) {
-            panel.upper.moveLeft();
+        if (panel.getUpper().getxPos() > 0) {
+            panel.getUpper().moveLeft();
         }
     }
 
     void moveUpperRight() {
-        if (panel.upper.getxPos() < panel.getWidth() - Player.size) {
-            panel.upper.moveRight();
+        if (panel.getUpper().getxPos() < panel.getWidth() - panel.getUpper().size) {
+            panel.getUpper().moveRight();
         }
     }
 
     void moveLowerLeft() {
-        if (panel.lower.getxPos() > 0) {
-            panel.lower.moveLeft();
+        if (panel.getLower().getxPos() > 0) {
+            panel.getLower().moveLeft();
         }
     }
 
     void moveLowerRight() {
-        if (panel.lower.getxPos() < panel.getWidth() - Player.size) {
-            panel.lower.moveRight();
+        if (panel.getLower().getxPos() < panel.getWidth() - panel.getLower().size) {
+            panel.getLower().moveRight();
         }
     }
 }

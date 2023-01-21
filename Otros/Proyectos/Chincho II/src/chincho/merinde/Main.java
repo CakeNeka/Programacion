@@ -10,8 +10,8 @@ public class Main {
         new MainWindow();
     }
     
-    public static void gameOver(String loser) {
-        System.out.println(loser + " Perdió");
+    public static void gameOver(String winner) {
+        System.out.println(winner + " Ganó");
         System.exit(0);
     }
 }

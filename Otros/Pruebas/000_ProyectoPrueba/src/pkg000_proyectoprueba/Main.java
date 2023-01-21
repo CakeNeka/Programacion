@@ -3,9 +3,6 @@ package pkg000_proyectoprueba;
 public class Main {
 
     public static void main(String[] args) {
-
-        System.out.println(800 % 400);
-
         Node a = new Node(0);
         Node b = new Node(1);
         Node c = new Node(2);
@@ -16,7 +13,7 @@ public class Main {
 
         printLinkedList(a);
         System.out.println("---");
-        a = reverseLinkedList(a);
+        a = reverseList(a);
         System.out.println("---");
         printLinkedList(a);
     }
@@ -35,6 +32,41 @@ public class Main {
 
         return head;
 
+    }
+    
+    static Node mergeSortedLists(Node A, Node B){
+        Node prehead = new Node();
+        Node temp = prehead;
+        
+        while(A != null && B != null){
+            if(A.val <= B.val){
+                temp.next = A;
+                A = A.next;
+            } else {
+                temp.next = B;
+                B = B.next;
+            }
+            temp = temp.next;
+        }
+        while(A != null) {
+            temp.next = A;
+            temp = temp.next;
+            A = A.next;
+        }
+        while(B != null) {
+            temp.next = B;
+            temp = temp.next;
+            B = B.next;
+        }
+        return prehead.next;
+    }
+    
+    static Node reverseList(Node head) {
+        if (head == null || head.next == null) return head;
+        Node p = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return p;
     }
 
     static void printLinkedList(Node root) {
