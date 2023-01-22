@@ -15,7 +15,7 @@ public class Window extends JFrame {
         
         this.add(grid);
         this.pack();
-                this.addKeyListener(new KeyListener() {
+        this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent ke) {}
             @Override

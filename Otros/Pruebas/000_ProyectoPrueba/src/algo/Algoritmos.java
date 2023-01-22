@@ -1,6 +1,8 @@
 package algo;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Algoritmos {
 
@@ -231,12 +233,27 @@ public class Algoritmos {
     }
     
     public static long fibonacci(int n) {
-        if((n == 0) || n == 1)
+        if(n == 0 || n == 1)
             return n;
         else
             return fibonacci(n-1) + fibonacci(n-2); 
     }
     
+    
+    
+    static Map<Integer, Integer> memoizedCache = new HashMap<>();
+    public static long optimizedFibo(int n) {
+        memoizedCache.put(1,1);
+        memoizedCache.put(0,1);
+        return fibonacci2(n);
+    }
+    public static int fibonacci2(int n) {
+        if(memoizedCache.containsKey(n))
+            return memoizedCache.get(n);
+        int result = fibonacci2(n-1) + fibonacci2(n-2);
+        memoizedCache.put(n, result);
+        return result;
+    }
     
     public static void mergeSort(int[] arr){
         if(arr.length == 1) {
@@ -278,6 +295,6 @@ public class Algoritmos {
         }    
    }
     
-    
+   
     
 }
