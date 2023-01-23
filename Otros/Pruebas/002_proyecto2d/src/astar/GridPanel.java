@@ -61,8 +61,8 @@ public class GridPanel extends JPanel {
 
     private void getCost(Node node) {
         // GET G COST (distance from the start node)
-        int xDistance = Math.abs(node.col - startNode.col);
-        int yDistance = Math.abs(node.row - startNode.row);
+        int xDistance = Math.abs(node.col - currentNode.col);
+        int yDistance = Math.abs(node.row - currentNode.row);
         node.gCost = xDistance + yDistance;
 
         //GET H COST (Distance from goal)
@@ -116,7 +116,7 @@ public class GridPanel extends JPanel {
                     bestNodeIndex = i;
                 }
                 else if (openList.get(i).fCost == bestNodefCost){
-                    if (openList.get(i).gCost < openList.get(bestNodeIndex).gCost)
+                    if (openList.get(i).hCost < openList.get(bestNodeIndex).hCost)
                         bestNodeIndex = i;
                 }
             }
