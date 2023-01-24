@@ -81,7 +81,6 @@ public class PruebaPdf {
         int mod = 40;
         for (int i = 0; i < 15; i++) {
             canvas.showTextAligned(PdfContentByte.ALIGN_LEFT, "QUIERO LA PLAY", 100, 600 - mod * i, 0);
-            
         }
         canvas.endText();
         stamper.close();
