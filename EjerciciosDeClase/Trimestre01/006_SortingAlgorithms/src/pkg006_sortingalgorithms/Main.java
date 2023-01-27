@@ -11,8 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author Diurno
- *
+ * Bubblesort está implementado de memoria, para el resto
+ * he consultado internet. Heapsort está copiado literalmente.
  */
 public class Main {
 
@@ -26,7 +26,7 @@ public class Main {
 
         System.out.println("Sorting Algorithms\n");
 
-        unsortedArray = new int[50_000];
+        unsortedArray = new int[30_000];
         fillArray(unsortedArray);
         array = unsortedArray.clone();
 
@@ -77,7 +77,7 @@ public class Main {
         } while (swaps > 0);
     }
 
-    // 2 · Quick Sort
+    // 2 · Quick Sort (no se si está 100% bien porque debería ser el más rápido y no es así)
     static void quicksort(int[] array, int lowIndex, int highIndex) {
 
         if (lowIndex >= highIndex) {
@@ -114,34 +114,18 @@ public class Main {
         quicksort(array, leftPointer + 1, highIndex);
     }
 
-    private static void swap(int[] array, int index1, int index2) {
-        int temp = array[index1];
-        array[index1] = array[index2];
-        array[index2] = temp;
-    }
+
 
     static void quicksort(int[] array) {
         quicksort(array, 0, array.length - 1);
     }
+    
 
-    static void bogosort(int[] array) {
-        boolean sorted = false;
-        while (!sorted) {
-            sorted = true;
-            int i = 0;
-            while (i < array.length - 1 && sorted) {
-                if (array[i] > array[i + 1]) {
-                    sorted = false;
-                }
-                i++;
-            }
-            i = 0;
-            while (i < array.length && !sorted) {
-                swap(array, i, random.nextInt(array.length));
-
-                i++;
-            }
-        }
+    
+    private static void swap(int[] array, int index1, int index2) {
+        int temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
     }
 
     // 3 · Merge Sort
@@ -181,7 +165,29 @@ public class Main {
             k++;
         }
     }
+    
+//  Este algoritmo ordena aleatoriamente hasta que el orden es correcto
+//  (es como de broma)
+    static void bogosort(int[] array) {
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            int i = 0;
+            while (i < array.length - 1 && sorted) {
+                if (array[i] > array[i + 1]) {
+                    sorted = false;
+                }
+                i++;
+            }
+            i = 0;
+            while (i < array.length && !sorted) {
+                swap(array, i, random.nextInt(array.length));
 
+                i++;
+            }
+        }
+    }
+    
     // Método para rellenar array con números aleatorios
     static void fillArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
