@@ -9,6 +9,7 @@ import chincho.merinde.*;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Programa de Mati");
         new MainWindow();
     }
     

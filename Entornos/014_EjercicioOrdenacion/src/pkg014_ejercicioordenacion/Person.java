@@ -1,6 +1,8 @@
-package pkg013_ordenacion;
+package pkg014_ejercicioordenacion;
 
 import java.util.Objects;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Person implements Comparable{
 
@@ -29,9 +31,25 @@ public class Person implements Comparable{
         }
         return null;
     }
+    
+    public static Person generateRandomPerson(){
+        Random random = new Random();
+        String name = NameGenerator.createFullName();
+        byte age = (byte) random.nextInt(100);
+        String gender = Gender.values()[random.nextInt(Gender.values().length)].toString();
+        String idCard = generateIdCard();
+        return generatePerson(name, age, gender, idCard);
+    }
+    
+    public static String generateIdCard() {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int idCard = random.nextInt(10000000, 99999999);
+        String dniLetter = Character.toString(dniLetter(idCard));
+        return idCard + dniLetter;
+    }
 
     static boolean correct(String name, byte edad, String idCard) {
-        return nameOK(name) && ageOK(edad) && idCardOkRut(idCard);
+        return nameOK(name) && ageOK(edad) && idCardOK(idCard);
     }
 
     static boolean nameOK(String name) {
@@ -83,7 +101,7 @@ public class Person implements Comparable{
                 return false;
         }
         int num = Integer.parseInt(dni.substring(0,8)) ;
-        return dni.charAt(9) == dniLetter(num);
+        return dni.charAt(8) == dniLetter(num);
     }
     
     static char dniLetter(int dni){
@@ -120,32 +138,8 @@ public class Person implements Comparable{
     @Override
     public int compareTo(Object t) {
         Person other = (Person) t;
-        String thisName = this.name.toUpperCase();
-        String otherName = other.name.toUpperCase();
-        int i = 0;
-        int otherValue = 0;
-        int thisValue = 0;
-        
-        while (otherValue == thisValue && i < otherName.length() && i < thisName.length()){
-            otherValue = otherName.charAt(i);
-            thisValue = thisName.charAt(i);
-            i++;
-        }
-        if (thisValue > otherValue) {
-            return 1;
-        } else if (otherValue > thisValue){
-            return -1;
-        } else if (thisName.length() > otherName.length()){
-            return 1;
-        } else if (otherName.length() > thisName.length()){
-            return -1;
-        } else {
-            return 0;
-        }
-        
+        return this.age - other.age;
     }
-    
-
 
     @Override
     public int hashCode() {
@@ -165,8 +159,10 @@ public class Person implements Comparable{
             return false;
         }
         final Person other = (Person) obj;
-        return Objects.equals(this.idCard, other.idCard);
+        return this.age == other.age;
     }
+
+    
 
     public String showNameId() {
         return name + " " + idCard;
