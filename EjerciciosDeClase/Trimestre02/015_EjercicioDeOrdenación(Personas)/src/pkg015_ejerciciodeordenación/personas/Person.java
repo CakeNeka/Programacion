@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Person implements Comparable{
+public class Person implements Comparable<Person>{
 
     public enum Gender {
         MALE, FEMALE, OTHER
@@ -175,8 +175,7 @@ public class Person implements Comparable{
     }
     
     @Override
-    public int compareTo(Object t) {
-        Person other = (Person) t;
+    public int compareTo(Person other) {
         return (int) (this.getAge() - other.getAge());
     }
 
@@ -184,8 +183,6 @@ public class Person implements Comparable{
     public String toString() {
         return "Person{" + "name=" + name + ", surname=" + surname + ", idCard=" + idCard + ", domicilio=" + domicilio + ", eMail=" + eMail + ", birthDate=" + birthDate + ", telefono=" + telefono + ", gender=" + gender + '}';
     }
-    
-    
     
     // Getters y Setters
     
@@ -254,8 +251,5 @@ public class Person implements Comparable{
     public void setGender(String gender) {
         if (genderOk(gender))
             this.gender = Gender.valueOf(gender);
-    }
-    
-    
-    
+    }   
 }
