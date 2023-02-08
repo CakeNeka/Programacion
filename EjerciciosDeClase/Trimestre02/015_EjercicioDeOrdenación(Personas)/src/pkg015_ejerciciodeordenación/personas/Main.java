@@ -14,10 +14,10 @@ public class Main {
         
     }
     
-    public static void sortingByNameAndSurnameTest() {
+    public static void sortingByNameAndSurname() {
         Person[] gente = generateArray(30);
         
-        Arrays.sort(gente, new ComparePersonByName().thenComparing(new ComparePersonBySurname()));
+        Arrays.sort(gente, new ComparePersonByName().thenComparing(Comparator.naturalOrder()));
 
         
     }
