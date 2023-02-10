@@ -3,7 +3,6 @@ package ApartadoA;
 public class EsPrimo {
 
     public static void main(String[] args) {
-
         System.out.println(esPrimo(Integer.MAX_VALUE));
     }
     
@@ -25,4 +24,6 @@ public class EsPrimo {
         }
         return true;
     }
+
+
 }
