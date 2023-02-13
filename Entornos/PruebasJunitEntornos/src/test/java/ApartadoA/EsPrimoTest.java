@@ -13,17 +13,18 @@ class EsPrimoTest {
         assertFalse(EsPrimo.esPrimo(-1));
         assertTrue(EsPrimo.esPrimo(13));
     }
-
     @Test
     void numerosMenoresA2Test(){
         assertFalse(EsPrimo.esPrimo(1));
     }
-
     @Test
     void numerosPrimosTest(){
         assertTrue(EsPrimo.esPrimo(13));
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> da7d44a64e82ba489b628f88bf75b0e50411c94b
     @Test
     void numerosNoPrimosTest(){
         assertFalse(EsPrimo.esPrimo(54));
@@ -34,16 +35,30 @@ class EsPrimoTest {
     void valorMinimoPosibleTest(){
         assertTrue(EsPrimo.esPrimo(2));
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> da7d44a64e82ba489b628f88bf75b0e50411c94b
     @Test
     void valorMaximoPosibleTest(){
         assertTrue(EsPrimo.esPrimo(Integer.MAX_VALUE));
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> da7d44a64e82ba489b628f88bf75b0e50411c94b
     @Test
     void valorMinimoNoPermitidoTest(){
         assertFalse(EsPrimo.esPrimo(1));
     }
+<<<<<<< HEAD
+    @Test
+    void NumeroNoPrimoMuyGrandeTest(){
+        assertFalse(EsPrimo.esPrimo(1_999_999_999 ));
+    }
+    @Test
+    void NumeroPrimoMuyGrandeTest(){
+=======
 
     @Test
     void numeroNoPrimoMuyGrandeTest() {
@@ -52,6 +67,7 @@ class EsPrimoTest {
 
     @Test
     void numeroPrimoMuyGrandeTest() {
+>>>>>>> da7d44a64e82ba489b628f88bf75b0e50411c94b
         assertTrue(EsPrimo.esPrimo(1_999_999_973));
     }
 }

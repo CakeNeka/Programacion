@@ -11,9 +11,10 @@ public class Tile extends JButton{
     private int row;
     private int col;
 
-    private char ch = '#';
+    private char ch;
     
     public Tile(int row, int col, int width, int height) {  
+        this.ch = '·';
         this.row = row;
         this.col = col;
         

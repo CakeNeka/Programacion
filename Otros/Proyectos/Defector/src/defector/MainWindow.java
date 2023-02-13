@@ -7,7 +7,6 @@ import javax.swing.Timer;
 public class MainWindow extends JFrame{
     GamePanel panel;
     Timer timer;
-    int xSpeed = 2;
 
     MainWindow() {
         panel = new GamePanel();
