@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
     
-    private int rows = 5;
-    private int cols  = 5;
-    private int rowHeight  = 80;
-    private int colWidth = 80;
+    private int rows = 8;
+    private int cols  = 15;
+    private int rowHeight  = 30;
+    private int colWidth = 30;
     
     private Tile[][] grid;
     

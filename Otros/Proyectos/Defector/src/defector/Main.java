@@ -3,7 +3,7 @@ package defector;
 /**
  * RESUMEN:
  * 
- * @author Neka
+ * @author Martina
  */
 public class Main {
 

@@ -4,11 +4,11 @@ public class Herbivores extends Animal {
     
     public static final FoodType FEEDING = FoodType.PLANTS;
     
-    private String herbivoreField;
+    private String provenanceCountry;
     
-    public Herbivores(String name, String species, String herbivoreField) {
+    public Herbivores(String name, String species, String provenanceCountry) {
         super(name, species);
-        this.herbivoreField = herbivoreField;
+        this.provenanceCountry = provenanceCountry;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Herbivores extends Animal {
 
     @Override
     public String toString() {
-        return super.toString() + "Herbivores{" + "herbivoreField=" + herbivoreField + '}';
+        return super.toString() + "Herbivores{" + "herbivoreField=" + provenanceCountry + '}';
     }
     
     

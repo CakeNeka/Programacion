@@ -2,6 +2,7 @@ package animales;
 
 public class Carnivores extends Animal{
 
+    private static final FoodType FEEDING = FoodType.MEAT;
     private String carnivoreField;
     
     public Carnivores(String name, String species, String carnivoreField) {
