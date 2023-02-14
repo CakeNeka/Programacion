@@ -1,12 +1,12 @@
 package animales;
 
-public class Omnivores extends Animal {
+public class Omnivore extends Animal {
     
     public static final FoodType FEEDING = FoodType.MEAT_AND_PLANTS;
     
     private String omnivoreField;
     
-    public Omnivores(String name, String species, String omnivoreField) {
+    public Omnivore(String name, String species, String omnivoreField) {
         super(name, species);
         this.omnivoreField = omnivoreField;
     }
@@ -15,7 +15,8 @@ public class Omnivores extends Animal {
 
     @Override
     public void eat() {
-        super.eat();
+        System.out.println(name + "Ate");
+        
     }
 
     @Override

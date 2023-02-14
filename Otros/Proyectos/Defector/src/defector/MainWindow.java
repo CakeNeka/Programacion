@@ -5,12 +5,15 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 public class MainWindow extends JFrame{
-    GamePanel panel;
-    Timer timer;
-
+    
+    private final int timerPeriod = 1000;
+    
+    private GamePanel panel;
+    private Timer timer;
+    
     MainWindow() {
         panel = new GamePanel();
-        timer = new Timer(1000 / 120, (ActionEvent ae) -> {
+        timer = new Timer(timerPeriod, (ActionEvent ae) -> {
             update();
         });
         timer.start();

@@ -2,6 +2,10 @@
 package defector;
 /**
  * RESUMEN:
+ *      · MainWindow.   d
+ *      · GamePanel.    d
+ *      · Tile.     
+ * 
  * 
  * @author Martina
  */

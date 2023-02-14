@@ -8,19 +8,17 @@ import java.util.Set;
  * (name, species) clases omnívoros, herbívoros y carnívoros;
  * @author Diurno
  */
-public class Animal {
+public abstract class Animal {
     
-    private String name;
+    protected String name;
     private String species;
-
+    
     public Animal(String name, String species) {
         this.name = name;
         this.species = species;
     }
     
-    public void eat(){
-        System.out.println(name + " Ate");
-    }
+    public abstract void eat();
 
     @Override
     public String toString() {
