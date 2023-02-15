@@ -18,7 +18,7 @@ public class Tile extends JButton{
         this.row = row;
         this.col = col;
         
-        Font fnt = new Font(Font.SERIF,Font.PLAIN, 20);
+        Font fnt = new Font(Font.DIALOG_INPUT,Font.PLAIN, 20);
         this.setFont(fnt);
         this.setBackground(Color.BLACK);
         this.setForeground(Color.WHITE);
@@ -27,5 +27,16 @@ public class Tile extends JButton{
         this.setPreferredSize(new Dimension(width, height));
         
     }
+
+    public char getCh() {
+        return ch;
+    }
+
+    public void setCh(char ch) {
+        this.ch = ch;
+        this.setText(ch + "");
+    }
+    
+    
     
 }
