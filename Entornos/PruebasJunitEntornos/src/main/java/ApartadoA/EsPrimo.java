@@ -2,12 +2,9 @@ package ApartadoA;
 
 public class EsPrimo {
 
-<<<<<<< HEAD
-=======
     public static void main(String[] args) {
         System.out.println(esPrimo(Integer.MAX_VALUE));
     }
->>>>>>> da7d44a64e82ba489b628f88bf75b0e50411c94b
     
     public static boolean esPrimo(int num) {
         if (num < 2) {
