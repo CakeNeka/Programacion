@@ -3,19 +3,21 @@ package defector;
 abstract class Entity {
     
     // Position:
-    private int row;
-    private int col;
+    protected int row;
+    protected int col;
     private boolean traversable;
+    protected GamePanel parent;
     
     // Look.
     private char ch;
 
     // Constructor
-    public Entity(int row, int col, char ch, boolean traversable) {
+    public Entity(int row, int col, char ch, boolean traversable, GamePanel parent) {
         this.row = row;
         this.col = col;
         this.ch = ch;
         this.traversable = traversable;
+        this.parent = parent;
     }
 
     // Getters / Setters
@@ -41,6 +43,10 @@ abstract class Entity {
 
     public void setCh(char ch) {
         this.ch = ch;
+    }
+
+    boolean isTraversable() {
+        return traversable;
     }
     
     

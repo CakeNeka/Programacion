@@ -17,9 +17,10 @@ public class GamePanel extends JPanel {
     private Tile[][] grid;
     private Player player;
     
+    
     public GamePanel() {
         grid = new Tile[rows][cols];
-        player = new Player(0,0,'@');
+        player = new Player(0,0,'@',this);
         entities = new ArrayList<>();
         entities.add(player);
         
@@ -42,5 +43,19 @@ public class GamePanel extends JPanel {
         for (Entity entity : entities) {
             grid[entity.getRow()][entity.getCol()].setCh(entity.getCh());
         }
+    }
+    
+    public boolean positionIsTraversable(int row, int col) {
+        showEntities();
+        boolean rowIsNull = row >= grid.length || row < 0;
+        boolean colIsNull = col >= grid[0].length || col < 0;
+        if (rowIsNull || colIsNull)
+            return false;
+        for (Entity entity : entities) {
+            if(entity.getRow() == row && entity.getCol() == col && !entity.isTraversable())
+                return false;
+        }
+        return true;
+        
     }
 }

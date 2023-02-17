@@ -1,5 +1,8 @@
 package pkg021_ejercicioanimales;
 
+import java.util.ArrayList;
+import java.util.List;
+
         /**
          * Ejercicio: 
          * reino animal vertebrados --> peces (pelo, aletas, branquias)
@@ -18,8 +21,24 @@ package pkg021_ejercicioanimales;
 
 public class Main {
 
+    /**
+     * 
+     * @param args
+     * 
+     */
     public static void main(String[] args) {
+        /* _Polimorfismo_ */
         
+       /**
+        * <String>
+        */
+        List<Animal> lista = new ArrayList<>();
+        
+        Animal e = new Mamifero();
+        Animal p = new Pez();
+        e.alimentar();
+        lista.add(e);
+        lista.add(p);
     }
     
 }

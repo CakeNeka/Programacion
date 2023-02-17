@@ -30,12 +30,16 @@ public class InputListener implements KeyListener {
     public void keyPressed(KeyEvent ke) {
         switch (ke.getKeyCode()) {
             case KeyEvent.VK_LEFT:
+                player.moveLeft();
                 break;
             case KeyEvent.VK_RIGHT:
+                player.moveRight();
                 break;
             case KeyEvent.VK_UP: 
+                player.moveUp();
                 break;
             case KeyEvent.VK_DOWN:
+                player.moveDown();
                 break;
             default:
                 break;
