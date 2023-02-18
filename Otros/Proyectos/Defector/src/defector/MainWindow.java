@@ -13,16 +13,17 @@ public class MainWindow extends JFrame{
     
     MainWindow() {
         panel = new GamePanel();
-        timer = new Timer(timerPeriod, (ActionEvent ae) -> {
-            update();
-        });
-        timer.start();
+//        timer = new Timer(timerPeriod, (ActionEvent ae) -> {
+//            update();
+//        });
+//        timer.start();
         
         this.add(panel);
         this.pack();
         this.setTitle("Me parece que me vas a dar la pelota");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        
     }
 
     private void update() {

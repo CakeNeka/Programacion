@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Tile extends JButton{
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
 
     private char ch;
     
@@ -23,6 +23,7 @@ public class Tile extends JButton{
         this.setBackground(Color.BLACK);
         this.setForeground(Color.WHITE);
         this.setBorder(null);
+        this.setFocusable(false);
         this.setText(ch + "");
         this.setPreferredSize(new Dimension(width, height));
         

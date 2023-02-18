@@ -48,6 +48,16 @@ abstract class Entity {
     boolean isTraversable() {
         return traversable;
     }
+
+    public GamePanel getParent() {
+        return parent;
+    }
+
+    public void setParent(GamePanel parent) {
+        this.parent = parent;
+    }
+    
+    
     
     
 }

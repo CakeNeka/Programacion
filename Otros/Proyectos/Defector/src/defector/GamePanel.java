@@ -34,19 +34,28 @@ public class GamePanel extends JPanel {
         }
         
         this.setPreferredSize(new Dimension(cols * colWidth, rows * rowHeight));
-        this.addKeyListener(new InputListener(player));
+        this.addKeyListener(new InputManager(player));
+        this.setFocusable(true);
         
         showEntities();
     }   
     
+    /**
+     * Repaints all components in scene
+     */
     public void showEntities(){
+        for (Tile[] tiles : grid) {
+            for (Tile tile : tiles) {
+                tile.setCh('·');
+            }
+        }
         for (Entity entity : entities) {
             grid[entity.getRow()][entity.getCol()].setCh(entity.getCh());
         }
     }
     
+    
     public boolean positionIsTraversable(int row, int col) {
-        showEntities();
         boolean rowIsNull = row >= grid.length || row < 0;
         boolean colIsNull = col >= grid[0].length || col < 0;
         if (rowIsNull || colIsNull)
