@@ -32,5 +32,14 @@ public abstract class Tile extends JButton{
     public abstract boolean isTraversable();
     
     public abstract void setText();
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+    
     
 }

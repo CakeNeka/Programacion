@@ -32,11 +32,9 @@ public class Floor extends Tile {
         item = null;
     }
     
-    
-    
     @Override
     public boolean isTraversable() {
-        return false;
+        return true;
     }
 
     @Override

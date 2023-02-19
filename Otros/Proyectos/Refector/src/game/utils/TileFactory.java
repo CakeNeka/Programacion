@@ -1,6 +1,7 @@
 package game.utils;
 
 import game.elements.*;
+import game.gui.GameBoard;
 
 /**
  *
@@ -21,7 +22,7 @@ class TileFactory {
                 tile = new Door(row, col, true);
                 break;
             case 'P':
-                // tile = new Floor(row, col, Entities.potion); 
+                // tile = new Floor(row, col, Entities.Potion); 
                 break;
             case 'M':
                 tile = enemyFloor(row, col);
@@ -41,10 +42,12 @@ class TileFactory {
     }    
     
     static Floor enemyFloor(int row, int col){
+//      GameBoard.addEnemy(row, col);
         return new Floor(row, col, true, false);
     }
     
     static Floor playerFloor(int row, int col){
+        GameBoard.initializePlayer(row,col);
         return new Floor(row, col, false, true);
     }
 }
