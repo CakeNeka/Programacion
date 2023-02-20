@@ -8,9 +8,12 @@ abstract class Entity {
     
     private Tile parent;
 
+    public Entity() { }
     public Entity(Tile parent) {
         this.parent = parent;
     }
+    
+    
     
     
     public abstract String getSymbol();

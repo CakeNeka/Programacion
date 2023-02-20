@@ -5,6 +5,11 @@ public class Key extends Entity {
     static char keySymbol = 'K';
     
     private int code;
+
+    public Key(int code) {
+        this.code = code;
+    }
+    
     
     public Key(Tile parent, int code) {
         super(parent);

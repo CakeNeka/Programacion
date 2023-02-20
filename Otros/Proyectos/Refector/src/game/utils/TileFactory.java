@@ -9,6 +9,14 @@ import game.gui.GameBoard;
  */
 class TileFactory {
 
+    /**
+     * Generates simple tiles based on a symbol and position.
+     * 
+     * @param symbol
+     * @param row
+     * @param col
+     * @return 
+     */
     static Tile generate(char symbol, int row, int col) {
         Tile tile = null;
         switch (symbol){
@@ -17,9 +25,6 @@ class TileFactory {
                 break;
             case '!':
                 tile = new Door(row, col, false);
-                break;
-            case '|':
-                tile = new Door(row, col, true);
                 break;
             case 'P':
                 // tile = new Floor(row, col, Entities.Potion); 
@@ -34,10 +39,6 @@ class TileFactory {
                 tile = new Floor(row,col);
         }
         
-        if (Character.isDigit(symbol)){
-            tile = new Door(row, col, false, symbol - 48);
-        }
-        
         return tile;
     }    
     
@@ -49,5 +50,13 @@ class TileFactory {
     static Floor playerFloor(int row, int col){
         GameBoard.initializePlayer(row,col);
         return new Floor(row, col, false, true);
+    }
+    
+    static Floor generateKeyTile(int row, int col, int keyCode){
+        return new Floor(row, col, new Key(keyCode));
+    }
+    
+    static Door generateDoor(int row, int col, boolean locked, int code, int pointsToLevel) {
+        return new Door(row, col, locked, code, pointsToLevel);
     }
 }

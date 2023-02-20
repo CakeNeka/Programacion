@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class GameBoard extends JPanel implements KeyListener {
 
-    public static Tile[][] currentLevel = LevelReader.getLevel(1);
+    public static Tile[][] currentLevel = LevelReader.loadLevel(1);
     
     public static Player player;
     public static List<Enemy> enemies = new ArrayList<>();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game.elements;
 
 /**
@@ -20,10 +15,20 @@ public class Door extends Tile{
         this.locked = locked;
         pointsToLevel = -1;
     }
-    
-    public Door(int row, int col, boolean locked, int pointsToLevel) {
+
+    public Door(int row, int col, boolean locked, int code) {
         super(row, col);
         this.locked = locked;
+        this.code = code;
+        pointsToLevel = -1;
+    }
+    
+    
+    
+    public Door(int row, int col, boolean locked, int code, int pointsToLevel) {
+        super(row, col);
+        this.locked = locked;
+        this.code = code;
         this.pointsToLevel = pointsToLevel;
     }
     
