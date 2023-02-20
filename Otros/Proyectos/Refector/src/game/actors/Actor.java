@@ -9,9 +9,9 @@ import game.gui.GameBoard;
  */
 public abstract class Actor {
 
-    private int row;
-    private int col;
-
+    protected int row;
+    protected int col;
+    
     public Actor(int row, int col) {
         this.row = row;
         this.col = col;
@@ -29,31 +29,17 @@ public abstract class Actor {
         return col;
     }
 
-    public void setCol(int col) {
+    public final void setCol(int col) {
         this.col = col;
     }
 
-    public void moveLeft() {
-        if (GameBoard.positionAvailable(row, col - 1)) {
+    public abstract void moveLeft();
 
-        }
-    }
+    public abstract void moveRight();
 
-    public void moveRight() {
-        if (GameBoard.positionAvailable(row, col + 1)) {
+    public abstract void moveUp();
 
-        }
-    }
-
-    public void moveUp() {
-        if (GameBoard.positionAvailable(row, col + 1)) {
-
-        }
-    }
-
-    public void moveDown() {
-        if (GameBoard.positionAvailable(row, col + 1)) {
-
-        }
-    }
+    public abstract void moveDown();
+    
+    protected abstract void changePosition(int newRow, int newCol);
 }

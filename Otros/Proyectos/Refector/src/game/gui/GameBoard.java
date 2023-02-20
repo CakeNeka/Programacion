@@ -2,6 +2,7 @@ package game.gui;
 
 import game.actors.Enemy;
 import game.actors.Player;
+import game.elements.Door;
 import game.elements.Floor;
 import game.elements.Tile;
 import game.utils.LevelReader;
@@ -16,33 +17,32 @@ import javax.swing.JPanel;
 /**
  * <h2> GameBoard </h2>
  * container for all objects in the game
+ *
  * @author Neka
  */
-public class GameBoard extends JPanel implements KeyListener{
-    
-    static Tile[][] currentLevel = LevelReader.getLevel(1);;
-    public static Player player;
-    static List<Enemy> enemies = new ArrayList<>();
+public class GameBoard extends JPanel implements KeyListener {
 
-    public static boolean positionAvailable(int row, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public static Tile[][] currentLevel = LevelReader.getLevel(1);
     
+    public static Player player;
+    public static List<Enemy> enemies = new ArrayList<>();
+
     public GameBoard() {
-        
+
         this.setLayout(new GridLayout(currentLevel.length, currentLevel[0].length, 0, 0));
         for (Tile[] tiles : currentLevel) {
             for (Tile tile : tiles) {
                 this.add(tile);
-                tile.setText();       
             }
         }
         this.addKeyListener(this);
         this.setFocusable(true);
         this.setVisible(true);
-    }   
+        
+        repaintBoard();
+    }
 
-    public static void initializePlayer(int row, int col){
+    public static void initializePlayer(int row, int col) {
         if (player == null) {
             player = new Player(row, col);
         } else {
@@ -50,19 +50,57 @@ public class GameBoard extends JPanel implements KeyListener{
             player.setCol(col);
         }
     }
+
+    public static boolean tileAccesible(int row, int col) {
+        if (row < 0 || row > currentLevel.length || col < 0 || col > currentLevel[0].length) {
+            return false;
+        }
+
+        return currentLevel[row][col].isTraversable();
+    }
+
+    public void repaintBoard(){
+              
+        for (Tile[] tiles : currentLevel) {
+            for (Tile tile : tiles) {
+                tile.setText();       
+            }
+        }
+    }
     
     @Override
     public void keyTyped(KeyEvent ke) {
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
+
+        System.out.println(ke.getKeyChar());
+
+        switch (ke.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                player.moveLeft();
+                break;
+            case KeyEvent.VK_RIGHT:
+                player.moveRight();
+                break;
+            case KeyEvent.VK_UP:
+                player.moveUp();
+                break;
+            case KeyEvent.VK_DOWN:
+                player.moveDown();
+                break;
+            default:
+                break;
+        }
         
+        System.out.println(player.getRow() + " " + player.getCol());
+        repaintBoard();
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
+
     }
 }

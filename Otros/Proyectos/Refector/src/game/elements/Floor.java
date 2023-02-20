@@ -34,7 +34,7 @@ public class Floor extends Tile {
     
     @Override
     public boolean isTraversable() {
-        return true;
+        return !isEnemy && !isPlayer;
     }
 
     @Override
@@ -46,7 +46,22 @@ public class Floor extends Tile {
         else if (item != null)
             setText(item.getSymbol());
         else
-            setText ("·");
+            setText (".");
     }
-    
+
+    public boolean isEnemy() {
+        return isEnemy;
+    }
+
+    public void setEnemy(boolean isEnemy) {
+        this.isEnemy = isEnemy;
+    }
+
+    public boolean isPlayer() {
+        return isPlayer;
+    }
+
+    public void setPlayer(boolean isPlayer) {
+        this.isPlayer = isPlayer;
+    }
 }
