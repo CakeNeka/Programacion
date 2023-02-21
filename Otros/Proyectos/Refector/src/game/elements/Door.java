@@ -48,12 +48,20 @@ public class Door extends Tile{
     public boolean isLocked() {
         return locked;
     }
-
-    public void unLock(int codeKey) {
-        if (codeKey == code) {
+    
+    public boolean tryUnlock(Key key) {
+        if (key.getCode() == code) {
             locked = false;
+            return true;
         }
+        return false;
     }
+
+    public int getCode() {
+        return code;
+    }
+    
+    
     
     
 }

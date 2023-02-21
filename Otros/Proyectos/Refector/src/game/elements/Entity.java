@@ -4,16 +4,20 @@ package game.elements;
  *
  * @author Neka
  */
-abstract class Entity {
+public abstract class Entity {
     
     private Tile parent;
-
+    private String name;
+    
     public Entity() { }
     public Entity(Tile parent) {
         this.parent = parent;
+        name = "Entity";
     }
-    
-    
+    public Entity(Tile parent, String name) {
+        this.parent = parent;
+        this.name = name;
+    }
     
     
     public abstract String getSymbol();
@@ -21,4 +25,11 @@ abstract class Entity {
     public void setParent(Tile parent){
         this.parent = parent;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+    
 }

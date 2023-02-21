@@ -16,9 +16,11 @@ package testabstractas;
 
 public abstract class SerVivo {
     
-    
+    private String nombre;
+    private String especie;
     
     public abstract void alimentarse();
+    public abstract void respirar();
     
     public void morir(){
         System.out.println("He muerto");

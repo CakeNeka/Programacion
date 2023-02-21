@@ -1,12 +1,14 @@
 package testabstractas;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Rut
  * 
  * 20-02-2023
+ * 21-02-2023
  */
 public class TestAbstractas {
 
@@ -79,7 +81,8 @@ public class TestAbstractas {
         SerVivo an = new AnimalHerbivoro() ;
         AnimalHerbivoro herbivoro = (AnimalHerbivoro) an;
         
-        
+        List<SerVivo> circo = new ArrayList<>();
+        circo.add(new Rumiante());
         
         
     }

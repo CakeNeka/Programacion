@@ -46,7 +46,7 @@ public class Floor extends Tile {
         else if (item != null)
             setText(item.getSymbol());
         else
-            setText (".");
+            setText ("·");
     }
 
     public boolean isEnemy() {
@@ -64,4 +64,21 @@ public class Floor extends Tile {
     public void setPlayer(boolean isPlayer) {
         this.isPlayer = isPlayer;
     }
+
+    public Entity getItem() {
+        return item;
+    }
+
+    public void setItem(Entity item) {
+        this.item = item;
+    }
+
+    public boolean removeItem() {
+        if (item == null) return false;
+        
+        item = null;
+        return true;
+    }
+    
+    
 }

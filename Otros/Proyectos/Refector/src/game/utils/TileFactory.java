@@ -15,7 +15,7 @@ class TileFactory {
      * @param symbol
      * @param row
      * @param col
-     * @return 
+     * @return a Wall, Floor, open Door or Player Tile
      */
     static Tile generate(char symbol, int row, int col) {
         Tile tile = null;

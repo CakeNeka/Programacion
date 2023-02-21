@@ -34,12 +34,15 @@ public abstract class Actor {
     }
 
     public abstract void moveLeft();
-
     public abstract void moveRight();
-
     public abstract void moveUp();
-
     public abstract void moveDown();
-    
     protected abstract void changePosition(int newRow, int newCol);
+    
+    public abstract void attackLeft();
+    public abstract void attackRight();
+    public abstract void attackUp();
+    public abstract void attackDown();
+    public abstract void attack(int targetRow, int targetCol);
+    
 }

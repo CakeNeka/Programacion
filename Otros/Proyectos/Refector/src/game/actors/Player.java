@@ -3,6 +3,11 @@ package game.actors;
 import game.elements.Door;
 import game.elements.Floor;
 import game.gui.GameBoard;
+import game.elements.Entity;
+import game.elements.Key;
+import game.elements.Tile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -10,9 +15,14 @@ import game.gui.GameBoard;
  */
 public class Player extends Actor {
 
+    static int MAX_HEALTH = 10;
+    
+    private List<Entity> inventory;
+    
     public Player(int row, int col) {
         super(row, col);
         System.out.println("bulding player");
+        inventory = new ArrayList<>();
     }
 
     @Override
@@ -42,7 +52,66 @@ public class Player extends Actor {
             changePosition(row + 1, col);
         }
     }
+    
+    @Override
+    public void attackLeft() {
+    
+    }
 
+    @Override
+    public void attackRight() {
+        attack(row, col + 1);
+    }
+
+    @Override
+    public void attackUp() {
+        
+    }
+
+    @Override
+    public void attackDown() {
+        
+    }
+    
+    @Override
+    public void attack(int targetRow, int targetCol) {
+        Tile targetTile = GameBoard.currentLevel[targetRow][targetCol];
+        if (targetTile instanceof Door){
+            tryOpenDoor(targetRow,targetCol);
+        } else if (targetTile instanceof Floor && ((Floor)targetTile).isEnemy()) {
+            
+        }
+    }
+    
+    private void tryOpenDoor(int row, int col){
+        Door door = (Door) GameBoard.currentLevel[row][col];
+        List<Key> keys = getKeys();
+        int i = 0;
+        while(i < keys.size() && door.isLocked()){
+            door.tryUnlock(keys.get(i));
+            i++;
+        }
+        
+        for (Entity entity : inventory) {
+            System.out.println(entity);
+        }
+        if (!door.isLocked()){
+            inventory.remove(keys.get(i-1));
+        }
+        for (Entity entity : inventory) {
+            System.out.println(entity);
+        }
+    }
+    
+    private List<Key> getKeys(){
+        List<Key> keys = new ArrayList<>();
+        for (Entity entity : inventory) {
+            if (entity instanceof Key) 
+                keys.add((Key)entity);
+        }
+        return keys;
+    }
+    
     @Override
     protected void changePosition(int newRow, int newCol) {
         if (GameBoard.currentLevel[newRow][newCol] instanceof Door) {
@@ -51,13 +120,28 @@ public class Player extends Actor {
             newCol += newCol - col;
         }
         
-        Floor curFl = (Floor) GameBoard.currentLevel[row][col];
-        Floor newFl = (Floor) GameBoard.currentLevel[newRow][newCol];
-        curFl.setPlayer(false);
-        newFl.setPlayer(true);
+        Floor currentFloor = (Floor) GameBoard.currentLevel[row][col];
+        Floor newFloor = (Floor) GameBoard.currentLevel[newRow][newCol];
+        currentFloor.setPlayer(false);
+        newFloor.setPlayer(true);
         row = newRow;
         col = newCol;
         
+        if (newFloor.getItem() != null) {
+            takeItemFromCurrentTile();
+        }
     }
+
+    
+    
+    private void takeItemFromCurrentTile() {
+        Floor currentFloor = (Floor)GameBoard.currentLevel[row][col];
+        Entity item = currentFloor.getItem();
+        currentFloor.removeItem();
+        inventory.add(item);
+        System.out.println("You found a " + item);
+    }
+
+ 
 
 }

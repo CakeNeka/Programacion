@@ -91,6 +91,11 @@ public class GameBoard extends JPanel implements KeyListener {
             case KeyEvent.VK_DOWN:
                 player.moveDown();
                 break;
+            case KeyEvent.VK_D:
+                player.attackRight();
+                break;
+            case KeyEvent.VK_A:
+                
             default:
                 break;
         }
