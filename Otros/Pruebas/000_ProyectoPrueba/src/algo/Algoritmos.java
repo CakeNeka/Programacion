@@ -18,11 +18,13 @@ public class Algoritmos {
         //System.out.println(decimalToBinary(233));
         //System.out.println(lengthOfLongestSubstring("abcabcbb"));
         
-        System.out.println(sumOfNaturalNumbers(7));
-        
-        int[] arr = {2,5,7,34,123,7,3,1,34,35,76};
-        mergeSort(arr);
-        System.out.println(Arrays.toString(arr));
+//        System.out.println(sumOfNaturalNumbers(7));
+//        
+//        int[] arr = {2,5,7,34,123,7,3,1,34,35,76};
+//        mergeSort(arr);
+//        System.out.println(Arrays.toString(arr));
+
+        System.out.println(longestCommonPrefix(new String[]{"fran", "fron", "frun"}));
         
     }
 
@@ -295,6 +297,69 @@ public class Algoritmos {
         }    
    }
     
-   
     
+    // 3. Longest Substring Without Repeating Characters (LC 3)
+    
+    public static int lengthOfLongestSubstring2(String s) {
+        int[] letters = new int[128];
+        return -1;
+        
+        
+        
+    }
+    
+    
+    // LC 14
+    public static String longestCommonPrefix(String[] strs) {
+        int minLength = Integer.MAX_VALUE;
+        for (String str : strs) {
+            minLength = Math.min(str.length(), minLength);
+        }
+        
+        String prefix = "";
+        int i = 0;
+        int j = 0;
+        
+        while (j < minLength){
+            char curChar = strs[i].charAt(j);
+            while(i < strs.length) {
+                if (curChar != strs[i].charAt(j)){
+                    return prefix;
+                }
+                i++;
+            }
+            i = 0;
+            prefix += curChar;
+            j++;
+        }
+        return prefix;
+    }
+    
+    public static String longestCommonPrefixBetter(String[] strs) {
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        int charIndex = -1;
+        
+        do {
+            charIndex++;
+        } while (charIndex < first.length() && charIndex < last.length() && first.charAt(charIndex) == last.charAt(charIndex)) ;
+        
+        return charIndex == 0 ? "" : first.substring(charIndex);
+    }
+    
+    public static String longestCommonPrefix2(String[] strs) {
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        int charIndex = 0;
+        while (charIndex < first.length() && charIndex < last.length()) {
+            if (first.charAt(charIndex) == last.charAt(charIndex)){
+                charIndex++;
+            } else {
+                break;
+            }
+        }
+        return charIndex == 0 ? "" : first.substring(charIndex);
+    }    
 }

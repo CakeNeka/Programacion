@@ -62,11 +62,10 @@ public class GameBoard extends JPanel implements KeyListener {
     
     
     public static boolean tileExists(int row, int col) {
-        return row < 0 || row > currentLevel.length || col < 0 || col > currentLevel[0].length;
+        return row >= 0 && row <= currentLevel.length && col >= 0 && col <= currentLevel[0].length;
     }
 
-    public void repaintBoard(){
-              
+    public void repaintBoard() {
         for (Tile[] tiles : currentLevel) {
             for (Tile tile : tiles) {
                 tile.setText();       
