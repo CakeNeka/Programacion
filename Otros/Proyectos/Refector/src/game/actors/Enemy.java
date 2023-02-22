@@ -1,5 +1,9 @@
 package game.actors;
 
+import game.elements.Door;
+import game.elements.Floor;
+import game.gui.GameBoard;
+
 /**
  *
  * @author Neka
@@ -13,52 +17,63 @@ public class Enemy extends Actor {
 
     @Override
     public void moveLeft() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void moveRight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void moveUp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void moveDown() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     protected void changePosition(int newRow, int newCol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (GameBoard.currentLevel[newRow][newCol] instanceof Door) {
+            Door dr = (Door) GameBoard.currentLevel[newRow][newCol]; 
+            newRow += newRow - row;
+            newCol += newCol - col;
+        }
+        
+        Floor currentFloor = (Floor) GameBoard.currentLevel[row][col];
+        Floor newFloor = (Floor) GameBoard.currentLevel[newRow][newCol];
+        currentFloor.setPlayer(false);
+        newFloor.setPlayer(true);
+        row = newRow;
+        col = newCol;
     }
 
     @Override
     public void attackLeft() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void attackRight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void attackUp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void attackDown() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public void attack(int targetRow, int targetCol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

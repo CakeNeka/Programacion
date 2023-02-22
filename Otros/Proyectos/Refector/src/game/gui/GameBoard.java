@@ -27,6 +27,7 @@ public class GameBoard extends JPanel implements KeyListener {
     public static Player player;
     public static List<Enemy> enemies = new ArrayList<>();
 
+
     public GameBoard() {
 
         this.setLayout(new GridLayout(currentLevel.length, currentLevel[0].length, 0, 0));
@@ -52,11 +53,16 @@ public class GameBoard extends JPanel implements KeyListener {
     }
 
     public static boolean tileAccesible(int row, int col) {
-        if (row < 0 || row > currentLevel.length || col < 0 || col > currentLevel[0].length) {
+        if (!tileExists(row,col)) {
             return false;
         }
 
         return currentLevel[row][col].isTraversable();
+    }
+    
+    
+    public static boolean tileExists(int row, int col) {
+        return row < 0 || row > currentLevel.length || col < 0 || col > currentLevel[0].length;
     }
 
     public void repaintBoard(){

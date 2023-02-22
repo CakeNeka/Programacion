@@ -55,22 +55,26 @@ public class Player extends Actor {
     
     @Override
     public void attackLeft() {
-    
+        if (GameBoard.tileExists(row, col - 1))
+            attack(row, col - 1);
     }
 
     @Override
     public void attackRight() {
-        attack(row, col + 1);
+        if (GameBoard.tileExists(row, col + 1))
+            attack(row, col + 1);
     }
 
     @Override
     public void attackUp() {
-        
+        if (GameBoard.tileExists(row - 1, col))
+            attack(row - 1, col);
     }
 
     @Override
     public void attackDown() {
-        
+        if (GameBoard.tileExists(row + 1, col))
+            attack(row + 1, col);
     }
     
     @Override
@@ -96,7 +100,7 @@ public class Player extends Actor {
             System.out.println(entity);
         }
         if (!door.isLocked()){
-            inventory.remove(keys.get(i-1));
+            inventory.remove(keys.get(i - 1));
         }
         for (Entity entity : inventory) {
             System.out.println(entity);

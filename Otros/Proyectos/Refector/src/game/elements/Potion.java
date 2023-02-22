@@ -1,10 +1,15 @@
 package game.elements;
 
 public class Potion extends Entity {
+    
+    private int healing; 
 
-    public Potion(Tile parent) {
-        super(parent);
+    public Potion(int healing, Tile parent) {
+        super(parent, "Potion   ");
+        this.healing = healing;
     }
+    
+    
     
     @Override
     public String getSymbol() {

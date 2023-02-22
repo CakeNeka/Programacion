@@ -12,7 +12,7 @@ class TileFactory {
     /**
      * Generates simple tiles based on a symbol and position.
      * 
-     * @param symbol
+     * @param symbol 
      * @param row
      * @param col
      * @return a Wall, Floor, open Door or Player Tile
@@ -59,4 +59,5 @@ class TileFactory {
     static Door generateDoor(int row, int col, boolean locked, int code, int pointsToLevel) {
         return new Door(row, col, locked, code, pointsToLevel);
     }
+    
 }
