@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        // Quiero que meteais esos campos y rellenar los campos 
+        
         
         // Instanciar MusicoEstudiante
         Estudiante solid = new MusicoEstudiante();
