@@ -4,9 +4,8 @@ package pkg023_interfaces;
  * 
  * Una clase puede implementar varias interfaces.
  */
-public class MusicoEstudiante implements Estudiante, Musico {
+public class MusicoEstudiante extends Musico implements Estudiante {
 
-    private String nombre;
     
     @Override
     public void estudiar() {
@@ -21,16 +20,6 @@ public class MusicoEstudiante implements Estudiante, Musico {
     @Override
     public void tocarMusica() {
         System.out.println("*toca musica*");
-    }
-
-    @Override
-    public void setNombre(String nombre) {
-        
-    }
-    
-    @Override
-    public String getNombre(){
-        return nombre;
-    }
+    }    
     
 }

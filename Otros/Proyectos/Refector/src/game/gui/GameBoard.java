@@ -22,14 +22,17 @@ import javax.swing.JPanel;
  */
 public class GameBoard extends JPanel implements KeyListener {
 
-    public static Tile[][] currentLevel = LevelReader.loadLevel(1);
+    public static Tile[][] currentLevel;
     
     public static Player player;
-    public static List<Enemy> enemies = new ArrayList<>();
+    public static List<Enemy> enemies;
+
+   
 
 
     public GameBoard() {
-
+        enemies = new ArrayList<>();
+        currentLevel = LevelReader.loadLevel(1);
         this.setLayout(new GridLayout(currentLevel.length, currentLevel[0].length, 0, 0));
         for (Tile[] tiles : currentLevel) {
             for (Tile tile : tiles) {
@@ -42,7 +45,14 @@ public class GameBoard extends JPanel implements KeyListener {
         
         repaintBoard();
     }
-
+    
+    void update() {
+        for (Enemy enemy : enemies) {
+            enemy.autoMove();
+        }
+        repaintBoard();
+    }
+    
     public static void initializePlayer(int row, int col) {
         if (player == null) {
             player = new Player(row, col);
@@ -64,7 +74,10 @@ public class GameBoard extends JPanel implements KeyListener {
     public static boolean tileExists(int row, int col) {
         return row >= 0 && row <= currentLevel.length && col >= 0 && col <= currentLevel[0].length;
     }
-
+    
+    public static void addEnemyAtPosition(int row, int col) {
+        enemies.add(new Enemy(row,col));
+    }
     public void repaintBoard() {
         for (Tile[] tiles : currentLevel) {
             for (Tile tile : tiles) {
@@ -80,8 +93,6 @@ public class GameBoard extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-
-        System.out.println(ke.getKeyChar());
 
         switch (ke.getKeyCode()) {
             case KeyEvent.VK_LEFT:
@@ -105,8 +116,7 @@ public class GameBoard extends JPanel implements KeyListener {
                 break;
         }
         
-        System.out.println(player.getRow() + " " + player.getCol());
-        repaintBoard();
+        update();
     }
 
     @Override

@@ -9,7 +9,7 @@ package pkg023_interfaces;
  * Todos los atributos declarados en una interfaz son por defecto
  * public static final (en este caso altura máxima)
  */
-public interface Persona {
+public interface Persona extends Comparable<Persona> {
     
     double alturaMaxima = 2.5;
     
@@ -18,4 +18,10 @@ public interface Persona {
     public void setNombre(String nombre);
     
     public String getNombre();
+
+    
+    @Override
+    public String toString();
+    
+    
 }

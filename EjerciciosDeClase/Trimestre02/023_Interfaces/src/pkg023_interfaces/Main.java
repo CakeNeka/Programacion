@@ -11,8 +11,34 @@ public class Main {
 
     public static void main(String[] args) {
         
+        // Implementación de interfaz con clase anónima        
+        Persona p = new Persona() {
+            @Override
+            public void hablar() {
+                System.out.println(":)");
+            }
+
+            @Override
+            public void setNombre(String nombre) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public String getNombre() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public int compareTo(Persona t) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        } ;
         
-        // Instanciar MusicoEstudiante
+        
+    }
+    
+    void diaUno(){
+                // Instanciar MusicoEstudiante
         Estudiante solid = new MusicoEstudiante();
         Musico liquid = new MusicoEstudiante();
         Persona solidus = new MusicoEstudiante();
@@ -32,29 +58,17 @@ public class Main {
             me.tocarMusica();
             me.estudiar();
         }
-        
-        
-        
-        // Implementación de interfaz con clase anónima
-                
-        Persona p = new Persona() {
-            @Override
-            public void hablar() {
-                System.out.println(":)");
-            }
-
-            @Override
-            public void setNombre(String nombre) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public String getNombre() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        } ;
-        
-        
     }
     
+    void diaDos(){
+        List<Persona> personas = new ArrayList<>();
+        personas.add(new MusicoEstudiante());
+        personas.add(new Astronauta("Mari", "Houston"));
+        personas.add(new Estrella("Luisa", "Maracena"));
+        
+        for (Persona persona : personas) {
+            
+        }
+        
+    }
 }

@@ -1,5 +1,6 @@
 package game.utils;
 
+import game.actors.Enemy;
 import game.elements.*;
 import game.gui.GameBoard;
 
@@ -43,7 +44,7 @@ class TileFactory {
     }    
     
     static Floor enemyFloor(int row, int col){
-//      GameBoard.addEnemy(row, col);
+        GameBoard.addEnemyAtPosition(row, col);
         return new Floor(row, col, true, false);
     }
     

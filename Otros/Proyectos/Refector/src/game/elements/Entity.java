@@ -1,9 +1,5 @@
 package game.elements;
 
-/**
- *
- * @author Neka
- */
 public abstract class Entity {
     
     private Tile parent;

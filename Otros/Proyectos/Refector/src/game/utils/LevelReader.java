@@ -46,6 +46,8 @@ public class LevelReader {
                 int code = Integer.parseInt(data[4].trim());
                 int pointsToLevel = Integer.parseInt(data[5].trim());
                 newTile = TileFactory.generateDoor(row, col, locked, code, pointsToLevel);
+            } else if (symbol == 'M') {
+                newTile = TileFactory.enemyFloor(row, col);
             }
             
             level[row][col] = newTile;
@@ -74,7 +76,7 @@ public class LevelReader {
     }
     
     /**
-     * Gets the level details (keys, doors, enemies) from the .dat file
+     * Gets the level details (keys, doors, enemies) from the .csv file
      * @param levelIndex
      * @return 
      */
