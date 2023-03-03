@@ -5,6 +5,10 @@ public class Estrella extends Musico {
 
     private String nombre;
     private String tipoMusica;
+
+    Estrella(String luisa, String maracena) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     @Override
     public void tocarMusica() {
