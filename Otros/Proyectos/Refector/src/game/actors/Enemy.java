@@ -60,18 +60,26 @@ public class Enemy extends Actor {
         Player curPlayer = GameBoard.player;
         int rowDifference = curPlayer.row - row;
         int colDifference = curPlayer.col - col;
+
+        int rowDirection = 0;
+        int colDirection = 0;
+
         if (Math.abs(colDifference) > Math.abs(rowDifference)) {
             if (colDifference < 0) {
-                moveLeft();
+                colDirection = -1;
             } else if (colDifference > 0) {
-                moveRight();
+                colDirection = +1;
             }
         } else if (Math.abs(rowDifference) > Math.abs(colDifference)) {
             if (rowDifference < 0) {
-                moveUp();
+                rowDirection = -1;
             } else if (rowDifference > 0) {
-                moveDown();
+                rowDirection = 1;
             }
+        }
+
+        if (GameBoard.tileAccesible(row + rowDirection, col + colDirection)) {
+            changePosition(row + rowDirection, col + colDirection);
         }
     }
 

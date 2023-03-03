@@ -11,6 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         
+        System.out.println(Astronauta.class.toString());
+        
         // Implementación de interfaz con clase anónima        
         Persona p = new Persona() {
             @Override
@@ -67,7 +69,15 @@ public class Main {
         personas.add(new Estrella("Luisa", "Maracena"));
         
         for (Persona persona : personas) {
-            
+            if (persona.getClass().equals(Estrella.class)) {
+                Estrella personaje = (Estrella) persona;
+                personaje.gira();
+            } else if (persona.getClass().equals(MusicoEstudiante.class)){
+                MusicoEstudiante personaje = (MusicoEstudiante) persona;
+                personaje.conciertoUni();
+            } else if (persona.getClass().toString().split(".")[1].equals("Astronauta")){
+                
+            }
         }
         
     }

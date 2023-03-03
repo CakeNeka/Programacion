@@ -21,5 +21,9 @@ public class MusicoEstudiante extends Musico implements Estudiante {
     public void tocarMusica() {
         System.out.println("*toca musica*");
     }    
+
+    void conciertoUni() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
