@@ -6,8 +6,10 @@
 package progoles;
 
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -98,4 +100,45 @@ public class SerializingHelper {
         }
     }
 
+    static void exportDataToCsv(List<Team> teams) throws IOException {
+        int counter = 0;
+        String name = "export";
+        File archivo = new File(name + counter + ".csv");
+        boolean fileExists = archivo.exists();
+        while (fileExists) {
+            counter++;
+            archivo = new File(name + counter + ".csv");
+            fileExists = archivo.exists();
+        }
+        
+        archivo.createNewFile();
+        FileWriter writer = new FileWriter(archivo,false);
+        writer.append(toCsv(teams));
+        
+        writer.close();
+    }
+
+    private static String toCsv(List<Team> teams){
+        StringBuilder csv = new StringBuilder();
+        for (Team team : teams) {
+            List<Player> players = team.getPlayers();
+            for (Player player : players) {
+                csv.append(player.getName());
+                csv.append(',');
+                csv.append(player.getNickName());
+                csv.append(',');
+                csv.append(player.getTotalGoals());
+                csv.append(',');
+                csv.append(',');
+                csv.append(',');
+                
+                csv.append('\n');
+            }
+        }
+        return "";
+    }
+    /*
+    
+    }
+    */
 }

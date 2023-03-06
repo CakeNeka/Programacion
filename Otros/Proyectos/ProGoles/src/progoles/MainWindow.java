@@ -5,8 +5,11 @@
  */
 package progoles;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 
@@ -259,6 +262,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jMenuItem2.setText("Exportar a csv");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -362,6 +370,14 @@ public class MainWindow extends javax.swing.JFrame {
         playerList.setSelectedIndex(playerIndex);
         updateFields();
     }//GEN-LAST:event_minusSeasonButtonActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try {
+            SerializingHelper.exportDataToCsv(teams);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public void updateFields() {
         int teamIndex = teamComboBox.getSelectedIndex();

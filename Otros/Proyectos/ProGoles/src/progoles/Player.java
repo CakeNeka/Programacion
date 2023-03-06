@@ -1,7 +1,9 @@
 package progoles;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Player implements Serializable {
@@ -10,13 +12,13 @@ public class Player implements Serializable {
     
     private String name;
     private String nickName;
-    private Map<Integer, Integer> seasonGoals;
+    private List<Integer> seasonGoals;          // TODO Cambiar por ArrayList
 
     public Player(String name, String nickName) {
         this.name = name;
         this.nickName = nickName;
         PLAYER_ID = System.currentTimeMillis();         // Posiblemente desaconsejado
-        seasonGoals = new HashMap<>();
+        seasonGoals = new ArrayList<>();
     }
 
     public String getName() {
@@ -36,44 +38,44 @@ public class Player implements Serializable {
     }
     
     public int getGoalsOnSeason(int season) {
-        if (!seasonGoals.containsKey(season)){
-            seasonGoals.put(season, 0);
+        if (season >= seasonGoals.size()){
+            seasonGoals.add(season, 0);
         }
         
         return seasonGoals.get(season);
     }
     
     public void setGoalsOnSeason(int season, int goals) {
-        seasonGoals.put(season, goals);
+        seasonGoals.set(season, goals);
     }
     
     public void addGoalOnSeason(int season) {
-        if (!seasonGoals.containsKey(season)){
-            seasonGoals.put(season, 0);
+        if (season >= seasonGoals.size()){
+            seasonGoals.add(season, 0);
         }
-        seasonGoals.put(season, seasonGoals.get(season) + 1);
+        seasonGoals.set(season, seasonGoals.get(season) + 1);
     }
     
     public void subtractGoalOnSeason(int season) {
-        if (!seasonGoals.containsKey(season)){
-            seasonGoals.put(season, 0);
+        if (season >= seasonGoals.size()){
+            seasonGoals.add(season, 0);
         }
-        seasonGoals.put(season, seasonGoals.get(season) - 1);
+        seasonGoals.set(season, seasonGoals.get(season) - 1);
     }
     
     public int getTotalGoals(){
         int totalGoals = 0;
-        for (Integer value : seasonGoals.values()) {
+        for (Integer value : seasonGoals) {
             totalGoals += value;
         }
         return totalGoals;
     }
     
-    public Map<Integer, Integer> getSeasonGoals() {
+    public List<Integer> getSeasonGoals() {
         return seasonGoals;
     }
 
-    public void setSeasonGoals(Map<Integer, Integer> seasonGoals) {
+    public void setSeasonGoals(List<Integer> seasonGoals) {
         this.seasonGoals = seasonGoals;
     }
 

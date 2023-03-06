@@ -8,6 +8,8 @@ package pkg023_interfaces;
  * 
  * Todos los atributos declarados en una interfaz son por defecto
  * public static final (en este caso altura máxima)
+ * 
+ * Las clases que implementan una interfaz deben implementar sus métodos
  */
 public interface Persona extends Comparable<Persona> {
     

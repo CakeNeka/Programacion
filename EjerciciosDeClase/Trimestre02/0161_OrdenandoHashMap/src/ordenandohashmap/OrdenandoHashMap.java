@@ -67,7 +67,7 @@ public class OrdenandoHashMap {
         // con el nombre de variable viejo
         System.out.println("LINKEDHASHMAP con Collectors.toMap");
         Map<String, Personilla> resultado = padres.entrySet().stream().sorted(Map.Entry.comparingByValue())
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, 
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                                 (viejo, nuevo) -> viejo, LinkedHashMap::new));
         showParents(resultado);
         
