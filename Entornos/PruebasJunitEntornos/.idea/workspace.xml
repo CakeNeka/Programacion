@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7117779d-c691-488a-99e8-4e7b54182232" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../EjerciciosDeClase/Trimestre02/0161_OrdenandoHashMap/src/ordenandohashmap/OrdenandoHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../EjerciciosDeClase/Trimestre02/0161_OrdenandoHashMap/src/ordenandohashmap/OrdenandoHashMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../EjerciciosDeClase/Trimestre02/023_Interfaces/src/pkg023_interfaces/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../EjerciciosDeClase/Trimestre02/023_Interfaces/src/pkg023_interfaces/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/MainWindow.form" beforeDir="false" afterPath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/MainWindow.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/SerializingHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Otros/Proyectos/ProGoles/src/progoles/SerializingHelper.java" afterDir="false" />
-    </list>
+    <list default="true" id="7117779d-c691-488a-99e8-4e7b54182232" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,14 +22,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Diurno/Documents/Repositorios/Programacion/Entornos/PruebasJunitEntornos&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Diurno/Desktop/EEDCap03Examen/EEDCap03Examen"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="EsPrimoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PruebasJunitEntornos" />
@@ -71,6 +64,7 @@
       <workItem from="1676289190560" duration="39000" />
       <workItem from="1677139392430" duration="1237000" />
       <workItem from="1678104014703" duration="195000" />
+      <workItem from="1678104297088" duration="135000" />
     </task>
     <servers />
   </component>
