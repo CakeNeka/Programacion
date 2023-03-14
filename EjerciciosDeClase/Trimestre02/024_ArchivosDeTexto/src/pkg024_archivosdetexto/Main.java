@@ -47,6 +47,7 @@ public class Main {
 
     private static void escribeFichero(File archivo) {
         // Clases FileWriter y BufferedWriter para escribir sobre el arhivo
+        // Las dos hacen lo mismo pero usar BufferedWriter es más rápido
         try {
             FileWriter writer = new FileWriter(archivo,true);
 //          writer.append("Gallia est omnis dīvīsa in partēs trēs, quārum ūnam incolunt Belgae,\n"
