@@ -22,11 +22,14 @@ import java.util.logging.Logger;
  * 13-03-2023
  */
 public class Main {
-//  * Todas las excepciones deberían estar dentro de bloques try/catch *
+//  * Todas las excepciones deben estar dentro de bloques try/catch *
+// La excepción más general son IOException, otras son FileNotFoundException
     public static void main(String[] args) {
         // La base de todos los ficheros es la clase file.
         // Crear un arhivo:
+        
         File archivo = new File("dirPrueba/Comentarii_de_Bello_Gallico.txt");
+        
         
         try {
             // Si no existe crea el archivo, si existe no hace nada.
@@ -39,8 +42,7 @@ public class Main {
         escribeFichero(archivo);
         
         leeFichero(archivo);
-        
-        crearDir();
+         
     }
 
     private static void escribeFichero(File archivo) {
@@ -94,12 +96,14 @@ public class Main {
     
     public static void añadirTexto(File archivo) {
         try {
+            // El segundo parámetro indica si se añadirá texto o se sobreescribirá
             FileWriter writer = new FileWriter(archivo,true);
-//          
             BufferedWriter bWriter = new BufferedWriter(writer);
             bWriter.write(" Hī omnēs linguā, īnstitūtīs, legibus inter sē differunt. Gallōs ab Aquītānīs \n" +
                     "Garumna flūmen, ā Belgīs Matrona et Sēquana dīvidit");
             bWriter.close();
+        } catch (FileNotFoundException ex) {
+            
         } catch (IOException ex) {
             System.out.println("No se ha encontrado el fichero");
             
