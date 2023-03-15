@@ -14,7 +14,7 @@ public class Pony implements Serializable   {
 
     @Override
     public String toString() {
-        return name + " " + type; 
+        return name + " (" + type + ")"; 
     }
     
     

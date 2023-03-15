@@ -36,11 +36,12 @@ public class Main {
         // después leerlo. Para añadir contenido a un archivo binario
         // el segundo parámetro del constructor debe ser verdadero
         
-        // Puede aparecer la excepción StringCorruptedException porque siempre 
+        // Puede aparecer la excepción StreamCorruptedException porque siempre 
         // empieza a escribir con una cabecera y al añadir contenido se vuelve a 
         // añadir una cabecera. Esto se arregla creando una clase diferente que 
         // herede de objectOutputStream y sobreescribimos el método WriteStreamHeader
         // y ponemos Reset
+        
         
         List<Pony> ponis = new ArrayList<>();
         ponis.add(new Pony("Rainbow Dash", "Pegasus"));
@@ -50,19 +51,27 @@ public class Main {
         ponis.add(new Pony("Pinkie Pie", "Earth Pony"));
         ponis.add(new Pony("Fluttershy", "Pegasus"));
         
-         loadPoniesFromFIle();
-        // savePoniesToFile(ponis);
+//        savePoniesToFile(ponis);
+        readPoniesFromFile();
+        
+        // Añadir elementos a un archivo binario:
+        Pony[] newPonies = new Pony[3];
+        newPonies[0] = new Pony("Celestia","Unicorn");
+        newPonies[1] = new Pony("Big Macintosh", "Earth Pony");
+        newPonies[2] = new Pony("Trixie", "Unicorn");
+        addPonyToFile(newPonies);
     }
     
     /**
-     * para escribir objetos a un archivo binario
+     * Para escribir objetos a un archivo binario
+     * saves everypony in the list to a binary file
      * @param ponies 
      */
     private static void savePoniesToFile(List<Pony> ponies) {
         try {
             // Cualquier extensión es válida pero utilizamos '.bin'
             // Abrimos el fichero binario para escritura
-            FileOutputStream archivo = new FileOutputStream("mannula.pony");
+            FileOutputStream archivo = new FileOutputStream("equestria.pony");
             ObjectOutputStream outputStream = new ObjectOutputStream(archivo);
             
             // Escribimos los objetos
@@ -74,24 +83,47 @@ public class Main {
             // Cerramos el archivo
             outputStream.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("El archivo no ha sido encontrado");
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("El archivo no ha sido encontrado");
+        }
+    }
+    
+    /**
+     * Añadir objetos a un archivo ya existente, sin sobreescribir.
+     * Adds everypony in the array to an existing binary file
+     * @param pony 
+     */
+    private static void addPonyToFile(Pony... ponies) {
+        try {
+            FileOutputStream archivo = new FileOutputStream("equestria.pony", true);
+            // Usar ObjectOutputStream llevará a errores (StreamCorruptedException).
+            // En su lugar
+            AppendObjectOutputStream outputStream = new AppendObjectOutputStream(archivo);   
+            for (Pony pony : ponies) {
+                outputStream.writeObject(pony);
+            }
+            
+            outputStream.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("El archivo no ha sido encontrado");
+        } catch (IOException ex) {
+            System.out.println("El archivo no ha sido encontrado");
         }
     }
     
     /**
      * Para leer objetos de un archivo binario
      */
-    private static void loadPoniesFromFIle() {
+    private static void readPoniesFromFile() {
         ObjectInputStream inputStream = null;
         try {
-            FileInputStream archivo = new FileInputStream("mannula.pony");
+            FileInputStream archivo = new FileInputStream("equestria.pony");
             inputStream = new ObjectInputStream(archivo);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("El archivo no ha sido encontrado");
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("La operación ha fallado");
         }
         
         // Leer de un archivo binario            
