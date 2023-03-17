@@ -15,8 +15,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pkg027_archivosbinarios.Pony;
 
 /**
+ * 0. Si queremos utilizar archivos binarios escritos en otro proyecto, no sirve
+ * copiar literalmente la clase 'Coche' a este proyecto. Si no que habría que 
+ * importar el jar. (OtroProyecto --> 'Clean And Build' --> PreguntaExamen -->
+ * Libraries --> Click Derecho --> Add JAR/FOLDER --> '\OtroProyecto\dis\coche.jar'
+ * 
+ * 
  * 1. Leer objetos 'Coche' de un objeto y añadirlos a un ArrayList 2. Del
  * ArrayList de coches, eliminar los repetidos 3. Escribir en un archivo binario
  * los coches sin repetir
@@ -27,6 +34,11 @@ import java.util.logging.Logger;
 public class Main {
 
     public static void main(String[] args) {
+
+        System.out.println("Coches leídos desde el archivo binario creado en otro proyecto");
+        jarFileUsage();
+        
+        
         List<Car> cars = new ArrayList<>();
 
         cars.add(new Car("Seat Panda", "6542YDB"));
@@ -43,7 +55,7 @@ public class Main {
 
         writeCarsToFile(cars);
         List<Car> readCars = readCarsFromFile();
-        System.out.println("Coches leídos desde el archivo binario: ");
+        System.out.println("\nCoches leídos desde el archivo binario: ");
         for (Car readCar : readCars) {
             System.out.println(readCar);
         }
@@ -142,4 +154,44 @@ public class Main {
         }
     }
 
+    /**
+     * Leer un archivo binario de otro proyecto (importando el archivo jar)
+     */
+    private static void jarFileUsage(){
+        ObjectInputStream inputStream = null;
+        List<Pony> ponies = new ArrayList<>();
+        boolean endOfFile = false;
+        try {
+            FileInputStream archivo = new FileInputStream("equestria.pony");
+            inputStream = new ObjectInputStream(archivo);
+        } catch (FileNotFoundException ex) {
+            System.out.println("El archivo no ha sido encontrado");
+            endOfFile = true;
+        } catch (IOException ex) {
+            System.out.println("La operación ha fallado");
+        }
+        
+        
+        while (!endOfFile) {
+            try {
+                ponies.add((Pony) inputStream.readObject());
+            } catch (EOFException e) { 
+                endOfFile = true;
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        try {
+            inputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (Pony pony : ponies) {
+            System.out.println(pony);
+        }
+    }
 }

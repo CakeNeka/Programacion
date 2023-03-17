@@ -43,7 +43,7 @@ public class Car implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Car other = (Car) obj;
+        final Car other = (Car) obj; /* Importante utilizar modelo.equalsIgnoreCase */
         if (!Objects.equals(this.modelo, other.modelo)) {
             return false;
         }
