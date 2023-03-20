@@ -1,0 +1,15 @@
+Personilla{nombre=Juana, apellidos=Fernández Heredia, edad=26}
+Personilla{nombre=Antonia, apellidos=Martínez Fernández, edad=70}
+Personilla{nombre=Diego, apellidos=Santiago Molína, edad=20}
+Personilla{nombre=Juan, apellidos=Heredia Martínez, edad=42}
+Personilla{nombre=Juan Francisco, apellidos=Fernández Martínez, edad=50}
+Personilla{nombre=Julian, apellidos=Fernández Heredia, edad=4}
+Personilla{nombre=Justo, apellidos=Heredia Santiago, edad=85}
+Personilla{nombre=Loreto, apellidos=Fernández Martínez, edad=34}
+Personilla{nombre=Concepción, apellidos=Cortés Molína, edad=38}
+Personilla{nombre=Mariana, apellidos=Santiago Molína, edad=28}
+Personilla{nombre=Samuel, apellidos=Heredia Santiago, edad=12}
+Personilla{nombre=Santiago, apellidos=Vilches Martínez, edad=20}
+Personilla{nombre=Tomasa, apellidos=Jiménez Fernández, edad=67}
+Personilla{nombre=Victorino, apellidos=Fernández Heredia, edad=26}
+Personilla{nombre=Vitorino, apellidos=Fernández Martínez, edad=53}

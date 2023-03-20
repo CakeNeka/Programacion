@@ -51,10 +51,10 @@ public class Main {
         ponis.add(new Pony("Pinkie Pie", "Earth Pony"));
         ponis.add(new Pony("Fluttershy", "Pegasus"));
         
-//        savePoniesToFile(ponis);
+        savePoniesToFile(ponis);
         readPoniesFromFile();
         
-        // Añadir elementos a un archivo binario:
+//      Añadir elementos a un archivo binario:
         Pony[] newPonies = new Pony[3];
         newPonies[0] = new Pony("Celestia","Unicorn");
         newPonies[1] = new Pony("Big Macintosh", "Earth Pony");
@@ -78,6 +78,8 @@ public class Main {
             for (Pony pony : ponies) {
                 // Si la clase no implementa serializable aquí dará un error
                 outputStream.writeObject(pony);
+//              outputStream.writeObject("asñdf");   
+                // En un mismo archivo binario puede haber diferentes tipos de clases
             }
             
             // Cerramos el archivo
