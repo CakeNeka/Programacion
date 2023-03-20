@@ -58,7 +58,7 @@ public class Main {
             bWriter.write(" Hī omnēs linguā, īnstitūtīs, legibus inter sē differunt. Gallōs ab Aquītānīs \n" +
                     "Garumna flūmen, ā Belgīs Matrona et Sēquana dīvidit");
             bWriter.close();
-        } catch (IOException ex) {
+        } catch (IOException ex) { 
             System.out.println("No se ha encontrado el fichero");
             
         }

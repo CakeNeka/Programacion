@@ -35,8 +35,8 @@ public class Main {
         Random random = new Random();
 
         for (int i = 0; i < 6; i++) {
-            int nameIndex = random.nextInt(names.length - 1 - i);
-            int animalIndex = random.nextInt(animals.length - 1 - i);
+            int nameIndex = random.nextInt(names.length  - i);
+            int animalIndex = random.nextInt(animals.length  - i);
             mascotas.put(names[nameIndex], animals[animalIndex]);
 
             swapName(names, nameIndex, names.length - 1 - i);

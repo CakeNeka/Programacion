@@ -17,13 +17,13 @@ public abstract class Trabajador implements Persona {
         this.nombre = nombre;
     }
     
-//  public abstract double cobrar();
+//  public abstract double cobrar(); 
 
     @Override
     public String toString() {
         
         String nombreClase = this.getClass().getSimpleName();
-        /*
+        /* ESTO MAL
         if (this.getClass().equals(Funcionario.class)) {
             nombreClase = "Funcionario";
         } else if (this.getClass().equals(PorComision.class)){

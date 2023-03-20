@@ -28,15 +28,11 @@ public class Main {
         for (Map.Entry<String, Persona> entry : personas.entrySet()) {
             System.out.println(entry.getKey() + " --> " + entry.getValue());
         }
-        
-        for (Map.Entry<String, Persona> entry : personas.entrySet()) {
-            
-        }
-        
+
         List<Persona> listaPersonas = new ArrayList<>();
         listaPersonas.addAll(personas.values());
         escribePersonas(listaPersonas);
-        
+
         System.out.println("\nPersonas ordenadas por apellido y nombre");
         listaPersonas.sort(new CompararPorApellidoYNombre());
         for (Persona persona : listaPersonas) {
@@ -101,4 +97,13 @@ public class Main {
         }
     }
 
+    private static void usarMathRandom() {
+        int maxBound = 20;
+        int randomNum = (int) (Math.random() * (maxBound + 1));
+    }
+
+    int randomWithRange(int min, int max) {
+        int range = (max - min) + 1;
+        return (int) (Math.random() * range) + min;
+    }
 }
