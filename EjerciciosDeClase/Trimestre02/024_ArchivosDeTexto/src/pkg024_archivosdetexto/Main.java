@@ -60,7 +60,6 @@ public class Main {
             bWriter.close();
         } catch (IOException ex) { 
             System.out.println("No se ha encontrado el fichero");
-            
         }
     }
     
