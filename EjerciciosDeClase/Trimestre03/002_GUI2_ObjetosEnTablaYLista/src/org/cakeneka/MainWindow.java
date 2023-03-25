@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -58,6 +60,7 @@ public class MainWindow extends JFrame {
         placeTitle();
         addComboBox();
         addTable();
+        addList();
     }
 
     private void placePanel() {
@@ -79,11 +82,11 @@ public class MainWindow extends JFrame {
         
         JLabel etiqueta = new JLabel();
         
-        etiqueta.setText("Enemies");
-        etiqueta.setBounds(0, 30, 550, 30);  //Establecemos el tamaño
-        etiqueta.setHorizontalAlignment(SwingConstants.CENTER); // Alineamos al centro
-        etiqueta.setForeground (Color.MAGENTA); // Color de la letra
-        etiqueta.setOpaque(true);               // Cambiar color de fondo
+        etiqueta.setText("Enemigos");
+        etiqueta.setBounds(0, 30, 550, 30);  
+        etiqueta.setHorizontalAlignment(SwingConstants.CENTER); 
+        etiqueta.setForeground (Color.MAGENTA);
+        etiqueta.setOpaque(true);     
         etiqueta.setBackground(Color.black); 
         // Establecemos la fuente de la letra
         etiqueta.setFont(trajan.deriveFont(Font.PLAIN, 27));
@@ -99,27 +102,23 @@ public class MainWindow extends JFrame {
     }
 
     private void addTable() {
-                // Usamos un modelo de datos para la tabla
+        // Usamos un modelo de datos para la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         JTable tabla = new JTable(modelo);
-        tabla.setBounds(60, 230, 300, 200);
         
-        //Añadimos las columnas AL MODELO
+        // Añadimos las columnas AL MODELO
         modelo.addColumn("Nombre");
-        modelo.addColumn("Edad");
-        modelo.addColumn("Nacionalidad");
+        modelo.addColumn("Arma");
+        modelo.addColumn("Daño por Segundo");
         
         // Añadimos las filas
-        String[] persona1 = {"Rut", "22", "Española"};
-        String[] persona2 = {"Pepe", "22", "Española"};
-        String[] persona3 = {"Isabel", "22", "Española"};
-        String[] persona4 = {"Leo", "22", "Española"};
-        String[] persona5 = {"Rut", "22", "Española"};
-        modelo.addRow(persona1);
-        modelo.addRow(persona2);
-        modelo.addRow(persona3);
-        modelo.addRow(persona4);
-        modelo.addRow(persona5);
+        for (Enemy enemy : enemies) {
+            String[] row = new String[3];
+            row[0] = enemy.getName();
+            row[1] = enemy.getWeapon();
+            row[2] = enemy.getFormattedDps();
+            modelo.addRow(row);
+        }
         
         panel.add(tabla);
         
@@ -128,15 +127,31 @@ public class MainWindow extends JFrame {
         JScrollPane scroll = new JScrollPane(tabla, 
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setBounds(60, 230, 300, 200);
+        scroll.setBounds(30, 230, 490, 200);
         panel.add(scroll);
     }
 
     private void initEnemyList() {
         enemies = new ArrayList<>();
-        enemies.add(new Enemy("Questlord of Inverness"));
-        enemies.add(new Enemy("Gran Maestre Optimus Megaslayer"));
-        enemies.add(new Enemy("Proletio, El Santo Barón"));
+        enemies.add(new Enemy("Questlord of Inverness", "Garrote Divino +4", 7f));
+        enemies.add(new Enemy("Gran Maestre Optimus Megaslayer", "Zweihander", 14f));
+        enemies.add(new Enemy("Proletio, El Santo Barón", "Uchigatana", 9f));
+        enemies.add(new Enemy("Gwyn, Señor de la Ceniza", "Espadón del Gran Señor +5", 15.523423f));
+    }
+
+    private void addList() {
+        DefaultListModel modelo = new DefaultListModel();
+        for (Enemy enemy : enemies) {
+            modelo.addElement(enemy);
+        }
+        JList list = new JList(modelo);
+        panel.add(list);
+        
+        JScrollPane scroll = new JScrollPane (list, 
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll.setBounds(30, 450, 490, 200);
+        panel.add(scroll);
     }
     
     

@@ -8,8 +8,8 @@ class Enemy {
     public Enemy() {
     }
 
-    public Enemy(String nombre, String arma, float dps) {
-        this.name = nombre;
+    public Enemy(String name, String arma, float dps) {
+        this.name = name;
         this.weapon = arma;
         this.dps = dps;
     }
@@ -18,24 +18,28 @@ class Enemy {
         this.name = name;
     }
     
-    public String getNombre() {
+    public String getName() {
         return name;
     }
 
-    public void setNombre(String nombre) {
-        this.name = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getArma() {
+    public String getWeapon() {
         return weapon;
     }
 
-    public void setArma(String arma) {
-        this.weapon = arma;
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
     }
 
     public float getDps() {
         return dps;
+    }
+    
+    public String getFormattedDps() {
+        return String.format("%.2f", dps);
     }
 
     public void setDps(float dps) {
