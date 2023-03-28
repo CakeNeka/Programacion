@@ -94,7 +94,6 @@ public class MainWindow extends JFrame {
     }
 
     private void addComboBox() {
-        
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(enemies.toArray());
         JComboBox listaPersonas = new JComboBox(modelo);
         listaPersonas.setBounds(30, 140, 490, 30);

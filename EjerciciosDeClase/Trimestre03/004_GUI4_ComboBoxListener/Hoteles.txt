@@ -1,0 +1,4 @@
+Granada/H21/Hotel loz granada/45.45
+Malaga/H22/Hotel loz malaga/45.45
+Granada/H23/Hotel loz granada 2/45.45
+Cádiz/H24/Hotel loz cadiz/45.45
