@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,12 +31,12 @@ import javax.swing.border.Border;
  */
 public class HotelsWindow extends JFrame implements ItemListener {
 
-    Map<String, List<Hotel>> cities;
-    
     final int WINDOW_WIDTH = 600;
     final int WINDOW_HEIGHT = 400;
-
     private IOHelper io;
+    
+    private Map<String, List<Hotel>> cities;
+    private Set<Hotel> setHoteles;
     
     private JPanel panel;
     private JComboBox citiesCb;
@@ -43,6 +44,8 @@ public class HotelsWindow extends JFrame implements ItemListener {
 
     private JPanel extrasPanel;
     private JLabel extrasTitle;
+    private JLabel hotelNameLabel;
+    private JLabel hotelDescLabel;
     private JLabel extrasLabel;
 
     public HotelsWindow() {
@@ -59,8 +62,8 @@ public class HotelsWindow extends JFrame implements ItemListener {
 
     private void initComponents() {
         initPanel();
-        initCombobox();
         initExtrasPanel();
+        initCombobox();
     }
 
     private void initPanel() {
@@ -78,9 +81,13 @@ public class HotelsWindow extends JFrame implements ItemListener {
 
         hotelsCb = new JComboBox();
         hotelsCb.setBounds(40, 60, 200, 25);
+        hotelsCb.addItemListener(this);
 
         panel.add(citiesCb);
         panel.add(hotelsCb);
+        
+        updateHotelCb();
+        updateHotelDescription();
     }
 
     private void initExtrasPanel() {
@@ -95,13 +102,26 @@ public class HotelsWindow extends JFrame implements ItemListener {
         extrasTitle.setHorizontalAlignment(SwingConstants.CENTER);
         extrasTitle.setFont(new Font("Segoe UI", Font.PLAIN, 25));
         extrasTitle.setText("Extras");
-
+        
+        hotelNameLabel = new JLabel();
+        hotelNameLabel.setBounds(0, 50, 300, 50);
+        hotelNameLabel.setHorizontalAlignment(JLabel.CENTER);
+        hotelNameLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        hotelNameLabel.setText("Titulo hotel");
+        
+        hotelDescLabel = new JLabel();
+        hotelDescLabel.setBounds(0, 90, 300, 50);
+        hotelDescLabel.setHorizontalAlignment(JLabel.CENTER);
+        
         extrasLabel = new JLabel();
-        extrasLabel.setBounds(0, 50, 300, 50);
+        extrasLabel.setBounds(0, 150, 300, 200);
         extrasLabel.setHorizontalAlignment(JLabel.CENTER);
+        extrasLabel.setVerticalAlignment(JLabel.TOP);
         
         extrasPanel.add(extrasLabel);
         extrasPanel.add(extrasTitle);
+        extrasPanel.add(hotelDescLabel);
+        extrasPanel.add(hotelNameLabel);
         panel.add(extrasPanel);
     }
     
@@ -110,18 +130,67 @@ public class HotelsWindow extends JFrame implements ItemListener {
         for (String line : lines) {
             String[] fields = line.split("/");
             String currentCity = fields[0];
-            Hotel currentHotel = new Hotel(fields[0], fields[1], fields[2]);
+            Hotel currentHotel = new Hotel(fields[0], fields[1], fields[2], fields[3]);
             
             cities.putIfAbsent(currentCity, new ArrayList<>());
             cities.get(currentCity).add(currentHotel);
+        }
+        
+        io.setPath("ExtrasHoteles.txt");
+        lines = io.readAllLines();
+        for (String line : lines) {
+            String[] lineSplit = line.split("/");
+            String hotelCode = lineSplit[0];
+            String fields = lineSplit[1];
+            List<Extra> extras = stringToExtras(fields);
+            
+            assignExtrasToHotel(hotelCode, extras);
+        }
+    }
+    
+    private List<Extra> stringToExtras(String fields) {
+        List<Extra> extrasList = new ArrayList<>();
+        String[] extras = fields.split(",");
+        for (String extra : extras) {
+            String[] namePrice = extra.split(":");
+            extrasList.add(new Extra(namePrice[0],namePrice[1]));
+        }
+        
+        return extrasList;
+    }
+
+    private void assignExtrasToHotel(String hotelCode, List<Extra> extras) {
+        for (List<Hotel> value : cities.values()) {
+            for (Hotel hotel : value) {
+                if (hotelCode.equals(hotel.getCode())){
+                    hotel.addExtras(extras);
+                }
+            }
         }
     }
     
     @Override
     public void itemStateChanged(ItemEvent ie) {
-        extrasLabel.setText("Ciudad " + ie.getItem() + " Seleccionada");
-        DefaultComboBoxModel model = new DefaultComboBoxModel(cities.get((String)ie.getItem()).toArray(new Hotel[0]));
+        if (ie.getSource() == citiesCb){
+            updateHotelCb();
+            updateHotelDescription();
+        } else if (ie.getSource() == hotelsCb) {
+            updateHotelDescription();
+        }
+    }
+    
+    private void updateHotelCb() {
+        hotelsCb.removeItemListener(this);
+        String selectedCity = (String)citiesCb.getSelectedItem();
+        DefaultComboBoxModel model = new DefaultComboBoxModel(cities.get(selectedCity).toArray(new Hotel[0]));
         hotelsCb.setModel(model);
+        hotelsCb.addItemListener(this);
     }
 
+    private void updateHotelDescription() {
+        Hotel selectedHotel = (Hotel)hotelsCb.getSelectedItem();
+        hotelNameLabel.setText(selectedHotel.toString());
+        extrasLabel.setText(selectedHotel.getStringExtras());
+        hotelDescLabel.setText(selectedHotel.getDescription());
+    }
 }

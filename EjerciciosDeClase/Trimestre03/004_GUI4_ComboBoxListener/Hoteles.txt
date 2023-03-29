@@ -1,4 +1,7 @@
-Granada/H21/Hotel loz granada/45.45
-Malaga/H22/Hotel loz malaga/45.45
-Granada/H23/Hotel loz granada 2/45.45
-Cádiz/H24/Hotel loz cadiz/45.45
+Granada/H21/Hotel Granada 1/Un hotel con encanto
+Malaga/H22/Hotel loz malaga/Un hotel con encanto
+Granada/H23/Hotel loz granada 2/Un hotel con encanto
+Cadiz/H24/Hotel loz cadiz/Un hotel con encanto
+Granada/H25/Hotel Granada 2/Un hotel con encanto
+Malaga/H26/Hotel Equestria/Un hotel con encanto
+Cadiz/H27/Hotel Cadiz 2/Un hotel con encanto

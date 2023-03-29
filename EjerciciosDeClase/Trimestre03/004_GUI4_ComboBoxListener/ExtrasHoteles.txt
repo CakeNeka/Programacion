@@ -1,0 +1,6 @@
+H21/piscina:1
+H22/piscina:20
+H23/cafe:2.50
+H24/piscina:25,cafe:5.5
+H25/comandos:34,Limpieza:10000
+H26/pichina:30,desayuno:3,comida:0,billar:-3.3,cena:22,televisión:-2,Bar:43
