@@ -9,7 +9,7 @@ public class MainWindow extends JFrame {
     final int WINDOW_HEIGHT = 700;
     
     JPanel panel;
-    JTextArea historyTf;
+    History history;
     
     public MainWindow() {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -34,19 +34,14 @@ public class MainWindow extends JFrame {
     }
     
     private void initTextField() {
-        historyTf = new JTextArea();
-        historyTf.setBounds(25,200,500,100);
-        JScrollPane scroll = new JScrollPane(historyTf,
+        history = new History();
+        history.setBounds(25,200,500,100);
+        JScrollPane scroll = new JScrollPane(history,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(25,200,500,150);
-        historyTf.setEditable(false);
+        history.setEditable(false);
         panel.add(scroll);
-        
-        for (int i = 0; i < 19; i++) {
-            historyTf.append(i + "\n");
-            historyTf.setCaretPosition(historyTf.getDocument().getLength());
-        }
     }
     
     
