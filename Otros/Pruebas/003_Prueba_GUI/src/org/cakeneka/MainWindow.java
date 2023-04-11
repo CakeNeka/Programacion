@@ -9,7 +9,7 @@ public class MainWindow extends JFrame {
     final int WINDOW_HEIGHT = 700;
     
     JPanel panel;
-    History history;
+    JTextArea history;
     
     public MainWindow() {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
