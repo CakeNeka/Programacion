@@ -8,12 +8,14 @@ public class OffState extends State {
     
     @Override
     public String onHome() {
-        return ":)";
+        phone.setState(new LockedState(phone));
+        return phone.turnOn();
     }
 
     @Override
     public String onOffOn() {
-        return ":(";
+        phone.setState(new LockedState(phone));
+        return phone.turnOn();
     }
     
 }

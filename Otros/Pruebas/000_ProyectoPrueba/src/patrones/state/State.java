@@ -1,7 +1,7 @@
 package patrones.state;
 
 public abstract class State {
-    private Phone phone;
+    protected Phone phone;
     public State(Phone phone) {
         this.phone = phone;
     }

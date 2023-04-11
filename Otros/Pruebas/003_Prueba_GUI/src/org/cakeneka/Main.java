@@ -3,7 +3,8 @@ package org.cakeneka;
 public class Main {
 
     public static void main(String[] args) {
-        new MainWindow().setVisible(true);
+        Adventure adv = new Adventure();
+        adv.start();
     }
     
 }
