@@ -3,17 +3,17 @@ package org.cakeneka.states;
 import java.awt.Color;
 import org.cakeneka.Adventure;
 
-public class InitialState extends State {
+public class IntroState extends State {
 
     
-    static final String message = "Bienvenida";
+    static final String message = "Juan: Buenos días";
     static final String[] initialOptions = {
-        "Manzana",
-        "Banana",
-        "Tomate"
+        "Buenas noches",
+        "Buenas tardes",
+        "Buen día"
     };
     
-    public InitialState(Adventure adventure) {
+    public IntroState(Adventure adventure) {
         super(adventure, initialOptions);
     }
     

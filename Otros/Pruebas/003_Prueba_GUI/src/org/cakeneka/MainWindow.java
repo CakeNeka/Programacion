@@ -5,6 +5,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 
 public class MainWindow extends JFrame {
 
@@ -12,11 +19,11 @@ public class MainWindow extends JFrame {
     static final int WINDOW_HEIGHT = 700;
 
     private Adventure parent;
-    
+
     private JPanel panel;
-    private JTextArea history;
+    private JTextPane history;
     private JList optionList;
-    
+
     public MainWindow(Adventure parent) {
         this.parent = parent;
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -30,7 +37,7 @@ public class MainWindow extends JFrame {
 
     private void initComponents() {
         initPanel();
-        initTextField();
+        initTextPane();
         initOptionList();
     }
 
@@ -41,8 +48,9 @@ public class MainWindow extends JFrame {
         add(panel);
     }
 
-    private void initTextField() {
-        history = new History();
+    private void initTextPane() {
+        history = new JTextPane();
+        history.setEditable(false);
         JScrollPane scroll = new JScrollPane(history,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -52,9 +60,6 @@ public class MainWindow extends JFrame {
 
     private void initOptionList() {
         DefaultListModel<String> model = new DefaultListModel();
-        model.add(0, "Def opt 0");
-        model.add(1, "Def opt 1");
-        model.add(2, "Def opt 2");
         optionList = new JList(model);
         optionList.addMouseListener(new OptionListener());
         panel.add(optionList);
@@ -65,14 +70,23 @@ public class MainWindow extends JFrame {
         scroll.setBounds(25, 400, 500, 150);
         panel.add(scroll);
     }
+    
+    public void writeText(String msg, Color c) {
+        history.setEditable(true);
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-    public void writeText(String text) {
-        history.append(text + "\n");
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = history.getDocument().getLength();
+        history.setCaretPosition(len);
+        history.setCharacterAttributes(aset, false);
+        history.replaceSelection(msg + "\n");
+        history.setEditable(false);
     }
 
-    public void writeText(String text, Color color) {
-
-    }
+ 
 
     void updateOptions(String[] options) {
         DefaultListModel<String> listModel = new DefaultListModel<>();

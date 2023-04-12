@@ -14,9 +14,9 @@ public abstract class State {
     
     public abstract void nextState(int choice);
 
+    public abstract void showMessage();    
+    
     public String[] getOptions() {
         return options;
     }
-    
-    
 }
