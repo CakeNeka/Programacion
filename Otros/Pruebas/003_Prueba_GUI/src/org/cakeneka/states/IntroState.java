@@ -1,6 +1,7 @@
 package org.cakeneka.states;
 
 import java.awt.Color;
+import org.cakeneka.Actor;
 import org.cakeneka.Adventure;
 
 public class IntroState extends State {
@@ -14,12 +15,11 @@ public class IntroState extends State {
     };
     
     public IntroState(Adventure adventure) {
-        super(adventure, initialOptions);
+        super(adventure, message, initialOptions, Actor.juan);
     }
     
     @Override
     public void nextState(int choice) {
-        adventure.writeMessage(adventure.getPlayerName() + ": " + initialOptions[choice], Color.black);
         switch(choice) {
             case 1: 
             case 2:
@@ -29,12 +29,7 @@ public class IntroState extends State {
             default:
                 break;
         }
-        adventure.getState().showMessage();
     }
 
-    @Override
-    public void showMessage() {
-        adventure.writeMessage(message, Color.gray);
-    }
     
 }

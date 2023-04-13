@@ -21,7 +21,13 @@ public class Adventure {
     }
     
     public void onOptionChosen(int opt){
+        writeMessage(playerName + ": " + state.getOptions()[opt], Color.black);
         state.nextState(opt);
+        if (state.getActor() == null) {
+            writeMessage(state.getSentence(), Color.GRAY);
+        } else {
+            writeMessage(state.getActor().getName()+ ": " + state.getSentence(), state.getActor().getColor());
+        }
         mainWindow.updateOptions(state.getOptions());
     }
     

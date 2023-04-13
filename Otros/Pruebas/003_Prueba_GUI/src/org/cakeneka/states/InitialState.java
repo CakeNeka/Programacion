@@ -1,11 +1,10 @@
 package org.cakeneka.states;
 
-import java.awt.Color;
+
 import org.cakeneka.Adventure;
 
 public class InitialState extends State {
 
-    
     static final String message = "Bienvenida";
     static final String[] initialOptions = {
         "Manzana",
@@ -14,12 +13,11 @@ public class InitialState extends State {
     };
     
     public InitialState(Adventure adventure) {
-        super(adventure, initialOptions);
+        super(adventure, message, initialOptions, null);
     }
     
     @Override
     public void nextState(int choice) {
-        adventure.writeMessage(adventure.getPlayerName() + ": " + initialOptions[choice], Color.black);
         switch(choice) {
             case 1: 
             case 2:
@@ -29,12 +27,8 @@ public class InitialState extends State {
             default:
                 break;
         }
-        adventure.getState().showMessage();
     }
 
-    @Override
-    public void showMessage() {
-        adventure.writeMessage(message, Color.gray);
-    }
+
     
 }
