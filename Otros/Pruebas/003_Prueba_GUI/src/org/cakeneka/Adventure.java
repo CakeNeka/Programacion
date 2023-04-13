@@ -6,29 +6,25 @@ import org.cakeneka.states.*;
 public class Adventure {
     private State state;
     private MainWindow mainWindow;
-
     private String playerName;
     
     public Adventure() {
         mainWindow = new MainWindow(this);
-        state = new InitialState(this);
+        state = new IntroState(this);
         playerName = "defaultPlayerName";
     }
     
     public void start(){
         mainWindow.setVisible(true);
-        mainWindow.updateOptions(state.getOptions());
+        mainWindow.updateOptions(state.getDialogueOptions());
+        writeMessage(state.getFullMessage(), state.getActorColor());
     }
     
     public void onOptionChosen(int opt){
-        writeMessage(playerName + ": " + state.getOptions()[opt], Color.black);
+        writeMessage(state.getPlayerDialogue(opt), Color.black);
         state.nextState(opt);
-        if (state.getActor() == null) {
-            writeMessage(state.getSentence(), Color.GRAY);
-        } else {
-            writeMessage(state.getActor().getName()+ ": " + state.getSentence(), state.getActor().getColor());
-        }
-        mainWindow.updateOptions(state.getOptions());
+        writeMessage(state.getFullMessage(), state.getActorColor());
+        mainWindow.updateOptions(state.getDialogueOptions());
     }
     
     public void writeMessage(String message, Color color) {

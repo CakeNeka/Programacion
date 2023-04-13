@@ -1,6 +1,7 @@
 package org.cakeneka.states;
 
 
+import org.cakeneka.Actor;
 import org.cakeneka.Adventure;
 
 public class InitialState extends State {
@@ -13,7 +14,7 @@ public class InitialState extends State {
     };
     
     public InitialState(Adventure adventure) {
-        super(adventure, message, initialOptions, null);
+        super(adventure, message, initialOptions, Actor.juan);
     }
     
     @Override
@@ -22,13 +23,13 @@ public class InitialState extends State {
             case 1: 
             case 2:
             case 3:
-                adventure.setState(new IntroState(adventure));
+                adventure.setState(new InitialState(adventure));
                 break;
             default:
                 break;
         }
     }
 
-
+    
     
 }
