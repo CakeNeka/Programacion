@@ -1,6 +1,6 @@
 package pkg006_bd_aeropuerto;
 
-
+import java.util.List;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,25 +9,29 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends javax.swing.JFrame {
-    
+
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/DEPEMP";
+    static final String DB_URL = "jdbc:mysql://localhost/video_ej3";
     static final String USER = "root";
     static final String PASS = "";
 
     // Atributos variables
-    Connection conection = null;
+    Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
     public MainWindow() {
         initComponents();
+        connection = connect();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,6 +58,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -147,56 +152,78 @@ public class MainWindow extends javax.swing.JFrame {
         }
         return con;
     }
-    
-    
+
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
 
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        showTable(jTextField1.getText().trim());
+        jTextArea1.setText("");
+        String tableName = jTextField1.getText().trim();
+        try {
+            executeQuery(tableName);
+            String[][] table = fetchSqlTable(tableName);
+            showTable(table);
+            fillJTable(table);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "El nombre introducido no es válido");
+        }
         jTextField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-    private void searchTable(String table){
-        String[][] sqlTable = getTable(table); 
-    }
-    
-    private String[][] tableToStringArray() {
-    
-    }
-    
-    private void showTable(String table) {
- 
-    }
-    
-    private void printResultSet() throws SQLException{
-        ResultSetMetaData meta = resultSet.getMetaData();
-        int nCol = meta.getColumnCount();
-        String[] nombreColumnas = new String[nCol];
-        String[] tipoColumnas = new String[nCol];
-        Object[] valColumnas = new Object[nCol];
-        for (int i = 0; i < nCol; i++) {
-            nombreColumnas[i] = meta.getColumnName(i + 1);
-            tipoColumnas[i] = meta.getColumnTypeName(i + 1);
-        }
-        
-        for (int i = 0; i < nCol; i++) {
-            jTextArea1.append(String.format("%-30s",nombreColumnas[i] + "[" + tipoColumnas[i] + "]"));
-        }
-        jTextArea1.append("\n");
-        
+
+    private String[][] fetchSqlTable(String name) throws SQLException {
+        String[][] table = createBaseTable();
         resultSet.beforeFirst();
-        while(resultSet.next()) {
-            for (int i = 0; i < nCol; i++) {
-                valColumnas[i] = resultSet.getObject(i + 1);
+        int i = 1;
+        while (resultSet.next()) {
+            for (int j = 0; j < table[i].length; j++) {
+                if (resultSet.getObject(j + 1) == null)
+                    table[i][j] = "null";
+                else
+                    table[i][j] = resultSet.getObject(j + 1).toString();
             }
-            
-            for (int i = 0; i < nCol; i++) {
-                jTextArea1.append(String.format("%-30s",valColumnas[i]));
+            i++;
+        }
+        return table;
+    }
+
+    private void executeQuery(String table) throws SQLException {
+        String query = "SELECT * FROM " + table;
+        Statement stmt = connection.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        resultSet = stmt.executeQuery(query);
+    }
+
+    private String[][] createBaseTable() throws SQLException {
+        ResultSetMetaData meta = resultSet.getMetaData();
+        int columns = meta.getColumnCount();
+        resultSet.last();
+        int rows = resultSet.getRow();
+        String[][] table = new String[rows + 1][columns];
+
+        for (int i = 0; i < columns; i++) {
+            table[0][i] = meta.getColumnName(i + 1) + "[" + meta.getColumnTypeName(i + 1) + "]";
+        }
+
+        return table;
+    }
+
+    private void showTable(String[][] table) {
+        for (String[] strings : table) {
+            for (String string : strings) {
+                jTextArea1.append(String.format("%-30s", string));
             }
             jTextArea1.append("\n");
         }
+    }
+    
+    private void fillJTable(String[][] table) {
+        DefaultTableModel model = new DefaultTableModel(table[0], 0);
+        for (int i = 1; i < table.length; i++) {
+            model.addRow(table[i]);
+        }
+        jTable1.setModel(model);
     }
     
     public static void main(String args[]) {
@@ -241,4 +268,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+   
+
+
 }
