@@ -282,7 +282,7 @@ public class City {
 
     private City(String name) {
         this.name = name;
-        this.money = 20000000;
+        this.money = 200;
         encounterManager = new EncounterManager();
         
         for (int i = 0; i < 3; i++) {
