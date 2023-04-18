@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class MainWindow extends javax.swing.JFrame {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/video_ej3";
+    static final String DB_URL = "jdbc:mysql://localhost/DEPEMP";
     static final String USER = "root";
     static final String PASS = "";
 
@@ -160,9 +160,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTextArea1.setText("");
+        jTable1.setModel(new DefaultTableModel());
         String tableName = jTextField1.getText().trim();
         try {
-            executeQuery(tableName);
             String[][] table = fetchSqlTable(tableName);
             showTable(table);
             fillJTable(table);
@@ -172,7 +172,8 @@ public class MainWindow extends javax.swing.JFrame {
         jTextField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private String[][] fetchSqlTable(String name) throws SQLException {
+    private String[][] fetchSqlTable(String tableName) throws SQLException {
+        executeSelect(tableName);
         String[][] table = createBaseTable();
         resultSet.beforeFirst();
         int i = 1;
@@ -188,7 +189,7 @@ public class MainWindow extends javax.swing.JFrame {
         return table;
     }
 
-    private void executeQuery(String table) throws SQLException {
+    private void executeSelect(String table) throws SQLException {
         String query = "SELECT * FROM " + table;
         Statement stmt = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
