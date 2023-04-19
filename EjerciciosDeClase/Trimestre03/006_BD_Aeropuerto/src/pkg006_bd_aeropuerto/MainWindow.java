@@ -174,7 +174,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private String[][] fetchSqlTable(String tableName) throws SQLException {
         executeSelect(tableName);
-        String[][] table = createBaseTable();
+        String[][] table = createTableHeader();
         resultSet.beforeFirst();
         int i = 1;
         while (resultSet.next()) {
@@ -196,7 +196,7 @@ public class MainWindow extends javax.swing.JFrame {
         resultSet = stmt.executeQuery(query);
     }
 
-    private String[][] createBaseTable() throws SQLException {
+    private String[][] createTableHeader() throws SQLException {
         ResultSetMetaData meta = resultSet.getMetaData();
         int columns = meta.getColumnCount();
         resultSet.last();
