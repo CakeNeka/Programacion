@@ -1,13 +1,17 @@
 package pkg007_ejercicioobligatorio2;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class AddPassengerForm extends javax.swing.JFrame {
     
     final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    final String DB_URL = "jdbc:mysql://localhost/DEPEMP";
+    final String DB_URL = "jdbc:mysql://localhost/video";
     final String USER = "root";
     final String PASS = "";
 
@@ -20,6 +24,33 @@ public class AddPassengerForm extends javax.swing.JFrame {
         initComponents();
         buttonGroup1.add(maleRb);
         buttonGroup1.add(femaleRb);
+    }
+    
+    public Connection conecta() {
+        Connection con = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            con = (com.mysql.jdbc.Connection) DriverManager.getConnection(DB_URL, USER, PASS);
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return con;
+    }
+    
+    
+    private void limpiarCajas() {
+        
+    }
+    
+    private String getSelectedGender() {
+        if (maleRb.isSelected()){
+            return "H";
+        } else if (femaleRb.isSelected()) {
+            return "M";
+        }
+        return null;
     }
     
     /**
@@ -41,18 +72,18 @@ public class AddPassengerForm extends javax.swing.JFrame {
         deleteBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        flightIdTf = new javax.swing.JTextField();
+        nameTf = new javax.swing.JTextField();
+        surnameTf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        dniTf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        surname2Tf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        nationalityTf = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        ageSpinner = new javax.swing.JSpinner();
         maleRb = new javax.swing.JRadioButton();
         femaleRb = new javax.swing.JRadioButton();
 
@@ -122,27 +153,23 @@ public class AddPassengerForm extends javax.swing.JFrame {
 
         jLabel4.setText("Apellido");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
+        surnameTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                surnameTfActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("dni");
 
-        jTextField4.setText("jTextField1");
-
         jLabel6.setText("Apellido 2");
 
-        jTextField5.setText("jTextField3");
-
         jLabel7.setText("Nacionalidad");
-
-        jTextField6.setText("jTextField3");
 
         jLabel8.setText("Edad");
 
         jLabel9.setText("Sexo");
+
+        ageSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 120, 1));
 
         maleRb.setText("M");
 
@@ -172,13 +199,13 @@ public class AddPassengerForm extends javax.swing.JFrame {
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dniTf)
+                            .addComponent(flightIdTf)
+                            .addComponent(nameTf)
+                            .addComponent(surnameTf)
+                            .addComponent(surname2Tf)
+                            .addComponent(nationalityTf)
+                            .addComponent(ageSpinner, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(maleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
@@ -194,31 +221,31 @@ public class AddPassengerForm extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dniTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(flightIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(surnameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(surname2Tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nationalityTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -237,19 +264,79 @@ public class AddPassengerForm extends javax.swing.JFrame {
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtnActionPerformed
-        // 
+        try {
+            connection = conecta();
+            String query = "insert into vuelo (dni, idVuelo, nombre, apellido, apellido2, nacionalidad, edad, genero) "
+                    + "values (?,?,?,?,?,?,?,?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, dniTf.getText()); 
+            preparedStatement.setString(2, flightIdTf.getText());  
+            preparedStatement.setString(3, nameTf.getText());
+            preparedStatement.setString(4, surnameTf.getText());
+            preparedStatement.setString(5, surname2Tf.getText());
+            preparedStatement.setString(6, nationalityTf.getText());
+            preparedStatement.setInt(7, (int) ageSpinner.getValue());
+            preparedStatement.setString(8, getSelectedGender());
+            
+
+            System.out.println(preparedStatement.toString());
+            // Ejecuto la consulta
+            int resultado = preparedStatement.executeUpdate();
+            System.out.println(resultado);
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Registro insertado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al insertar");
+            }
+
+            connection.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        limpiarCajas();
     }//GEN-LAST:event_insertBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // String preparedQuery = 
-        // 
+        try {
+            connection = conecta();
+            // En las sentencias preparadas los valores no se ponen directamente
+            // sino que se ponen interrogaciones, luego uso el prepareStatement
+            // y luego le doy los valores correspondientes.
+
+            String query = "delete from persona where idPersona = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, dniTf.getText());
+            System.out.println(preparedStatement);
+
+            // Ejecuto la consulta
+            int resultado = preparedStatement.executeUpdate();
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Registro borrado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al borrar");
+            }
+
+            connection.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        limpiarCajas();
     }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void surnameTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_surnameTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_surnameTfActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner ageSpinner;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextField dniTf;
     private javax.swing.JRadioButton femaleRb;
+    private javax.swing.JTextField flightIdTf;
     private javax.swing.JButton insertBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -261,15 +348,13 @@ public class AddPassengerForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JRadioButton maleRb;
+    private javax.swing.JTextField nameTf;
+    private javax.swing.JTextField nationalityTf;
     private javax.swing.JButton selectBtn;
+    private javax.swing.JTextField surname2Tf;
+    private javax.swing.JTextField surnameTf;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
+
 }
