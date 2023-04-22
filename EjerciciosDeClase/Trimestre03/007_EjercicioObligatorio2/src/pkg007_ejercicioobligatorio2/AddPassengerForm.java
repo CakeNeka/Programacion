@@ -41,7 +41,15 @@ public class AddPassengerForm extends javax.swing.JFrame {
     
     
     private void limpiarCajas() {
-        
+        dniTf.setText("");
+        flightIdTf.setText("");
+        nameTf.setText("");
+        surnameTf.setText("");
+        surname2Tf.setText("");
+        nationalityTf.setText("");
+        ageSpinner.setValue(0);
+        maleRb.setSelected(false);
+        femaleRb.setSelected(false);
     }
     
     private String getSelectedGender() {
