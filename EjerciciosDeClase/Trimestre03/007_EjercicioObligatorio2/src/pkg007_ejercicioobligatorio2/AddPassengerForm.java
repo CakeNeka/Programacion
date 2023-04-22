@@ -1,17 +1,22 @@
 package pkg007_ejercicioobligatorio2;
 
+import com.mysql.jdbc.MysqlDataTruncation;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class AddPassengerForm extends javax.swing.JFrame {
     
     final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    final String DB_URL = "jdbc:mysql://localhost/video";
+    final String DB_URL = "jdbc:mysql://localhost/aeropuerto";
     final String USER = "root";
     final String PASS = "";
 
@@ -80,7 +85,6 @@ public class AddPassengerForm extends javax.swing.JFrame {
         deleteBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        flightIdTf = new javax.swing.JTextField();
         nameTf = new javax.swing.JTextField();
         surnameTf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -94,6 +98,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
         ageSpinner = new javax.swing.JSpinner();
         maleRb = new javax.swing.JRadioButton();
         femaleRb = new javax.swing.JRadioButton();
+        flightIdSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,6 +111,11 @@ public class AddPassengerForm extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         selectBtn.setText("Seleccionar");
+        selectBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectBtnActionPerformed(evt);
+            }
+        });
 
         updateBtn.setText("Actualizar");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -161,12 +171,6 @@ public class AddPassengerForm extends javax.swing.JFrame {
 
         jLabel4.setText("Apellido");
 
-        surnameTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                surnameTfActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("dni");
 
         jLabel6.setText("Apellido 2");
@@ -182,6 +186,8 @@ public class AddPassengerForm extends javax.swing.JFrame {
         maleRb.setText("M");
 
         femaleRb.setText("F");
+
+        flightIdSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 120, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,7 +214,6 @@ public class AddPassengerForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dniTf)
-                            .addComponent(flightIdTf)
                             .addComponent(nameTf)
                             .addComponent(surnameTf)
                             .addComponent(surname2Tf)
@@ -217,7 +222,8 @@ public class AddPassengerForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(maleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                .addComponent(femaleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(femaleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(flightIdSpinner))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -233,7 +239,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(flightIdTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(flightIdSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -259,7 +265,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(maleRb)
                     .addComponent(femaleRb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -268,17 +274,37 @@ public class AddPassengerForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        // 
+         try {
+            connection = conecta();
+            String query = "update persona set nombre = ?, domicilio = ?, movil = ?, "
+                    + "email = ?, fechaNac = ?, genero = ? where idPersona = ?";
+         
+            preparedStatement = connection.prepareStatement(query);
+            
+            // Ejecuto la consulta
+            int resultado = preparedStatement.executeUpdate();
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(null, "Registro actualizado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar");
+            }
+
+            connection.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        limpiarCajas();
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtnActionPerformed
         try {
             connection = conecta();
-            String query = "insert into vuelo (dni, idVuelo, nombre, apellido, apellido2, nacionalidad, edad, genero) "
+            String query = "insert into pasajeros (dni, idVuelo, nombre, apellido1, apellido2, nacionalidad, edad, sexo) "
                     + "values (?,?,?,?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, dniTf.getText()); 
-            preparedStatement.setString(2, flightIdTf.getText());  
+            preparedStatement.setInt(2, (int) flightIdSpinner.getValue());  
             preparedStatement.setString(3, nameTf.getText());
             preparedStatement.setString(4, surnameTf.getText());
             preparedStatement.setString(5, surname2Tf.getText());
@@ -298,8 +324,8 @@ public class AddPassengerForm extends javax.swing.JFrame {
             }
 
             connection.close();
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al insertar");
         }
 
         limpiarCajas();
@@ -308,16 +334,11 @@ public class AddPassengerForm extends javax.swing.JFrame {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         try {
             connection = conecta();
-            // En las sentencias preparadas los valores no se ponen directamente
-            // sino que se ponen interrogaciones, luego uso el prepareStatement
-            // y luego le doy los valores correspondientes.
-
-            String query = "delete from persona where idPersona = ?";
+            String query = "delete from pasajeros where DNI = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, dniTf.getText());
             System.out.println(preparedStatement);
 
-            // Ejecuto la consulta
             int resultado = preparedStatement.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Registro borrado correctamente");
@@ -326,25 +347,72 @@ public class AddPassengerForm extends javax.swing.JFrame {
             }
 
             connection.close();
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al borrar");
         }
 
         limpiarCajas();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
-    private void surnameTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_surnameTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_surnameTfActionPerformed
-    
+    private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBtnActionPerformed
+        try {
+            connection = conecta();
 
+            String query = "Select * from pasajeros where nombre like ? order by nombre";
+            preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+ 
+            ;
+            preparedStatement.setString(1, "%"+nameTf.getText().trim()+"%"); 
+
+            // Ejecuto la consulta
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String[][] resultTable = generateResultTable();
+                new ShowSelect(resultTable).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se ha encontrado ninguna persona");
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al seleccionar");
+        }
+        
+        limpiarCajas();
+    }//GEN-LAST:event_selectBtnActionPerformed
+    
+    private String[][] generateResultTable() throws SQLException {
+        ResultSetMetaData meta = resultSet.getMetaData();
+        int columns = meta.getColumnCount();
+        resultSet.last();
+        int rows = resultSet.getRow();
+        String[][] table = new String[rows + 1][columns];
+
+        for (int i = 0; i < columns; i++) {
+            table[0][i] = meta.getColumnName(i + 1) + "[" + meta.getColumnTypeName(i + 1) + "]";
+        }
+        
+        resultSet.beforeFirst();
+        int i = 1;
+        while (resultSet.next()) {
+            for (int j = 0; j < table[i].length; j++) {
+                if (resultSet.getObject(j + 1) == null)
+                    table[i][j] = "null";
+                else
+                    table[i][j] = resultSet.getObject(j + 1).toString();
+            }
+            i++;
+        }
+        return table;
+    }
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner ageSpinner;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextField dniTf;
     private javax.swing.JRadioButton femaleRb;
-    private javax.swing.JTextField flightIdTf;
+    private javax.swing.JSpinner flightIdSpinner;
     private javax.swing.JButton insertBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
