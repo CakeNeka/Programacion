@@ -3,15 +3,11 @@ package org.cakeneka;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
-import javax.swing.text.StyledDocument;
 
 public class MainWindow extends JFrame {
 
@@ -28,7 +24,7 @@ public class MainWindow extends JFrame {
         this.parent = parent;
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-        setTitle("Bastión Nefario");
+        setTitle("Gloria a los Valientes");
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -76,7 +72,7 @@ public class MainWindow extends JFrame {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Segoe UI");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 
         int len = history.getDocument().getLength();

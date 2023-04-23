@@ -34,7 +34,7 @@ public abstract class State {
 
     
     public String getFullMessage() {
-        return speaker.getDisplayName() + stateMessage;
+        return speaker.getDisplayName() + stateMessage + "\n";
     }
 
     public String getPlayerDialogue(int opt) {

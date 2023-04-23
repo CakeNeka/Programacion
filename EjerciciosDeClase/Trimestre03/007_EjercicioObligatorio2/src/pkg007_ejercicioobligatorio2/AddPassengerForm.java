@@ -47,7 +47,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
     
     private void limpiarCajas() {
         dniTf.setText("");
-        flightIdTf.setText("");
+        flightIdSpinner.setValue(0);
         nameTf.setText("");
         surnameTf.setText("");
         surname2Tf.setText("");

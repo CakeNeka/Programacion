@@ -11,7 +11,7 @@ public class Adventure {
     public Adventure() {
         mainWindow = new MainWindow(this);
         state = new IntroState(this);
-        playerName = "defaultPlayerName";
+        playerName = "Garviel Loken";
     }
     
     public void start(){

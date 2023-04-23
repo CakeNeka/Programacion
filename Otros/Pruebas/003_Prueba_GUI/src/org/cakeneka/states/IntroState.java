@@ -9,9 +9,8 @@ public class IntroState extends State {
 
     static final String message = "Eres un Astartes, un guerrero de élite del Imperio, "
             + "en la Gran Cruzada liderada por el Emperador para conquistar la "
-            + "galaxia y encontrar a sus hijos primogénitos, los Primarcas. "
-            + "Tu misión actual es liderar a un pequeño equipo de Astartes en "
-            + "una misión para eliminar un nido de Xenos en un planeta desconocido.";
+            + "galaxia. Tu misión es neutralizar a los Xenos. El terreno es desconocido. "
+            + "Toda comunicación se ha perdido y no queda rastro de fuerzas imperiales. ";
     
     static final String[] initialOptions = {
         "Continuar",
@@ -26,10 +25,10 @@ public class IntroState extends State {
     public void nextState(int choice) {
         switch (choice) {
             case 0:
-                adventure.setState(new InitialState(adventure));
+                adventure.setState(new C2State(adventure));
                 break;
             case 1:
-                JOptionPane.showMessageDialog(null, "Decides abandonar la cruzada y dejar a tus leales compañeros a la deriva");
+                JOptionPane.showMessageDialog(null, "Decides abandonar la cruzada y dejar a tus leales hermanos a la deriva");
                 System.exit(0);
                 break;
             default:
