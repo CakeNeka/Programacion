@@ -45,7 +45,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
     }
     
     
-    private void limpiarCajas() {
+    private void cleanTextFields() {
         dniTf.setText("");
         flightIdSpinner.setValue(0);
         nameTf.setText("");
@@ -149,7 +149,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(updateBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(insertBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                        .addComponent(insertBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(deleteBtn)))
                 .addContainerGap())
@@ -194,43 +194,43 @@ public class AddPassengerForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dniTf)
-                            .addComponent(nameTf)
-                            .addComponent(surnameTf)
-                            .addComponent(surname2Tf)
-                            .addComponent(nationalityTf)
-                            .addComponent(ageSpinner, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(maleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                .addComponent(femaleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(flightIdSpinner))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dniTf)
+                                    .addComponent(nameTf)
+                                    .addComponent(surnameTf)
+                                    .addComponent(surname2Tf)
+                                    .addComponent(nationalityTf)
+                                    .addComponent(ageSpinner, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(maleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                        .addComponent(femaleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(flightIdSpinner))))
+                        .addGap(106, 106, 106)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -265,7 +265,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(maleRb)
                     .addComponent(femaleRb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -276,10 +276,18 @@ public class AddPassengerForm extends javax.swing.JFrame {
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
          try {
             connection = conecta();
-            String query = "update persona set nombre = ?, domicilio = ?, movil = ?, "
-                    + "email = ?, fechaNac = ?, genero = ? where idPersona = ?";
+            String query = "update pasajeros set idVuelo = ?, nombre = ?, apellido1 = ?, "
+                    + "apellido2 = ?, nacionalidad = ?, edad = ?, sexo = ? where dni = ? ";
          
             preparedStatement = connection.prepareStatement(query);
+    
+            preparedStatement.setInt(2, (int) flightIdSpinner.getValue());  
+            preparedStatement.setString(3, nameTf.getText());
+            preparedStatement.setString(4, surnameTf.getText());
+            preparedStatement.setString(5, surname2Tf.getText());
+            preparedStatement.setString(6, nationalityTf.getText());
+            preparedStatement.setInt(7, (int) ageSpinner.getValue());
+            preparedStatement.setString(8, getSelectedGender());
             
             // Ejecuto la consulta
             int resultado = preparedStatement.executeUpdate();
@@ -294,7 +302,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
             System.out.println(ex);
         }
 
-        limpiarCajas();
+        cleanTextFields();
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtnActionPerformed
@@ -328,7 +336,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al insertar");
         }
 
-        limpiarCajas();
+        cleanTextFields();
     }//GEN-LAST:event_insertBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -351,7 +359,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al borrar");
         }
 
-        limpiarCajas();
+        cleanTextFields();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBtnActionPerformed
@@ -378,7 +386,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al seleccionar");
         }
         
-        limpiarCajas();
+        cleanTextFields();
     }//GEN-LAST:event_selectBtnActionPerformed
     
     private String[][] generateResultTable() throws SQLException {
