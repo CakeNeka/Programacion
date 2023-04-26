@@ -3,6 +3,7 @@ package org.cakeneka.states;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import org.cakeneka.Actor;
+import org.cakeneka.Actors;
 import org.cakeneka.Adventure;
 
 public class IntroState extends State {
@@ -18,7 +19,7 @@ public class IntroState extends State {
     };
 
     public IntroState(Adventure adventure) {
-        super(adventure, message, initialOptions, Actor.narrator);
+        super(adventure, message, initialOptions, Actors.narrator);
     }
 
     @Override

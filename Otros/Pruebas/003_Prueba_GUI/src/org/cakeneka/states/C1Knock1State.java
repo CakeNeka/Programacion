@@ -6,21 +6,23 @@
 package org.cakeneka.states;
 
 import org.cakeneka.Actor;
+import org.cakeneka.Actors;
 import org.cakeneka.Adventure;
 
 /**
  *
  * @author Neka
  */
-public class C2Knock1State extends State {
+public class C1Knock1State extends State {
 
     static final String message = "shh Capitán!";
     static final String[] initialOptions = {
-        "Volver"
+        "Volver",
+        "¿Quien anda ahí?"
     };
 
-    public C2Knock1State(Adventure adventure) {
-        super(adventure, message, initialOptions, Actor.juan);
+    public C1Knock1State(Adventure adventure) {
+        super(adventure, message, initialOptions, Actors.juan);
     }
 
     @Override
@@ -29,6 +31,8 @@ public class C2Knock1State extends State {
             case 0:
                 adventure.setState(new C1State(adventure));
                 break;
+            case 1:
+                adventure.setState(new C1Knock2State(adventure));
             default:
                 break;
         }

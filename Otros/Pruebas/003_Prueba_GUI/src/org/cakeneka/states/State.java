@@ -19,7 +19,9 @@ public abstract class State {
     }
     
     public abstract void nextState(int choice);
- 
+    
+    public void manageOptions(int choice) {}
+    
     public String[] getDialogueOptions() {
         return dialogueOptions;
     }

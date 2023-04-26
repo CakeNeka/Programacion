@@ -7,6 +7,7 @@ package org.cakeneka.states;
 
 import java.awt.Color;
 import org.cakeneka.Actor;
+import org.cakeneka.Actors;
 import org.cakeneka.Adventure;
 
 /**
@@ -24,7 +25,7 @@ public class C1State extends State {
     };
 
     public C1State(Adventure adventure) {
-        super(adventure, message, initialOptions, Actor.narrator);
+        super(adventure, message, initialOptions, Actors.narrator);
     }
 
     @Override
@@ -37,10 +38,15 @@ public class C1State extends State {
                 adventure.writeMessage("Te resulta imposible abrir la puerta. \n", speaker.getColor());
                 break;
             case 2:
-                adventure.setState(new C2Knock1State(adventure));
+                adventure.setState(new C1Knock1State(adventure));
+                break;
             default:
                 break;
         }
     }
-
+    
+    @Override
+    public void manageOptions(int choice) {
+        
+    }
 }

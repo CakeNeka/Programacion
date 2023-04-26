@@ -149,7 +149,7 @@ public class AddPassengerForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(updateBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(insertBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(insertBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(deleteBtn)))
                 .addContainerGap())
@@ -196,36 +196,38 @@ public class AddPassengerForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(surnameTf)
+                            .addComponent(surname2Tf)
+                            .addComponent(nationalityTf)
+                            .addComponent(ageSpinner, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(maleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                                .addComponent(femaleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dniTf)
+                            .addComponent(nameTf)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(flightIdSpinner)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dniTf)
-                                    .addComponent(nameTf)
-                                    .addComponent(surnameTf)
-                                    .addComponent(surname2Tf)
-                                    .addComponent(nationalityTf)
-                                    .addComponent(ageSpinner, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(maleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                        .addComponent(femaleRb, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(flightIdSpinner))))
-                        .addGap(106, 106, 106)))
-                .addContainerGap())
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,30 +278,31 @@ public class AddPassengerForm extends javax.swing.JFrame {
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
          try {
             connection = conecta();
-            String query = "update pasajeros set idVuelo = ?, nombre = ?, apellido1 = ?, "
-                    + "apellido2 = ?, nacionalidad = ?, edad = ?, sexo = ? where dni = ? ";
+            String query = "update pasajeros set  nombre = ?, apellido1 = ?, "
+                    + "apellido2 = ?, nacionalidad = ?, edad = ?, sexo = ? where dni = ? AND idVuelo = ?";
          
             preparedStatement = connection.prepareStatement(query);
     
-            preparedStatement.setInt(2, (int) flightIdSpinner.getValue());  
-            preparedStatement.setString(3, nameTf.getText());
-            preparedStatement.setString(4, surnameTf.getText());
-            preparedStatement.setString(5, surname2Tf.getText());
-            preparedStatement.setString(6, nationalityTf.getText());
-            preparedStatement.setInt(7, (int) ageSpinner.getValue());
-            preparedStatement.setString(8, getSelectedGender());
+            preparedStatement.setString(1, nameTf.getText());
+            preparedStatement.setString(2, surnameTf.getText());
+            preparedStatement.setString(3, surname2Tf.getText());
+            preparedStatement.setString(4, nationalityTf.getText());
+            preparedStatement.setInt(5, (int) ageSpinner.getValue());
+            preparedStatement.setString(6, getSelectedGender());
             
+            preparedStatement.setString(7, dniTf.getText());
+            preparedStatement.setInt(8, (int) flightIdSpinner.getValue());  
             // Ejecuto la consulta
             int resultado = preparedStatement.executeUpdate();
             if (resultado > 0) {
-                JOptionPane.showMessageDialog(null, "Registro actualizado correctamente");
+                JOptionPane.showMessageDialog(this, "Registro actualizado correctamente");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar");
+                JOptionPane.showMessageDialog(this, "Error al actualizar");
             }
 
             connection.close();
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(this, "Error al actualizar");
         }
 
         cleanTextFields();
@@ -326,14 +329,14 @@ public class AddPassengerForm extends javax.swing.JFrame {
             int resultado = preparedStatement.executeUpdate();
             System.out.println(resultado);
             if (resultado > 0) {
-                JOptionPane.showMessageDialog(null, "Registro insertado correctamente");
+                JOptionPane.showMessageDialog(this, "Registro insertado correctamente");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al insertar");
+                JOptionPane.showMessageDialog(this, "Error al insertar");
             }
 
             connection.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al insertar");
+            JOptionPane.showMessageDialog(this, "Error al insertar");
         }
 
         cleanTextFields();
@@ -342,21 +345,22 @@ public class AddPassengerForm extends javax.swing.JFrame {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         try {
             connection = conecta();
-            String query = "delete from pasajeros where DNI = ?";
+            String query = "delete from pasajeros where DNI = ? AND Idvuelo = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, dniTf.getText());
+            preparedStatement.setInt(2, (int) flightIdSpinner.getValue());   
             System.out.println(preparedStatement);
 
             int resultado = preparedStatement.executeUpdate();
             if (resultado > 0) {
-                JOptionPane.showMessageDialog(null, "Registro borrado correctamente");
+                JOptionPane.showMessageDialog(this, "Registro borrado correctamente");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al borrar");
+                JOptionPane.showMessageDialog(this, "Error al borrar");
             }
 
             connection.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al borrar");
+            JOptionPane.showMessageDialog(this, "Error al borrar");
         }
 
         cleanTextFields();
@@ -378,12 +382,12 @@ public class AddPassengerForm extends javax.swing.JFrame {
                 String[][] resultTable = generateResultTable();
                 new ShowSelect(resultTable).setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "No se ha encontrado ninguna persona");
+                JOptionPane.showMessageDialog(this, "No se ha encontrado ninguna persona");
             }
 
             connection.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al seleccionar");
+            JOptionPane.showMessageDialog(this, "Error al seleccionar");
         }
         
         cleanTextFields();

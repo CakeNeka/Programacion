@@ -1,6 +1,7 @@
 package org.cakeneka.states;
 
 import org.cakeneka.Actor;
+import org.cakeneka.Actors;
 import org.cakeneka.Adventure;
 
 public class C2State extends State {
@@ -15,7 +16,7 @@ public class C2State extends State {
     };
 
     public C2State(Adventure adventure) {
-        super(adventure, message, initialOptions, Actor.narrator);
+        super(adventure, message, initialOptions, Actors.narrator);
     }
 
     @Override
