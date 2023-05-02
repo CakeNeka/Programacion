@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package pkg008_ej3;
 
 import java.awt.event.ItemEvent;
@@ -35,7 +31,7 @@ class HotelsWindow extends javax.swing.JFrame {
         updateInfo();
     };
 
-    private Map<String, List<Hotel>> citiesHotels;
+    private Map<String, List<String>> citiesHotels;
 
     public HotelsWindow() {
         initComponents();
@@ -97,10 +93,7 @@ class HotelsWindow extends javax.swing.JFrame {
     }
 
     private void fillHotelsMap(String[][] sqlTable) {
-        for (String[] columns : sqlTable) {
-            citiesHotels.putIfAbsent(columns[0], new ArrayList<>());
-            citiesHotels.get(columns[0]).add(new Hotel(columns[0], columns[1], columns[2]));
-        }
+        
     }
 
     private void initCitiesCb() {
@@ -117,17 +110,12 @@ class HotelsWindow extends javax.swing.JFrame {
 
     private void updateHotelsCb() {
         String selectedCity = (String) citiesCb.getSelectedItem();
-        DefaultComboBoxModel model = new DefaultComboBoxModel(citiesHotels.get(selectedCity).toArray(new Hotel[0]));
-        hotelsCb.setModel(model);
         hotelsCb.setSelectedIndex(0);
         updateInfo();
     }
 
     private void updateInfo() {
-        Hotel selectedHotel = (Hotel) hotelsCb.getSelectedItem();
-        System.out.println(selectedHotel);
-        hotelNameLabel.setText(selectedHotel.getName());
-        hotelDescriptionLabel.setText("<html>"+selectedHotel.getDescription()+"</html>");
+        hotelDescriptionLabel.setText("<html>"+"</html>");
     }
 
     @SuppressWarnings("unchecked")
