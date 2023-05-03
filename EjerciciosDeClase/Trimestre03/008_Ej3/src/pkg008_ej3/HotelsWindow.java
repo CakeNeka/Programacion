@@ -19,7 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 class HotelsWindow extends javax.swing.JFrame {
 
     final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    final String DB_URL = "jdbc:mysql://localhost/hoteles";
+    final String DB_URL = "jdbc:mysql://localhost/trivago";
     final String USER = "root";
     final String PASS = "";
 
@@ -32,11 +32,11 @@ class HotelsWindow extends javax.swing.JFrame {
     };
 
     private Map<String, List<String>> citiesHotels;
-
+    
     public HotelsWindow() {
         initComponents();
         citiesHotels = new HashMap<>();
-        fetchHotelsData();
+        initData();
         initCitiesCb();
         initHotelsCb();
     }
@@ -53,17 +53,54 @@ class HotelsWindow extends javax.swing.JFrame {
         }
         return con;
     }
+    
+    private void initData() {
+        try {
+            addProvinces();
+            addHotels();
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelsWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    private void addProvinces() throws SQLException {
+        Connection connection = connect();
+        String query = "Select nombreProv from provincias";
+        PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = preparedStatement.executeQuery();
+        String[][] provinciasTable = getSqlTable(rs);
+        for (String[] strings : provinciasTable) {
+            citiesHotels.put(strings[0], new ArrayList<>());
+        }
+        connection.close();
+    }
 
+    private void addHotels() throws SQLException {
+        Connection connection = connect();
+        for (String city : citiesHotels.keySet()) {
+            String query = "Select nombreHotel "
+                    + "from hoteles inner join provincias on hoteles.idProv = provincias.idProvincia"
+                    + " where nombreProv like ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1, city);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            String[][] hotelesTable = getSqlTable(rs);
+            for (String[] hotel : hotelesTable) {
+                citiesHotels.get(city).add(hotel[0]);
+            }
+        }
+        connection.close();
+    }
+    
     private void fetchHotelsData() {
         try {
             Connection connection = connect();
-
             String query = "Select * from hoteles";
             PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
             ResultSet resultSet = preparedStatement.executeQuery();
             String[][] sqlTable = getSqlTable(resultSet);
-            fillHotelsMap(sqlTable);
         } catch (SQLException ex) {
             Logger.getLogger(HotelsWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,10 +127,6 @@ class HotelsWindow extends javax.swing.JFrame {
             i++;
         }
         return table;
-    }
-
-    private void fillHotelsMap(String[][] sqlTable) {
-        
     }
 
     private void initCitiesCb() {
