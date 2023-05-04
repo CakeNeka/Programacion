@@ -31,12 +31,13 @@ class HotelsWindow extends javax.swing.JFrame {
         updateInfo();
     };
 
-    private Map<String, List<String>> citiesHotels;
+    private Map<String, List<Hotel>> citiesHotels;
     
     public HotelsWindow() {
         initComponents();
         citiesHotels = new HashMap<>();
         initData();
+        debugDataMap();
         initCitiesCb();
         initHotelsCb();
     }
@@ -63,7 +64,6 @@ class HotelsWindow extends javax.swing.JFrame {
         }
     }
     
-    
     private void addProvinces() throws SQLException {
         Connection connection = connect();
         String query = "Select nombreProv from provincias";
@@ -78,32 +78,47 @@ class HotelsWindow extends javax.swing.JFrame {
 
     private void addHotels() throws SQLException {
         Connection connection = connect();
-        for (String city : citiesHotels.keySet()) {
-            String query = "Select nombreHotel "
+        for (String provincia : citiesHotels.keySet()) {
+            String query = "Select nombreHotel, nombreExtra, pvpExtra "
                     + "from hoteles inner join provincias on hoteles.idProv = provincias.idProvincia"
+                    + " left join extras on extras.idHotel = hoteles.codHotel" 
                     + " where nombreProv like ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            preparedStatement.setString(1, city);
+            preparedStatement.setString(1, provincia);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             String[][] hotelesTable = getSqlTable(rs);
             for (String[] hotel : hotelesTable) {
-                citiesHotels.get(city).add(hotel[0]);
+                addHotel(provincia, hotel);
             }
         }
         connection.close();
     }
     
-    private void fetchHotelsData() {
-        try {
-            Connection connection = connect();
-            String query = "Select * from hoteles";
-            PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            String[][] sqlTable = getSqlTable(resultSet);
-        } catch (SQLException ex) {
-            Logger.getLogger(HotelsWindow.class.getName()).log(Level.SEVERE, null, ex);
+    private void addHotel(String provincia, String[] hotelData) {
+        List<Hotel> ls = citiesHotels.get(provincia);
+        String hotelName = hotelData[0];
+        String extraName = hotelData[1];
+        String extraCost = hotelData[2];
+        
+        Hotel existing = getHotelByName(ls, hotelName);
+        
+        if (existing == null){
+            if (extraName.equals("null") || extraCost.equals("null"))
+                ls.add(new Hotel(hotelName));
+            else 
+                ls.add(new Hotel(hotelName, extraName, Float.parseFloat(extraCost)));
+        } else if (!extraName.equals("null") && !extraCost.equals("null")){
+            existing.addExtra(extraName, Float.parseFloat(extraCost));
         }
+    }
+    
+    private Hotel getHotelByName(List<Hotel> ls, String hotelName) {
+        for (Hotel h : ls) {
+            if (h.getName().equals(hotelName)) 
+                return h;
+        }
+        return null;
     }
 
     private String[][] getSqlTable(ResultSet resultSet) throws SQLException {
@@ -143,14 +158,38 @@ class HotelsWindow extends javax.swing.JFrame {
 
     private void updateHotelsCb() {
         String selectedCity = (String) citiesCb.getSelectedItem();
-        hotelsCb.setSelectedIndex(0);
+        Hotel[] hotels = citiesHotels.get(selectedCity).toArray(new Hotel[0]);
+        DefaultComboBoxModel model = new DefaultComboBoxModel(hotels);
+        hotelsCb.setModel(model);
+        if (hotels.length > 0)
+            hotelsCb.setSelectedIndex(0);
         updateInfo();
     }
 
     private void updateInfo() {
-        hotelDescriptionLabel.setText("<html>"+"</html>");
+        Hotel selectedHotel = (Hotel) hotelsCb.getSelectedItem();
+        if (selectedHotel != null) {
+            hotelNameLabel.setText(hotelsCb.getSelectedItem().toString());
+            hotelDescriptionLabel.setText(selectedHotel.getHtmlDescription());
+            System.out.println(selectedHotel.getHtmlDescription());
+        } else {
+            hotelNameLabel.setText("");
+            hotelDescriptionLabel.setText("");
+        }
     }
 
+    private void debugDataMap(){
+        for (Map.Entry<String, List<Hotel>> keyValue : citiesHotels.entrySet()) {
+            System.out.println("PROVINCIA: " + keyValue.getKey());
+            for (Hotel hotel : keyValue.getValue()) {
+                System.out.println("    HOTEL: " + hotel.getName() + ", extras: ");
+                for (Map.Entry<String, Float> entry : hotel.getExtras().entrySet()) {
+                    System.out.println("        -" + entry.getKey() + " " + entry.getValue());
+                }
+            }
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -251,7 +290,7 @@ class HotelsWindow extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
